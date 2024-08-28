@@ -1,0 +1,84 @@
+@font-face {
+    font-family: 'MerriweatherSans';
+    src: url('./assets/fonts/MerriweatherSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'MerriweatherSans';
+    src: url('./assets/fonts/MerriweatherSans-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'MerriweatherSans';
+    src: url('./assets/fonts/MerriweatherSans-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: 'MerriweatherSans';
+    src: url('./assets/fonts/MerriweatherSans-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: 'MerriweatherSans';
+    src: url('./assets/fonts/MerriweatherSans-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'MerriweatherSans';
+    src: url('./assets/fonts/MerriweatherSans-ExtraBoldItalic.ttf') format('truetype');
+    font-weight: 800;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: 'MerriweatherSans';
+    src: url('./assets/fonts/MerriweatherSans-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'MerriweatherSans';
+    src: url('./assets/fonts/MerriweatherSans-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: 'MerriweatherSans';
+    src: url('./assets/fonts/MerriweatherSans-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'MerriweatherSans';
+    src: url('./assets/fonts/MerriweatherSans-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: 'MerriweatherSans';
+    src: url('./assets/fonts/MerriweatherSans-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'MerriweatherSans';
+    src: url('./assets/fonts/MerriweatherSans-SemiBoldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+  }
+  
