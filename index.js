@@ -93,24 +93,14 @@ if (Platform.OS === 'web') {
     const [modalIsOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
-      // const promptHandler = (e) => {
-      //   console.log("beforeinstallprompt event fired");
-      //   e.preventDefault();
-      //   deferredPrompt = e;
-      //   setIsOpen(true);
-      // };
-
-      // window.addEventListener('beforeinstallprompt', promptHandler);
-      const beforeInstallPromptHandler = (event) => {
-        event.preventDefault();
+      const promptHandler = (e) => {
         console.log("beforeinstallprompt event fired");
-        setInstallPromptEvent(event);
+        e.preventDefault();
+        deferredPrompt = e;
+        setIsOpen(true);
       };
-      
-      window.addEventListener('beforeinstallprompt', beforeInstallPromptHandler);
 
-      // Ensure the modal opens every time the user visits
-      setIsOpen(true);
+      window.addEventListener('beforeinstallprompt', promptHandler);
 
       return () => {
         window.removeEventListener('beforeinstallprompt', promptHandler);
