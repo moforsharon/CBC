@@ -2,12 +2,12 @@ import React from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { VStack, HStack } from "native-base";
-import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { makeResponsiveStyle } from 'react-native-media-query';
+import { useNavigation } from '@react-navigation/native';
 
 const { height, width } = Dimensions.get('window');
 
 export default function Page() {
+  const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
       {/* Header Section */}
@@ -60,7 +60,7 @@ export default function Page() {
 
       {/* Bottom Button Section */}
       <View style={styles.BtmBtnCon}>
-        <TouchableOpacity style={styles.BtmBtn}>
+        <TouchableOpacity onPress={() => {navigation.navigate('Chat');}} style={styles.BtmBtn}>
           <Text style={styles.buttonText}>Talk to me</Text>
         </TouchableOpacity>
       </View>
