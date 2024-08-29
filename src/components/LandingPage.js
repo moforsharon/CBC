@@ -1,114 +1,183 @@
-import React from 'react';
-import { Image, ImageBackground, StyleSheet } from 'react-native';
-import { Box, Text, Button, VStack, Center, HStack } from 'native-base';
+import React from "react";
+import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { VStack, HStack } from "native-base";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { useNavigation } from '@react-navigation/native';
+import { makeResponsiveStyle } from 'react-native-media-query';
 
-const WelcomePage = ({ navigation }) => {
+const { height, width } = Dimensions.get('window');
+
+export default function Page() {
   return (
-    <Box flex={1} bg="white">
-      {/* <VStack flex={1}>
-        <Center flex={1} p={4}>
-          <VStack space={4} alignItems="center">
+    <SafeAreaView style={styles.container}>
+      {/* Header Section */}
+      <HStack style={styles.headerRow} alignItems="center">
+        <TouchableOpacity>
+          <Image
+            source={require("../../assets/icons/menu.png")}
+            style={{ width: 32, height: 32 }}
+          />
+        </TouchableOpacity>
+        <Image
+          source={require("../../assets/logo40.png")}
+          style={styles.logo}
+        />
+        <Text style={styles.logoText}>CBC</Text>
+        <View style={styles.BetaCon}>
+          <Text style={styles.BetaText}>Beta</Text>
+        </View>
+      </HStack>
+
+      {/* Image and Sample Message Section */}
+      <VStack style={styles.imgInfoCon} space={4}>
+        <Image
+          source={require("../../assets/child.png")}
+          style={styles.child}
+        />
+        <View style={styles.sampleMsgCon}>
+          <HStack style={styles.sampleMsgConCon} alignItems="center" space={3}>
             <Image
-              source={require('../../assets/bg1.png')}
-              alt="Background"
-              style={styles.backgroundImage}
+              source={require("../../assets/women.png")}
+              style={styles.sampleMsgImg}
             />
-            <Image
-              source={require('../../assets/african-american-woman-violet-dress-cap-posed-yellow-car.jpg')}
-              alt="Car"
-              style={styles.carImage}
-            />
-            <ImageBackground
-              source={require('../../assets/Isolation_Mode.png')}
-              style={styles.textBackground}
-              resizeMode="contain"
-              imageStyle={styles.imageBackground}
-            >
-              <Text style={styles.text}>
-                Vérifier la validité de l’assurance TPV du véhicule en moins d’une minute.
-              </Text>
-            </ImageBackground>
-          </VStack>
-        </Center>
-        <Box style={styles.buttonContainer} p={4} bg="white">
-          <Button style={styles.button} size="lg" backgroundColor={'#1CA7AE'} _text={{ fontWeight: 'bold' }}  onPress={() => navigation.navigate('InputChasisNumber')}>
-            <HStack alignItems="center" w={"full"} justifyContent={"space-between"}>
-              <Box flex={8} alignItems="flex-start">
-                <Image
-                  source={require('../../assets/ID Verified.png')}
-                  style={styles.buttonIcon}
-                  alt="ID Verified"
-                />
-              </Box>
-              <Box  alignItems="center" ml={"46%"} w={"full"}>
-                <Text style={styles.buttonText}>Vérifier mon assurance</Text>
-              </Box>
-            </HStack>
-          </Button>
-        </Box>
-      </VStack> */}
-    </Box>
+            <Text style={styles.sampleMsgTxt}>
+              What are some effective methods of disciplining a child who
+              refuses to listen and cries instead of following directions?
+            </Text>
+          </HStack>
+        </View>
+      </VStack>
+
+      {/* Details Section */}
+      <VStack style={styles.detailsCon} space={2}>
+        <Text style={styles.mainDetail}>CBC</Text>
+        <Text style={styles.submainDetail}>Child Behavior Check-in</Text>
+        <Text style={styles.textDetail}>
+          Collaborate with CBC to offer guidance and support for a variety of
+          behavioral needs.
+        </Text>
+      </VStack>
+
+      {/* Bottom Button Section */}
+      <View style={styles.BtmBtnCon}>
+        <TouchableOpacity style={styles.BtmBtn}>
+          <Text style={styles.buttonText}>Talk to me</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  backgroundImage: {
-    width: wp('90%'),
-    height: hp('4%'),  // 5% of screen height
-    borderRadius: 18,
+  container: {
+    backgroundColor: "#0C3948",
+    flex: 1,
+    justifyContent: "space-between",
+    paddingBottom: height > 740? 50 : 30,
+    paddingTop: 30
   },
-  carImage: {
-    width: wp('90%'),
-    height: hp('50%'),  // 50% of screen height
-    borderRadius: 15,
+  headerRow: {
+    padding: 10,
+    justifyContent: "start",
   },
-  textBackground: {
-    width: wp('90%'),
-    height: hp('30%'), // Adjust the height as needed
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
+  logo: {
+    width: 35,
+    height: 35,
+    resizeMode: "contain",
+    marginLeft: 10
   },
-  imageBackground: {
-    height: hp('14%'),
-    marginTop: "37%",
-    marginLeft: "110px"
+  logoText: {
+    fontSize: 24,
+    fontFamily: "Rubik-SemiBold",
+    color: "#fff",
+    marginHorizontal: 6,
   },
-  text: {
-    fontSize: 20,
-    fontWeight: 800,
-    textAlign: 'center',
-    color: 'black', 
-    fontFamily: 'MerriweatherSans',
+  BetaCon: {
+    borderWidth: 1,
+    borderColor: "#27AFDE",
+    borderRadius: 4,
+    backgroundColor: "#fff",
+    paddingHorizontal: 8,
+    paddingVertical: 4,
   },
-  buttonContainer: {
-    width: wp('100%'),
-    height: hp('5%'),
-    justifyContent: 'center',
-    alignItems: 'center',
+  BetaText: {
+    fontSize: 12,
+    fontFamily: "Rubik-Regular",
+    color: "#27AFDE",
+  },
+  imgInfoCon: {
+    width: "100%",
+    paddingHorizontal: 16,
+    marginTop: 30,
+    flex: 1,
+  },
+  child: {
+    borderRadius: 24,
+    width: "100%",
+    height: height > 740? 378: 200,
+    resizeMode: "cover",
+  },
+  sampleMsgCon: {
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
     position: "relative",
+    bottom: 80
   },
-  button: {
-    width: wp('90%'),
-    position: "absolute",
-    bottom: 0,
-    flexDirection: 'row',
-    justifyContent: 'flex-start', // Align items to start
-    alignItems: 'center',
+  sampleMsgConCon: {
+    padding: 16,
+    backgroundColor: "#fff",
+    borderRadius: 24,
+    width: "80%",
   },
-  buttonIcon: {
-    width: 24,
-    height: 24,
-    marginRight: "45%",
+  sampleMsgImg: {
+    width: 51,
+    height: 51,
+  },
+  sampleMsgTxt: {
+    fontSize: 13,
+    fontFamily: "Rubik-Regular",
+    flex: 1,
+  },
+  detailsCon: {
+    paddingHorizontal: 24,
+    marginTop: 50,
+    position: "relative",
+    bottom: 80
+  },
+  mainDetail: {
+    fontSize: 64,
+    lineHeight: 64,
+    fontFamily: "Rubik-Bold",
+    color: "#fff",
+  },
+  submainDetail: {
+    fontSize: 17,
+    fontFamily: "Rubik-Medium",
+    color: "#fff",
+  },
+  textDetail: {
+    fontSize: 15,
+    fontFamily: "Rubik-Regular",
+    color: "#fff",
+    maxWidth: "70%",
+  },
+  BtmBtnCon: {
+    width: "100%",
+    alignItems: "center",
+    marginBottom: 23,
+    marginTop: height === 914 ? 75 :height > 740 && height < 914 ? 40 : 0,
+  },
+  BtmBtn: {
+    width: "90%",
+    backgroundColor: "#fff",
+    borderRadius: 16,
+    paddingVertical: 16,
+    alignItems: "center",
   },
   buttonText: {
-    fontWeight: 'bold',
-    color: 'white',
-    fontFamily: 'MerriweatherSans'
-    
+    color: "#27AFDE",
+    fontSize: 16,
+    fontFamily: "Rubik-Regular",
   },
 });
-
-export default WelcomePage;

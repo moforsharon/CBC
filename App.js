@@ -53,7 +53,7 @@
 import React, { useEffect } from 'react';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet,View, Platform, Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NativeBaseProvider } from 'native-base';
@@ -63,8 +63,11 @@ import InputChasisNumberPage from './src/components/InputChasisNumber';
 import DeviceDetection from './src/components/DeviceDetection';
 import LoadingScreen from './src/components/LoadingPage';
 import VehicleInfoScreen from './src/components/VehicleInfoScreen';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 const Stack = createStackNavigator();
+const { height, width } = Dimensions.get('window');
+
 
 export default function App() {
 
@@ -78,14 +81,16 @@ export default function App() {
 
   return (
     <NativeBaseProvider>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Landing" screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Loading" component={LoadingScreen} />
-          <Stack.Screen name="Landing" component={MyComponent} />
-          <Stack.Screen name="InputChasisNumber" component={InputChasisNumberPage} />
-          <Stack.Screen name="VehicleInfo" component={VehicleInfoScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <View style={styles.container}> {/* Ensures full height */}
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Landing" screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Loading" component={LoadingScreen} />
+            <Stack.Screen name="Landing" component={MyComponent} />
+            <Stack.Screen name="InputChasisNumber" component={InputChasisNumberPage} />
+            <Stack.Screen name="VehicleInfo" component={VehicleInfoScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </View>
       <StatusBar style="auto" />
     </NativeBaseProvider>
   );
@@ -93,10 +98,8 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1, // Ensures the App's root view takes full height
+    height: height
   },
 });
 
