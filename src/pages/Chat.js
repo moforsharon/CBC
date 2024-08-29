@@ -436,7 +436,7 @@ export default function Page() {
                   What challenge can I help you with ?
                 </Text>
               </View> */}
-            <View style={{height: chatHistory.length == 1? height-500 : height-200, paddingBottom: 80}} >
+            {/* <View style={{height: chatHistory.length == 1? height-500 : height-200, paddingBottom: 80}} > */}
                 {chatHistory.map((item, index) =>
                     item.role === "user" ? (
                     <LinearGradient
@@ -471,7 +471,7 @@ export default function Page() {
                     </View>
                     )
                 )}
-            </View>
+            {/* </View> */}
             </ScrollView>
             {loading && (
               <View style={styles.answeringCon}>
