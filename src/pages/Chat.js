@@ -472,7 +472,7 @@ export default function Page() {
                     )
                 )}
             </View> */}
-            <View style={{ height: chatHistory.length === 1 ? height - 500 : height - 200, paddingBottom: 100 }}>
+            <View style={{ height: chatHistory.length === 1 ? height - 500 : height - 200, paddingBottom: 200 }}>
                 {chatHistory.length > 0 ? (
                     chatHistory.map((item, index) =>
                     item.role === "user" ? (
@@ -617,7 +617,8 @@ const styles = StyleSheet.create({
     height: height > 900 ? 100 :height > 740 && height < 899 ? 88 : 88,
     width: "100%",
     backgroundColor: "#DAECF7",
-    paddingVertical: 14,
+    paddingTop: 14,
+    paddingBottom: 25,
     paddingHorizontal: 16,
     bottom: 0,
     position:"fixed",
