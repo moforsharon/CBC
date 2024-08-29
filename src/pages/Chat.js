@@ -53,6 +53,13 @@ export default function Page() {
         scrollViewRef.current.scrollToEnd({ animated: true });
       }
     };
+
+    // const scrollViewRef = useRef();
+
+    useEffect(() => {
+        // Scroll to the bottom when chat history updates
+        scrollViewRef.current?.scrollToEnd({ animated: true });
+    }, [chatHistory]);
   
     const handleSubmit = async () => {
       console.log("Send button clicked!"); 
@@ -612,6 +619,7 @@ const styles = StyleSheet.create({
   scrollContainer: {
     flex: 1,
     paddingHorizontal: 16,
+    paddingBottom: 200,
   },
   inputField: {
     height: height > 900 ? 100 :height > 740 && height < 899 ? 88 : 88,
@@ -657,7 +665,7 @@ const styles = StyleSheet.create({
   },
   answeringCon: {
     position: "relative",
-    bottom: 250,
+    bottom: 200,
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
