@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#0C3948",
     flex: 1,
     justifyContent: "space-between",
-    paddingBottom: height > 740? 95 : 30,
+    paddingBottom: height > 900 ? 95 :height > 740 && height < 914 ? 55 : 10,
     paddingTop: 30
   },
   headerRow: {
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     marginBottom: 23,
-    marginTop: height === 914 ? 75 :height > 740 && height < 914 ? 40 : 0,
+    marginTop: height === 914 ? 75 :height > 740 && height < 914 ? 20 : 0,
   },
   BtmBtn: {
     width: "90%",
