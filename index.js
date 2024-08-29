@@ -76,7 +76,6 @@
 
 // registerRootComponent(App);
 
-
 import { registerRootComponent } from 'expo';
 import App from './App';
 import { Platform } from 'react-native';
