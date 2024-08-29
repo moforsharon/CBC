@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#0C3948",
     flex: 1,
     justifyContent: "space-between",
-    paddingBottom: height > 740? 50 : 30,
+    paddingBottom: height > 740? 95 : 30,
     paddingTop: 30
   },
   headerRow: {
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   child: {
     borderRadius: 24,
     width: "100%",
-    height: height > 740? 378: 200,
+    height: height > 740? 340: 200,
     resizeMode: "cover",
   },
   sampleMsgCon: {
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     position: "relative",
-    bottom: 80
+    bottom: 70
   },
   sampleMsgConCon: {
     padding: 16,
@@ -146,8 +146,8 @@ const styles = StyleSheet.create({
     bottom: 80
   },
   mainDetail: {
-    fontSize: 64,
-    lineHeight: 64,
+    fontSize: 50,
+    lineHeight: 50,
     fontFamily: "Rubik-Bold",
     color: "#fff",
   },
