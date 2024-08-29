@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#0C3948",
     flex: 1,
     justifyContent: "space-between",
-    paddingBottom: height > 900 ? 95 :height > 740 && height < 914 ? 55 : 10,
+    paddingBottom: height > 900 ? 95 :height > 740 && height < 899 ? 60 : 10,
     paddingTop: 30
   },
   headerRow: {
