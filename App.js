@@ -82,10 +82,9 @@ import { useFonts } from 'expo-font';
 // import SideMenu from "./src/components/SideMenu";
 import MyComponent from "./src/pages/LandingPage";
 import ChatPage from "./src/pages/Chat";
-import InputChasisNumberPage from "./src/components/InputChasisNumber";
+import SignInPage from "./src/pages/Signin";
 import DeviceDetection from "./src/components/DeviceDetection";
 import LoadingScreen from "./src/components/LoadingPage";
-import VehicleInfoScreen from "./src/components/VehicleInfoScreen";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 // Context creation
@@ -163,12 +162,11 @@ export default function App() {
           <View style={styles.container}> {/* Ensures full height */}
             {/* <SideMenu /> */}
             <NavigationContainer>
-              <Stack.Navigator initialRouteName="Landing" screenOptions={{ headerShown: false }}>
+              <Stack.Navigator initialRouteName="Signin" screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Loading" component={LoadingScreen} />
                 <Stack.Screen name="Landing" component={MyComponent} />
                 <Stack.Screen name="Chat" component={ChatPage} />
-                <Stack.Screen name="InputChasisNumber" component={InputChasisNumberPage} />
-                <Stack.Screen name="VehicleInfo" component={VehicleInfoScreen} />
+                <Stack.Screen name="Signin" component={SignInPage} />
               </Stack.Navigator>
             </NavigationContainer>
           </View>

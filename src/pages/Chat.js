@@ -16,7 +16,7 @@ import { VStack, HStack } from "native-base";
 import { LinearGradient } from "expo-linear-gradient";
 import { AppContext } from "../../App";
 // import HistroyLoading from "../components/HistroyLoading.js";
-// import LoginRequiredModal from "../components/LoginRequiredModal.js";
+import LoginRequiredModal from "../components/LoginRequiredModal.js";
 import VideoIcon from "../../assets/icons/video-camera-alt.png";
 import { useFonts } from "expo-font";
 import { useNavigation } from "@react-navigation/native";
@@ -74,7 +74,7 @@ export default function Page() {
       
       let toQuestion = text;
       setText("");
-      if (user == null && chatHistory.length >= 20) {
+      if (user == null && chatHistory.length >= 2) {
         setShowLoginModal(true);
         return;
       }
@@ -297,11 +297,11 @@ export default function Page() {
     return (
       <SafeAreaView style={[styles.container]}>
         {/* <SideMenu /> */}
-        {/* <LoginRequiredModal
+         <LoginRequiredModal
           showModal={showLoginModal}
           onClose={() => setShowLoginModal(false)}
         />
-        <HistroyLoading
+        {/*<HistroyLoading
           showModal={showHistroyLoadingModal}
           onClose={() => setShowHistroyLoadingModal(false)}
         /> */}
