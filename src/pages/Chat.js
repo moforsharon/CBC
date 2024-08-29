@@ -287,159 +287,54 @@ export default function Page() {
   
       return temp.replace(/\[.*?\]/g, "");
     };
+
     return (
-      <SafeAreaView style={[styles.container, { height: height }]}>
-        {/* <SideMenu /> */}
-        {/* <LoginRequiredModal
-          showModal={showLoginModal}
-          onClose={() => setShowLoginModal(false)}
-        />
-        <HistroyLoading
-          showModal={showHistroyLoadingModal}
-          onClose={() => setShowHistroyLoadingModal(false)}
-        /> */}
-        <View style={styles.Header}>
-          <View style={styles.HeaderLogo}>
-            {/* <TouchableOpacity onPress={() => setMenuOpen(true)}>
-              <Image
-                source={require("../../assets/icons/menuBlack.png")}
-                style={{width:32, height:32}}
+        <SafeAreaView style={[styles.container, { height: height }]}>
+          {/* Optional: Uncomment and use these components as needed */}
+          {/* <SideMenu /> */}
+          {/* <LoginRequiredModal showModal={showLoginModal} onClose={() => setShowLoginModal(false)} />
+          <HistroyLoading showModal={showHistroyLoadingModal} onClose={() => setShowHistroyLoadingModal(false)} /> */}
+          
+          <VStack style={styles.Header}>
+            <HStack style={styles.HeaderLogo} justifyContent="space-around" alignItems="center">
+              {/* Uncomment if you want to use the menu icon */}
+              {/* <TouchableOpacity onPress={() => setMenuOpen(true)}>
+                <Image source={require("../../assets/icons/menuBlack.png")} style={{ width: 32, height: 32 }} />
+              </TouchableOpacity> */}
+              <Image source={require("../../assets/logo40.png")} style={{ width: 32, height: 32 }} />
+              {/* Uncomment if you want to use the reset icon */}
+              {/* <TouchableOpacity onPress={() => handleDeleteHistory()}>
+                <Image source={require("../../assets/icons/reset.png")} style={{ width: 32, height: 32 }} />
+              </TouchableOpacity> */}
+            </HStack>
+            <View style={styles.HeaderLbl}>
+              <Text style={styles.headerlbltxt}>Child Behavior Check-in</Text>
+            </View>
+          </VStack>
+          
+          <VStack style={styles.chatContainer} flex={1}>
+            <VStack style={styles.Chatbox} flex={1}>
+              <ScrollView style={styles.scrollContainer}>
+                {chatHistory.length === 1 && (
+                  <>
+                    {["Throwing / damaging objects or property behavior", "Refusing to follow directions behavior", "Tantrums behavior"].map((behavior, idx) => (
+                      <VStack key={idx} style={{ alignItems: "center", marginBottom: 16 }}>
+                        <Text style={{ fontSize: 14, fontFamily: "Rubik-Regular", marginBottom: 8 }}>{behavior}</Text>
+                        <View style={styles.bot_msg}>
+                          <Text style={{ fontSize: 16, fontFamily: "Rubik-Regular" }}>
+                            {/* Replace with specific message content for each behavior */}
+                            {idx === 0 ? "How do you kindly tell your toddler to stop throwing everything?" : idx === 1 ? "What are some effective methods of disciplining a child who refuses to listen and cries instead of following directions?" : "How do I stop a child from throwing a tantrum in public?"}
+                          </Text>
+                        </View>
+                      </VStack>
+                    ))}
+                  </>
+                )}
                 
-              />
-            </TouchableOpacity> */}
-            <Image
-              source={require("../../assets/logo40.png")}
-              style={{width:32, height:32}}
-            />
-            {/* <TouchableOpacity onPress={() => handleDeleteHistory()}>
-              <Image
-                source={require("../../assets/icons/reset.png")}
-                style={{width:32, height:32}}
-              />
-            </TouchableOpacity> */}
-          </View>
-          <View style={styles.HeaderLbl}>
-            <Text style={styles.headerlbltxt}>Child Behavior Check-in</Text>
-          </View>
-        </View>
-        <View style={styles.chatContainer}>
-          <View style={styles.Chatbox}>
-            <ScrollView ref={scrollViewRef} style={styles.scrollContainer}>
-              {chatHistory.length == 1 && (
-                <>
-                  <View style={{ alignItems: "center", marginBottom: 16,  }}>
-                    <Text
-                      style={{
-                        fontSize: 14,
-                        fontFamily: "Rubik-Regular",
-                        marginBottom: 8,
-                      }}
-                    >
-                      Throwing / damaging objects or property behavior
-                    </Text>
-                    <View
-                      style={[
-                        styles.bot_msg,
-                        {
-                          borderBottomRightRadius: 8,
-                          borderBottomLeftRadius: 8,
-                          borderTopLeftRadius: 8,
-                          borderTopRightRadius: 8,
-                        },
-                      ]}
-                    >
-                      <Text
-                        style={{
-                          fontSize: 16,
-                          fontFamily: "Rubik-Regular",
-                        }}
-                      >
-                        How do you kindly tell your toddler to stop throwing
-                        everything?
-                      </Text>
-                    </View>
-                  </View>
-                  <View style={{ alignItems: "center", marginBottom: 16 }}>
-                    <Text
-                      style={{
-                        fontSize: 14,
-                        fontFamily: "Rubik-Regular",
-                        marginBottom: 8,
-                      }}
-                    >
-                      Refusing to follow directions behavior
-                    </Text>
-                    <View
-                      style={[
-                        styles.bot_msg,
-                        {
-                          borderBottomRightRadius: 8,
-                          borderBottomLeftRadius: 8,
-                          borderTopLeftRadius: 8,
-                          borderTopRightRadius: 8,
-                        },
-                      ]}
-                    >
-                      <Text
-                        style={{
-                          fontSize: 16,
-                          fontFamily: "Rubik-Regular",
-                        }}
-                      >
-                        What are some effective methods of disciplining a child
-                        who refuses to listen and cries instead of following
-                        directions?
-                      </Text>
-                    </View>
-                  </View>
-                  <View style={{ alignItems: "center", marginBottom: 16 }}>
-                    <Text
-                      style={{
-                        fontSize: 14,
-                        fontFamily: "Rubik-Regular",
-                        marginBottom: 8,
-                      }}
-                    >
-                      Tantrums behavior
-                    </Text>
-                    <View
-                      style={[
-                        styles.bot_msg,
-                        {
-                          borderBottomRightRadius: 8,
-                          borderBottomLeftRadius: 8,
-                          borderTopLeftRadius: 8,
-                          borderTopRightRadius: 8,
-                        },
-                      ]}
-                    >
-                      <Text
-                        style={{
-                          fontSize: 16,
-                          fontFamily: "Rubik-Regular",
-                        }}
-                      >
-                        How do I stop a child from throwing a tantrum in public?
-                      </Text>
-                    </View>
-                  </View>
-                </>
-              )}
-  
-              {/* <View style={styles.bot_msg}>
-                <Text
-                  style={{
-                    fontSize: 16,
-                    fontFamily: "Rubik-Regular",
-                  }}
-                >
-                  What challenge can I help you with ?
-                </Text>
-              </View> */}
-            <View style={{flex: 1, paddingBottom: 80}} >
-                {chatHistory.map((item, index) =>
+                <VStack style={{ flex: 1, paddingBottom: 80 }}>
+                  {chatHistory.map((item, index) => (
                     item.role === "user" ? (
-                    <LinearGradient
+                      <LinearGradient
                         colors={["#81C6DE", "#27AFDE"]}
                         style={styles.user_msg}
                         start={{ x: 0, y: 0 }} // Start from the top left corner
@@ -447,193 +342,496 @@ export default function Page() {
                         locations={[0, 1]} // Optional: specify color stops
                         angle={91}
                         key={index}
-                    >
-                        <Text
-                        style={{
-                            color: "#fff",
-                            fontSize: 16,
-                            fontFamily: "Rubik-Regular",
-                        }}
-                        >
-                        {item.content}
-                        </Text>
-                    </LinearGradient>
-                    ): (
-                    <View style={styles.bot_msg} key={index}>
-                        <Text
-                        style={{
-                            fontSize: 16,
-                            fontFamily: "Rubik-Regular",
-                        }}
-                        >
-                        {formatMsg(item.content)}
-                        </Text>
-                    </View>
+                      >
+                        <Text style={{ color: "#fff", fontSize: 16, fontFamily: "Rubik-Regular" }}>{item.content}</Text>
+                      </LinearGradient>
+                    ) : (
+                      <View style={styles.bot_msg} key={index}>
+                        <Text style={{ fontSize: 16, fontFamily: "Rubik-Regular" }}>{formatMsg(item.content)}</Text>
+                      </View>
                     )
-                )}
-            </View>
-            </ScrollView>
-            {loading && (
-              <View style={styles.answeringCon}>
-                <View style={styles.answering}>
-                  <View
-                    style={{
-                      width: 20,
-                      height: 20,
-                      backgroundColor: "#5EB0E0",
-                      borderRadius: 4,
-                      marginRight: 16,
-                    }}
-                  ></View>
-                  <Text
-                    style={{
-                      fontSize: 13,
-                      fontFamily: "Rubik-Medium",
-                    }}
-                  >
-                    Stop answering ...
-                  </Text>
+                  ))}
+                </VStack>
+              </ScrollView>
+              
+              {loading && (
+                <View style={styles.answeringCon}>
+                  <HStack style={styles.answering} space={4} alignItems="center">
+                    <View style={{ width: 20, height: 20, backgroundColor: "#5EB0E0", borderRadius: 4, marginRight: 16 }}></View>
+                    <Text style={{ fontSize: 13, fontFamily: "Rubik-Medium" }}>Stop answering ...</Text>
+                  </HStack>
                 </View>
-              </View>
-            )}
-          </View>
+              )}
+            </VStack>
+            
+            <VStack style={styles.inputField}>
+              <HStack style={styles.inputCon} space={4} alignItems="center">
+                <TextInput
+                  style={styles.input}
+                  value={text}
+                  onChangeText={handleChangeText}
+                  placeholder="What are you struggling with ..."
+                  autoFocus={false}
+                  multiline={true}
+                />
+                {text === "" && (
+                  <Image style={{ width: 24, height: 16, marginHorizontal: 14 }} source={VideoIcon} />
+                )}
+                {text === "" && (
+                  <Image resizeMode="contain" source={require("../../assets/icons/Microphone.png")} />
+                )}
+                {!(text === "") && (
+                  <TouchableOpacity onPress={handleSubmit}>
+                    <Image style={{ width: 28, height: 28, marginLeft: 14 }} resizeMode="contain" source={require("../../assets/icons/send.png")} />
+                  </TouchableOpacity>
+                )}
+              </HStack>
+            </VStack>
+          </VStack>
+        </SafeAreaView>
+      );
+    // return (
+    //   <SafeAreaView style={[styles.container, { height: height }]}>
+    //     {/* <SideMenu /> */}
+    //     {/* <LoginRequiredModal
+    //       showModal={showLoginModal}
+    //       onClose={() => setShowLoginModal(false)}
+    //     />
+    //     <HistroyLoading
+    //       showModal={showHistroyLoadingModal}
+    //       onClose={() => setShowHistroyLoadingModal(false)}
+    //     /> */}
+    //     <View style={styles.Header}>
+    //       <View style={styles.HeaderLogo}>
+    //         {/* <TouchableOpacity onPress={() => setMenuOpen(true)}>
+    //           <Image
+    //             source={require("../../assets/icons/menuBlack.png")}
+    //             style={{width:32, height:32}}
+                
+    //           />
+    //         </TouchableOpacity> */}
+    //         <Image
+    //           source={require("../../assets/logo40.png")}
+    //           style={{width:32, height:32}}
+    //         />
+    //         {/* <TouchableOpacity onPress={() => handleDeleteHistory()}>
+    //           <Image
+    //             source={require("../../assets/icons/reset.png")}
+    //             style={{width:32, height:32}}
+    //           />
+    //         </TouchableOpacity> */}
+    //       </View>
+    //       <View style={styles.HeaderLbl}>
+    //         <Text style={styles.headerlbltxt}>Child Behavior Check-in</Text>
+    //       </View>
+    //     </View>
+    //     <View style={styles.chatContainer}>
+    //       <View style={styles.Chatbox}>
+    //         <ScrollView ref={scrollViewRef} style={styles.scrollContainer}>
+    //           {chatHistory.length == 1 && (
+    //             <>
+    //               <View style={{ alignItems: "center", marginBottom: 16,  }}>
+    //                 <Text
+    //                   style={{
+    //                     fontSize: 14,
+    //                     fontFamily: "Rubik-Regular",
+    //                     marginBottom: 8,
+    //                   }}
+    //                 >
+    //                   Throwing / damaging objects or property behavior
+    //                 </Text>
+    //                 <View
+    //                   style={[
+    //                     styles.bot_msg,
+    //                     {
+    //                       borderBottomRightRadius: 8,
+    //                       borderBottomLeftRadius: 8,
+    //                       borderTopLeftRadius: 8,
+    //                       borderTopRightRadius: 8,
+    //                     },
+    //                   ]}
+    //                 >
+    //                   <Text
+    //                     style={{
+    //                       fontSize: 16,
+    //                       fontFamily: "Rubik-Regular",
+    //                     }}
+    //                   >
+    //                     How do you kindly tell your toddler to stop throwing
+    //                     everything?
+    //                   </Text>
+    //                 </View>
+    //               </View>
+    //               <View style={{ alignItems: "center", marginBottom: 16 }}>
+    //                 <Text
+    //                   style={{
+    //                     fontSize: 14,
+    //                     fontFamily: "Rubik-Regular",
+    //                     marginBottom: 8,
+    //                   }}
+    //                 >
+    //                   Refusing to follow directions behavior
+    //                 </Text>
+    //                 <View
+    //                   style={[
+    //                     styles.bot_msg,
+    //                     {
+    //                       borderBottomRightRadius: 8,
+    //                       borderBottomLeftRadius: 8,
+    //                       borderTopLeftRadius: 8,
+    //                       borderTopRightRadius: 8,
+    //                     },
+    //                   ]}
+    //                 >
+    //                   <Text
+    //                     style={{
+    //                       fontSize: 16,
+    //                       fontFamily: "Rubik-Regular",
+    //                     }}
+    //                   >
+    //                     What are some effective methods of disciplining a child
+    //                     who refuses to listen and cries instead of following
+    //                     directions?
+    //                   </Text>
+    //                 </View>
+    //               </View>
+    //               <View style={{ alignItems: "center", marginBottom: 16 }}>
+    //                 <Text
+    //                   style={{
+    //                     fontSize: 14,
+    //                     fontFamily: "Rubik-Regular",
+    //                     marginBottom: 8,
+    //                   }}
+    //                 >
+    //                   Tantrums behavior
+    //                 </Text>
+    //                 <View
+    //                   style={[
+    //                     styles.bot_msg,
+    //                     {
+    //                       borderBottomRightRadius: 8,
+    //                       borderBottomLeftRadius: 8,
+    //                       borderTopLeftRadius: 8,
+    //                       borderTopRightRadius: 8,
+    //                     },
+    //                   ]}
+    //                 >
+    //                   <Text
+    //                     style={{
+    //                       fontSize: 16,
+    //                       fontFamily: "Rubik-Regular",
+    //                     }}
+    //                   >
+    //                     How do I stop a child from throwing a tantrum in public?
+    //                   </Text>
+    //                 </View>
+    //               </View>
+    //             </>
+    //           )}
   
-          <View style={styles.inputField}>
-            <View style={styles.inputCon}>
-              <TextInput
-                style={styles.input}
-                value={text}
-                onChangeText={handleChangeText}
-                placeholder="What are you struggling with ..."
-                autoFocus={false}
-                multiline={true}
-              />
-              {text === "" && (
-                <Image
-                  style={{ width: 24, height: 16, marginHorizontal: 14 }}
-                  source={VideoIcon}
-                />
-              )}
-              {text === "" && (
-                <Image
-                  style={{}}
-                  resizeMode="contain"
-                  source={require("../../assets/icons/Microphone.png")}
-                />
-              )}
-              {!(text === "") && (
-                <TouchableOpacity onPress={handleSubmit}>
-                  <Image
-                    style={{ width: 28, height: 28, marginLeft: 14 }}
-                    resizeMode="contain"
-                    source={require("../../assets/icons/send.png")}
-                  />
-                </TouchableOpacity>
-              )}
-            </View>
-          </View>
-        </View>
-      </SafeAreaView>
-    );
+    //           {/* <View style={styles.bot_msg}>
+    //             <Text
+    //               style={{
+    //                 fontSize: 16,
+    //                 fontFamily: "Rubik-Regular",
+    //               }}
+    //             >
+    //               What challenge can I help you with ?
+    //             </Text>
+    //           </View> */}
+    //         <View style={{flex: 1, paddingBottom: 80}} >
+    //             {chatHistory.map((item, index) =>
+    //                 item.role === "user" ? (
+    //                 <LinearGradient
+    //                     colors={["#81C6DE", "#27AFDE"]}
+    //                     style={styles.user_msg}
+    //                     start={{ x: 0, y: 0 }} // Start from the top left corner
+    //                     end={{ x: 1, y: 1 }} // End at the bottom right corner
+    //                     locations={[0, 1]} // Optional: specify color stops
+    //                     angle={91}
+    //                     key={index}
+    //                 >
+    //                     <Text
+    //                     style={{
+    //                         color: "#fff",
+    //                         fontSize: 16,
+    //                         fontFamily: "Rubik-Regular",
+    //                     }}
+    //                     >
+    //                     {item.content}
+    //                     </Text>
+    //                 </LinearGradient>
+    //                 ): (
+    //                 <View style={styles.bot_msg} key={index}>
+    //                     <Text
+    //                     style={{
+    //                         fontSize: 16,
+    //                         fontFamily: "Rubik-Regular",
+    //                     }}
+    //                     >
+    //                     {formatMsg(item.content)}
+    //                     </Text>
+    //                 </View>
+    //                 )
+    //             )}
+    //         </View>
+    //         </ScrollView>
+    //         {loading && (
+    //           <View style={styles.answeringCon}>
+    //             <View style={styles.answering}>
+    //               <View
+    //                 style={{
+    //                   width: 20,
+    //                   height: 20,
+    //                   backgroundColor: "#5EB0E0",
+    //                   borderRadius: 4,
+    //                   marginRight: 16,
+    //                 }}
+    //               ></View>
+    //               <Text
+    //                 style={{
+    //                   fontSize: 13,
+    //                   fontFamily: "Rubik-Medium",
+    //                 }}
+    //               >
+    //                 Stop answering ...
+    //               </Text>
+    //             </View>
+    //           </View>
+    //         )}
+    //       </View>
+  
+    //       <View style={styles.inputField}>
+    //         <View style={styles.inputCon}>
+    //           <TextInput
+    //             style={styles.input}
+    //             value={text}
+    //             onChangeText={handleChangeText}
+    //             placeholder="What are you struggling with ..."
+    //             autoFocus={false}
+    //             multiline={true}
+    //           />
+    //           {text === "" && (
+    //             <Image
+    //               style={{ width: 24, height: 16, marginHorizontal: 14 }}
+    //               source={VideoIcon}
+    //             />
+    //           )}
+    //           {text === "" && (
+    //             <Image
+    //               style={{}}
+    //               resizeMode="contain"
+    //               source={require("../../assets/icons/Microphone.png")}
+    //             />
+    //           )}
+    //           {!(text === "") && (
+    //             <TouchableOpacity onPress={handleSubmit}>
+    //               <Image
+    //                 style={{ width: 28, height: 28, marginLeft: 14 }}
+    //                 resizeMode="contain"
+    //                 source={require("../../assets/icons/send.png")}
+    //               />
+    //             </TouchableOpacity>
+    //           )}
+    //         </View>
+    //       </View>
+    //     </View>
+    //   </SafeAreaView>
+    // );
   }
 
+// const styles = StyleSheet.create({
+//   container: {
+//     paddingTop: 14,
+//     backgroundColor: "#E1F4F9",
+//     flex: 1,
+//   },
+//   Header: {
+//     width: "100%",
+//     height: 90,
+//     justifyContent: "center",
+//     alignItems: "center",
+//   },
+//   HeaderLogo: {
+//     height: 40,
+//     width: "100%",
+//     flexDirection: "row",
+//     alignItems: "center",
+//     justifyContent: "space-around",
+//     paddingHorizontal: 24,
+//     marginBottom: 16,
+//   },
+//   HeaderLbl: {
+//     justifyContent: "center",
+//   },
+//   headerlbltxt: {
+//     fontSize: 24,
+//     fontFamily: "Rubik-Medium",
+//   },
+//   chatContainer: {
+//     flex: 1,
+//     marginTop: 34,
+//   },
+//   scrollContainer: {
+//     flex: 1,
+//     paddingHorizontal: 16,
+//   },
+//   inputField: {
+//     height: height > 900 ? 200 :height > 740 && height < 899 ? 200 : 88,
+//     width: "100%",
+//     backgroundColor: "#DAECF7",
+//     paddingVertical: 12,
+//     paddingHorizontal: 16,
+//     bottom: 0,
+//     position:"fixed",
+//   },
+//   inputCon: {
+//     width: "100%",
+//     backgroundColor: "#FFFFFF",
+//     height: 64,
+//     borderRadius: 40,
+//     paddingHorizontal: 24,
+//     flexDirection: "row",
+//     alignItems: "center",
+//   },
+//   input: {
+//     fontSize: 16,
+//     fontFamily: "Rubik-Regular",
+//     flex: 1,
+//   },
+//   bot_msg: {
+//     borderRadius: 16,
+//     backgroundColor: "#fff",
+//     padding: 16,
+//     width: "100%",
+//   },
+//   user_msg: {
+//     borderRadius: 16,
+//     padding: 16,
+//     width: "100%",
+//     marginVertical: 16,
+//   },
+//   gradient: {
+//     position: "absolute",
+//     left: 0,
+//     right: 0,
+//     top: 0,
+//   },
+//   answeringCon: {
+//     position: "relative",
+//     bottom: 250,
+//     width: "100%",
+//     justifyContent: "center",
+//     alignItems: "center",
+//   },
+//   answering: {
+//     justifyContent: "center",
+//     alignItems: "center",
+//     flexDirection: "row",
+//     backgroundColor: "#FFFFFF",
+//     zIndex: 999,
+//     borderRadius: 8,
+//     paddingHorizontal: 53,
+//     paddingVertical: 19,
+//   },
+//   Chatbox: {
+//     flex: 1,
+//     position: "relative",
+//     paddingBottom: 7,
+//   },
+// });
+
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: 14,
-    backgroundColor: "#E1F4F9",
-    flex: 1,
-  },
-  Header: {
-    width: "100%",
-    height: 90,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  HeaderLogo: {
-    height: 40,
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around",
-    paddingHorizontal: 24,
-    marginBottom: 16,
-  },
-  HeaderLbl: {
-    justifyContent: "center",
-  },
-  headerlbltxt: {
-    fontSize: 24,
-    fontFamily: "Rubik-Medium",
-  },
-  chatContainer: {
-    flex: 1,
-    marginTop: 34,
-  },
-  scrollContainer: {
-    flex: 1,
-    paddingHorizontal: 16,
-  },
-  inputField: {
-    height: height > 900 ? 200 :height > 740 && height < 899 ? 200 : 88,
-    width: "100%",
-    backgroundColor: "#DAECF7",
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    bottom: 0,
-    position:"fixed",
-  },
-  inputCon: {
-    width: "100%",
-    backgroundColor: "#FFFFFF",
-    height: 64,
-    borderRadius: 40,
-    paddingHorizontal: 24,
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  input: {
-    fontSize: 16,
-    fontFamily: "Rubik-Regular",
-    flex: 1,
-  },
-  bot_msg: {
-    borderRadius: 16,
-    backgroundColor: "#fff",
-    padding: 16,
-    width: "100%",
-  },
-  user_msg: {
-    borderRadius: 16,
-    padding: 16,
-    width: "100%",
-    marginVertical: 16,
-  },
-  gradient: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: 0,
-  },
-  answeringCon: {
-    position: "relative",
-    bottom: 250,
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  answering: {
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    backgroundColor: "#FFFFFF",
-    zIndex: 999,
-    borderRadius: 8,
-    paddingHorizontal: 53,
-    paddingVertical: 19,
-  },
-  Chatbox: {
-    flex: 1,
-    position: "relative",
-    paddingBottom: 7,
-  },
-});
+    container: {
+      paddingTop: 14,
+      backgroundColor: "#E1F4F9",
+      flex: 1,
+    },
+    Header: {
+      width: "100%",
+      height: 90,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    HeaderLogo: {
+      height: 40,
+      width: "100%",
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-around",
+      paddingHorizontal: 24,
+      marginBottom: 16,
+    },
+    HeaderLbl: {
+      justifyContent: "center",
+    },
+    headerlbltxt: {
+      fontSize: 24,
+      fontFamily: "Rubik-Medium",
+    },
+    chatContainer: {
+      flex: 1,
+      marginTop: 34,
+    },
+    scrollContainer: {
+      flex: 1,
+      paddingHorizontal: 16,
+    },
+    inputField: {
+      height: height > 900 ? 200 : height > 740 && height < 899 ? 200 : 88,
+      width: "100%",
+      backgroundColor: "#DAECF7",
+      paddingVertical: 12,
+      paddingHorizontal: 16,
+      bottom: 0,
+      position: "fixed",
+    },
+    inputCon: {
+      width: "100%",
+      backgroundColor: "#FFFFFF",
+      height: 64,
+      borderRadius: 40,
+      paddingHorizontal: 24,
+      flexDirection: "row",
+      alignItems: "center",
+    },
+    input: {
+      fontSize: 16,
+      fontFamily: "Rubik-Regular",
+      flex: 1,
+    },
+    bot_msg: {
+      borderRadius: 16,
+      backgroundColor: "#fff",
+      padding: 16,
+      width: "100%",
+    },
+    user_msg: {
+      borderRadius: 16,
+      padding: 16,
+      width: "100%",
+      marginVertical: 16,
+    },
+    answeringCon: {
+      position: "relative",
+      bottom: 250,
+      width: "100%",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    answering: {
+      justifyContent: "center",
+      alignItems: "center",
+      flexDirection: "row",
+      backgroundColor: "#FFFFFF",
+      zIndex: 999,
+      borderRadius: 8,
+      paddingHorizontal: 53,
+      paddingVertical: 19,
+    },
+    Chatbox: {
+      flex: 1,
+      position: "relative",
+      paddingBottom: 7,
+    },
+  });
