@@ -580,7 +580,8 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 16,
     bottom: 0,
-    position:"absolute",
+    position:"fixed",
+    zIndex: 10,
   },
   inputCon: {
     width: "100%",
