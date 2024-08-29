@@ -57,7 +57,7 @@ export default function Page() {
     const handleSubmit = async () => {
       console.log("Send button clicked!"); 
       Keyboard.dismiss();
-      if (Platform.OS !== 'web' && !isConnected) {
+      if (!isConnected) {
         let toast = Toast.show("No Internet Connection! Try Again", {
           duration: Toast.durations.SHORT,
         });
