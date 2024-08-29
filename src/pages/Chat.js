@@ -472,45 +472,45 @@ export default function Page() {
                     )
                 )}
             </View> */}
-            <View style={{ height: chatHistory.length === 1 ? height - 500 : height - 200, paddingBottom: 80 }}>
-  {chatHistory.length > 0 ? (
-    chatHistory.map((item, index) =>
-      item.role === "user" ? (
-        <LinearGradient
-          colors={["#81C6DE", "#27AFDE"]}
-          style={styles.user_msg}
-          start={{ x: 0, y: 0 }} // Start from the top left corner
-          end={{ x: 1, y: 1 }} // End at the bottom right corner
-          locations={[0, 1]} // Optional: specify color stops
-          key={index}
-        >
-          <Text
-            style={{
-              color: "#fff",
-              fontSize: 16,
-              fontFamily: "Rubik-Regular",
-            }}
-          >
-            {item.content}
-          </Text>
-        </LinearGradient>
-      ) : (
-        <View style={styles.bot_msg} key={index}>
-          <Text
-            style={{
-              fontSize: 16,
-              fontFamily: "Rubik-Regular",
-            }}
-          >
-            {formatMsg(item.content)}
-          </Text>
-        </View>
-      )
-    )
-  ) : (
-    <Text>No chat history available</Text>
-  )}
-</View>
+            <View style={{ height: chatHistory.length === 1 ? height - 500 : height - 200, paddingBottom: 100 }}>
+                {chatHistory.length > 0 ? (
+                    chatHistory.map((item, index) =>
+                    item.role === "user" ? (
+                        <LinearGradient
+                        colors={["#81C6DE", "#27AFDE"]}
+                        style={styles.user_msg}
+                        start={{ x: 0, y: 0 }} // Start from the top left corner
+                        end={{ x: 1, y: 1 }} // End at the bottom right corner
+                        locations={[0, 1]} // Optional: specify color stops
+                        key={index}
+                        >
+                        <Text
+                            style={{
+                            color: "#fff",
+                            fontSize: 16,
+                            fontFamily: "Rubik-Regular",
+                            }}
+                        >
+                            {item.content}
+                        </Text>
+                        </LinearGradient>
+                    ) : (
+                        <View style={styles.bot_msg} key={index}>
+                        <Text
+                            style={{
+                            fontSize: 16,
+                            fontFamily: "Rubik-Regular",
+                            }}
+                        >
+                            {formatMsg(item.content)}
+                        </Text>
+                        </View>
+                    )
+                    )
+                ) : (
+                    <Text>No chat history available</Text>
+                )}
+            </View>
 
             </ScrollView>
             {loading && (
@@ -614,10 +614,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   inputField: {
-    height: height > 900 ? 200 :height > 740 && height < 899 ? 200 : 88,
+    height: height > 900 ? 100 :height > 740 && height < 899 ? 88 : 88,
     width: "100%",
     backgroundColor: "#DAECF7",
-    paddingVertical: 12,
+    paddingVertical: 14,
     paddingHorizontal: 16,
     bottom: 0,
     position:"fixed",
