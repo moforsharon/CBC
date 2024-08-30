@@ -239,8 +239,9 @@ export default function Page() {  // Rename function to match the file name
           <Text style={styles.BetaText}>Beta</Text>
         </View>
       </View>
+      <View style={{marginBottom: 100}}></View>
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center", paddingVertical: height > 900 && height < 920 ? 239 : height > 920? 240 :height > 740 && height < 899 ? 237 : 140, }}>
-        <View style={{ backgroundColor: "#fff", borderRadius: 20, padding: 20, width: "90%", marginVertical: 100 }}>
+        <View style={{ backgroundColor: "#fff", borderRadius: 20, padding: 20, width: "90%" }}>
           <Text style={{ fontSize: 28, fontFamily: "Rubik-Medium", textAlign: "center", color: "#1B254B" }}>
             Sign In
           </Text>
@@ -362,7 +363,7 @@ export default function Page() {  // Rename function to match the file name
           </View>
         </View>
       </View>
-      {/* <View style={{marginTop: 300}}></View> */}
+      <View style={{marginTop: 100}}></View>
     </SafeAreaView>
   );
 }
