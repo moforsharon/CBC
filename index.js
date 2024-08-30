@@ -86,10 +86,10 @@ import Modal from 'react-modal';
 import { InstallPWA } from './src/InstallPromptModal';
 import { Box, NativeBaseProvider, Text, Button, VStack, Center, HStack } from 'native-base';
 
-// Insert the clearAllSiteData function here
-window.addEventListener('load', () => {
-  clearAllSiteData();
-});
+// // Insert the clearAllSiteData function here
+// window.addEventListener('load', () => {
+//   clearAllSiteData();
+// });
 
 const { height } = Dimensions.get('window');
 

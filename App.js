@@ -16,6 +16,7 @@ import { useFonts } from 'expo-font';
 import MyComponent from "./src/pages/LandingPage";
 import ChatPage from "./src/pages/Chat";
 import SignInPage from "./src/pages/Signin";
+import SignUpPage from "./src/pages/SignUp";
 import DeviceDetection from "./src/components/DeviceDetection";
 import LoadingScreen from "./src/components/LoadingPage";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
@@ -100,6 +101,7 @@ export default function App() {
                 <Stack.Screen name="Landing" component={MyComponent} />
                 <Stack.Screen name="Chat" component={ChatPage} />
                 <Stack.Screen name="Signin" component={SignInPage} />
+                <Stack.Screen name="Signup" component={SignUpPage} />
               </Stack.Navigator>
             </NavigationContainer>
           </View>
