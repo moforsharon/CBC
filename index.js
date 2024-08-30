@@ -78,18 +78,27 @@
 
 import { registerRootComponent } from 'expo';
 import App from './App';
-import { Platform } from 'react-native';
+import { Platform, Dimensions, StyleSheet } from 'react-native';
 import './global.css';
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import Modal from 'react-modal';
 import { InstallPWA } from './src/InstallPromptModal';
+import { Box, NativeBaseProvider, Text, Button, VStack, Center, HStack } from 'native-base';
 
 // Insert the clearAllSiteData function here
 window.addEventListener('load', () => {
   clearAllSiteData();
 });
 
+const { height } = Dimensions.get('window');
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1, // Ensures the App's root view takes full height
+    height: height,
+  },
+});
 if (Platform.OS === 'web') {
   let deferredPrompt;
 
@@ -163,10 +172,12 @@ if (Platform.OS === 'web') {
   Modal.setAppElement('#root');
 
   ReactDOM.render(
-    <>
+    <NativeBaseProvider>
+    <Box style={styles.container}>
       <App />
       <InstallPromptModalWrapper />
-    </>,
+    </Box>
+    </NativeBaseProvider>,
     document.getElementById('root')
   );
 

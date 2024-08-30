@@ -18,6 +18,7 @@ import "expo-dev-client";
 import * as Google from "expo-auth-session/providers/google";
 import * as WebBrowser from "expo-web-browser";
 import Toast from "react-native-root-toast";
+import { Box, Button, VStack, Center, HStack } from 'native-base';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -224,7 +225,9 @@ export default function Page() {  // Rename function to match the file name
   };
 
   return (
-    <SafeAreaView style={[styles.container , {height: height}]}>
+    // <SafeAreaView style={[styles.container , {height: height}]}>
+    <Box flex={1} bg="black" height={height}>
+      <VStack flex={1} height={'100%'}>
       <View style={styles.headerRow}>
         <View style={styles.menuBar}>
           <TouchableOpacity onPress={() => setMenuOpen(true)}>
@@ -239,7 +242,7 @@ export default function Page() {  // Rename function to match the file name
           <Text style={styles.BetaText}>Beta</Text>
         </View>
       </View>
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center", paddingVertical: height > 900 && height < 920 ? 239 : height > 920? 240 :height > 740 && height < 899 ? 237 : 140, }}>
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center",  paddingVertical: height > 900 && height < 920 ? 450 : height > 920? 460 :height > 740 && height < 899 ? 300 : 200,}}>
         <View style={{ backgroundColor: "#fff", borderRadius: 20, padding: 20, width: "90%" }}>
           <Text style={{ fontSize: 28, fontFamily: "Rubik-Medium", textAlign: "center", color: "#1B254B" }}>
             Sign In
@@ -362,7 +365,8 @@ export default function Page() {  // Rename function to match the file name
           </View>
         </View>
       </View>
-    </SafeAreaView>
+      </VStack>
+      </Box>
   );
 }
 
