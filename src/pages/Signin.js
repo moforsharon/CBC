@@ -79,7 +79,7 @@ export default function Page() {  // Rename function to match the file name
 
       navigation.reset({
         index: 0,
-        routes: [{ name: "Page" }],
+        routes: [{ name: "Landing" }],
       });
     } catch (e) {
       console.log(e);
@@ -129,7 +129,7 @@ export default function Page() {  // Rename function to match the file name
     let machine_id = await getStoredMachineID();
     try {
       const response = await fetch(
-        "https://childbehaviorcheckin.com/back/users/google",
+        "https://cors-anywhere.herokuapp.com/https://childbehaviorcheckin.com/back/users/google",
         {
           method: "POST",
           headers: {
@@ -140,7 +140,6 @@ export default function Page() {  // Rename function to match the file name
             plan_name: "free",
             machine_id: machine_id,
           }),
-          mode: 'no-cors'
         }
       );
 
@@ -181,7 +180,7 @@ export default function Page() {  // Rename function to match the file name
       let machine_id = await getStoredMachineID();
       try {
         const response = await fetch(
-          "https://childbehaviorcheckin.com/back/users/login",
+          "https://cors-anywhere.herokuapp.com/https://childbehaviorcheckin.com/back/users/login",
           {
             method: "POST",
             headers: {
@@ -192,7 +191,6 @@ export default function Page() {  // Rename function to match the file name
               password: Pwd,
               machine_id: machine_id,
             }),
-            mode: 'no-cors'
           }
         );
 
@@ -206,7 +204,7 @@ export default function Page() {  // Rename function to match the file name
           setLoading(false);
           navigation.reset({
             index: 0,
-            routes: [{ name: "index" }],
+            routes: [{ name: "Landing" }],
           });
         } else {
           setWrong(true);
@@ -363,7 +361,7 @@ export default function Page() {  // Rename function to match the file name
           </View>
         </View>
       </View>
-      <View style={{marginTop: height > 900 && height < 920 ? 190 : height > 920? 190 :height > 740 && height < 899 ? 190 : 130}}></View>
+      <View style={{marginTop: height > 900 && height < 920 ? 180 : height > 920? 190 :height > 740 && height < 899 ? 150 : 130}}></View>
     </SafeAreaView>
   );
 }

@@ -95,7 +95,7 @@ export default function App() {
           <View style={styles.container}> {/* Ensures full height */}
             {/* <SideMenu /> */}
             <NavigationContainer>
-              <Stack.Navigator initialRouteName="Signin" screenOptions={{ headerShown: false }}>
+              <Stack.Navigator initialRouteName="Landing" screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Loading" component={LoadingScreen} />
                 <Stack.Screen name="Landing" component={MyComponent} />
                 <Stack.Screen name="Chat" component={ChatPage} />
