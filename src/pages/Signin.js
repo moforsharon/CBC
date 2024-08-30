@@ -225,9 +225,7 @@ export default function Page() {  // Rename function to match the file name
   };
 
   return (
-    // <SafeAreaView style={[styles.container , {height: height}]}>
-    <Box flex={1} bg="black" height={height}>
-      <VStack flex={1} height={'100%'}>
+    <SafeAreaView style={[styles.container , {height: height}]}>
       <View style={styles.headerRow}>
         <View style={styles.menuBar}>
           <TouchableOpacity onPress={() => setMenuOpen(true)}>
@@ -365,8 +363,7 @@ export default function Page() {  // Rename function to match the file name
           </View>
         </View>
       </View>
-      </VStack>
-      </Box>
+    </SafeAreaView>
   );
 }
 
