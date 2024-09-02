@@ -74,7 +74,7 @@ export default function Page() {
       
       let toQuestion = text;
       setText("");
-      if (user == null && chatHistory.length >= 2) {
+      if (user == null && chatHistory.length >= 6) {
         setShowLoginModal(true);
         return;
       }
@@ -595,6 +595,10 @@ const styles = StyleSheet.create({
     height: 90,
     justifyContent: "center",
     alignItems: "center",
+    position: "fixed",
+    top: 0,
+    zIndex: 1,
+    backgroundColor: "#E1F4F9",
   },
   HeaderLogo: {
     height: 40,
@@ -604,6 +608,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     paddingHorizontal: 24,
     marginBottom: 16,
+    marginTop: 5
   },
   HeaderLbl: {
     justifyContent: "center",
@@ -620,6 +625,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 16,
     paddingBottom: 200,
+    marginTop: 80,
   },
   inputField: {
     height: height > 900 ? 100 :height > 740 && height < 899 ? 88 : 88,
