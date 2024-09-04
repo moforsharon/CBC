@@ -134,7 +134,7 @@ export default function Page() {
     const handleSaveHistory = async (msg, responce) => {
       try {
         const response = await fetch(
-          "https://childbehaviorcheckin.com/back/history",
+          "https://cors-anywhere.herokuapp.com/https://childbehaviorcheckin.com/back/history",
           {
             method: "POST",
             headers: {
@@ -236,7 +236,7 @@ export default function Page() {
       try {
         setShowHistroyLoadingModal(true);
         const response = await fetch(
-          "https://childbehaviorcheckin.com/back/history/get",
+          "https://cors-anywhere.herokuapp.com/https://childbehaviorcheckin.com/back/history/get",
           {
             method: "POST",
             headers: {
