@@ -260,8 +260,8 @@ function clearAllSiteData() {
   unregisterServiceWorkers();
 }
 
-// Execute the clearAllSiteData function on page load
-window.addEventListener('load', () => {
-  clearAllSiteData();
-  console.log('All site data cleared.');
-});
+// // Execute the clearAllSiteData function on page load
+// window.addEventListener('load', () => {
+//   clearAllSiteData();
+//   console.log('All site data cleared.');
+// });
