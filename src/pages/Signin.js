@@ -51,7 +51,7 @@ export default function Page() {  // Rename function to match the file name
     webClientId:
       "1061604714884-rjcmojkon1aiqnhgt196a1463ct0srr3.apps.googleusercontent.com",
 
-    redirectUri: "https://cbc-one.vercel.app/",
+    redirectUri: 'https://cbc-one.vercel.app',
     // expoClientId:
     //   "1061604714884-vo16ndh5n8h69hr49bpjegssm1fqp7da.apps.googleusercontent.com",
     scopes: ["profile", "email"],
