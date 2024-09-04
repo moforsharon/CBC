@@ -367,7 +367,7 @@ export default function Page() {  // Rename function to match the file name
           </View>
         </View>
       </View>
-      <View style={{marginTop: height > 900 && height < 920 ? 180 :height > 740 && height < 899 ? 150 : 130}}></View>
+      <View style={{marginTop: height > 900 && height < 920 ? 180 :height > 740 && height < 899 ? 130 : 130}}></View>
     </SafeAreaView>
   );
 }
