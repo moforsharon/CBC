@@ -237,7 +237,7 @@ export default function Page() {  // Rename function to match the file name
           <Text style={styles.BetaText}>Beta</Text>
         </View>
       </View>
-      {/* <View style={{marginTop: height > 900 && height < 920 ? 180 : height > 920? 190 :height > 740 && height < 899 ? 150 : 130}}></View> */}
+      <View style={{marginTop: height > 900 && height < 920 ? 180 : height > 920? 190 :height > 740 && height < 899 ? 150 : 130}}></View>
       <View style={{ 
         flex: 1, 
         alignItems: "center", 
