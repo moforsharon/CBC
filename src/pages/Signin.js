@@ -242,7 +242,7 @@ export default function Page() {  // Rename function to match the file name
         flex: 1, 
         alignItems: "center", 
         justifyContent: "center", 
-        paddingTop: height > 900 && height < 920 ? 130 : height > 920? 240 :height > 740 && height < 899 ? 237 : 130, 
+        paddingTop: height > 900 && height < 920 ? 130 : height > 920? 130 :height > 740 && height < 899 ? 237 : 130, 
         paddingBottom: height > 900 && height < 920 ? 300 : height > 920? 240 :height > 740 && height < 899 ? 237 : 300, 
         }}>
         <View style={{ backgroundColor: "#fff", borderRadius: 20, padding: 20, width: "90%" }}>
