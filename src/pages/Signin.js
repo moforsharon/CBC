@@ -237,8 +237,14 @@ export default function Page() {  // Rename function to match the file name
           <Text style={styles.BetaText}>Beta</Text>
         </View>
       </View>
-      <View style={{marginTop: height > 900 && height < 920 ? 180 : height > 920? 190 :height > 740 && height < 899 ? 150 : 130}}></View>
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center", paddingVertical: height > 900 && height < 920 ? 239 : height > 920? 240 :height > 740 && height < 899 ? 237 : 140, }}>
+      {/* <View style={{marginTop: height > 900 && height < 920 ? 180 : height > 920? 190 :height > 740 && height < 899 ? 150 : 130}}></View> */}
+      <View style={{ 
+        flex: 1, 
+        alignItems: "center", 
+        justifyContent: "center", 
+        paddingTop: height > 900 && height < 920 ? 130 : height > 920? 140 :height > 740 && height < 899 ? 140 : 140, 
+        paddingBottom: height > 900 && height < 920 ? 170 : height > 920? 170 :height > 740 && height < 899 ? 140 : 140, 
+        }}>
         <View style={{ backgroundColor: "#fff", borderRadius: 20, padding: 20, width: "90%" }}>
           <Text style={{ fontSize: 28, fontFamily: "Rubik-Medium", textAlign: "center", color: "#1B254B" }}>
             Sign In

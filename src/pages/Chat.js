@@ -74,7 +74,7 @@ export default function Page() {
       
       let toQuestion = text;
       setText("");
-      if (user == null && chatHistory.length >= 6) {
+      if (user == null && chatHistory.length >= 2) {
         setShowLoginModal(true);
         return;
       }
