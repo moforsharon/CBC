@@ -187,7 +187,7 @@ export default function Page() { // Rename the function to match the file name
           } else {
             navigation.reset({
               index: 0,
-              routes: [{ name: "Chat" }], // Corrected to match your screen name
+              routes: [{ name: "Signin" }], // Corrected to match your screen name
             });
           }
         } else if (
