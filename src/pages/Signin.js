@@ -245,7 +245,7 @@ export default function Page() {  // Rename function to match the file name
         alignItems: "center", 
         justifyContent: "center", 
         paddingTop: height > 900 && height < 920 ? 130 : height > 740 && height < 899 ? 140 : 130, 
-        paddingBottom: height > 900 && height < 920 ? 300 :height > 740 && height < 899 ? 350 : 300, 
+        paddingBottom: height > 900 && height < 920 ? 300 :height > 740 && height < 899 ? 360 : 300, 
         }}>
         <View style={{ backgroundColor: "#fff", borderRadius: 20, padding: 20, width: "90%" }}>
           <Text style={{ fontSize: 28, fontFamily: "Rubik-Medium", textAlign: "center", color: "#1B254B" }}>
