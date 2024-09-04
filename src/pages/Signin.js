@@ -81,7 +81,7 @@ export default function Page() {  // Rename function to match the file name
 
       navigation.reset({
         index: 0,
-        routes: [{ name: "Signin" }],
+        routes: [{ name: "Chat" }],
       });
     } catch (e) {
       console.log(e);
@@ -206,7 +206,7 @@ export default function Page() {  // Rename function to match the file name
           setLoading(false);
           navigation.reset({
             index: 0,
-            routes: [{ name: "Signin" }],
+            routes: [{ name: "Chat" }],
           });
         } else {
           setWrong(true);
