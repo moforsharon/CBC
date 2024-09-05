@@ -40,6 +40,7 @@ export default function App() {
     try {
       const value = await AsyncStorage.getItem("user_id");
       const valueM = await AsyncStorage.getItem("machine_id");
+      console.log("Stored user:" + value + valueM.toString());
 
       if (value !== null && valueM !== null) {
         setUser(value);
