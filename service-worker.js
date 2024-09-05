@@ -1,48 +1,21 @@
-// // service-worker.js
-// self.addEventListener('install', (event) => {
-//     event.waitUntil(
-//       caches.open('my-cache').then((cache) => {
-//         return cache.addAll([
-//           '/',
-//           '/index.html',
-//           '/index.js',
-//           // ... other resources
-//         ]).catch((error) => {
-//           console.error('Failed to cache resources:', error);
-//         });
-//       })
-//     );
-//   });
-  
-//   self.addEventListener('fetch', event => {
-//     event.respondWith(
-//       caches.match(event.request).then(response => {
-//         return response || fetch(event.request);
-//       })
-//     );
-//   });
-  
-
-// service-worker.js
-
 self.addEventListener('install', (event) => {
-  // Skip caching for now
-  // event.waitUntil(
-  //   caches.open('my-cache').then((cache) => {
-  //     return cache.addAll([
-  //       '/',
-  //       '/index.html',
-  //       '/index.js',
-  //       // ... other resources
-  //     ]).catch((error) => {
-  //       console.error('Failed to cache resources:', error);
-  //     });
-  //   })
-  // );
+  console.log('Service Worker: Installed');
 });
 
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-      fetch(event.request) // Always fetch from the network
-  );
+self.addEventListener('activate', (event) => {
+  console.log('Service Worker: Activated');
 });
+
+// self.addEventListener('fetch', (event) => {
+//   console.log('Service Worker: Fetch event', event.request.url);
+  
+//   event.respondWith(
+//     fetch(event.request).then(response => {
+//       console.log('Service Worker: Fetch response', response);
+//       return response;
+//     }).catch(error => {
+//       console.error('Service Worker: Fetch failed', error);
+//       throw error;
+//     })
+//   );
+// });
