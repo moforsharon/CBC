@@ -131,7 +131,7 @@ export default function Page() {  // Rename function to match the file name
     let machine_id = await getStoredMachineID();
     try {
       const response = await fetch(
-        "https://cors-anywhere.herokuapp.com/https://childbehaviorcheckin.com/back/users/google",
+        "https://cbc-proxy-server.vercel.app/api/proxy/back/users/google",
         {
           method: "POST",
           headers: {
@@ -182,7 +182,7 @@ export default function Page() {  // Rename function to match the file name
       let machine_id = await getStoredMachineID();
       try {
         const response = await fetch(
-          "https://cors-anywhere.herokuapp.com/https://childbehaviorcheckin.com/back/users/login",
+          "https://cbc-proxy-server.vercel.app/api/proxy/back/users/login",
           {
             method: "POST",
             headers: {
