@@ -147,7 +147,7 @@ export default function Page() {
     const handleSaveHistory = async (msg, responce) => {
       try {
         const response = await fetch(
-          "https://cbc-proxy-server.vercel.app/api/proxy/back/history",
+          "https://cbc-proxy-server.vercel.app/api/proxy/history",
           {
             method: "POST",
             headers: {
@@ -198,7 +198,7 @@ export default function Page() {
         setShowHistroyLoadingModal(true);
   
         const response = await fetch(
-          "https://cbc-proxy-server.vercel.app/api/proxy/back/history/delete",
+          "https://cbc-proxy-server.vercel.app/api/proxy/history/delete",
           {
             method: "PUT",
             headers: {
@@ -249,7 +249,7 @@ export default function Page() {
       try {
         setShowHistroyLoadingModal(true);
         const response = await fetch(
-          "https://cbc-proxy-server.vercel.app/api/proxy/back/history/get",
+          "https://cbc-proxy-server.vercel.app/api/proxy/history/get",
           {
             method: "POST",
             headers: {
