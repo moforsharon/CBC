@@ -158,7 +158,7 @@ export default function Page() { // Rename the function to match the file name
 
       try {
         const response = await fetch(
-          "https://cbc-proxy-server.vercel.app/api/proxy",
+          "https://cbc-proxy-server.vercel.app/api/proxy/signup",
           {
             method: "POST",
             headers: {
