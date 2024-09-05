@@ -470,7 +470,7 @@ export default function Page() {
                         How do I stop a child from throwing a tantrum in public?
                       </Text>
                     </View>
-                  </TouchableOpacity>
+                    </TouchableOpacity>
                   </View>
                 </>
               )}
@@ -594,6 +594,7 @@ export default function Page() {
                 value={text}
                 onChangeText={handleChangeText}
                 placeholder="What are you struggling with ..."
+                placeholderTextColor="rgba(0, 0, 0, 0.3)"
                 autoFocus={false}
                 multiline={true}
               />
