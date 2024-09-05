@@ -33,6 +33,7 @@ export default function Page() {
       useContext(AppContext);
     const navigation = useNavigation();
     const [text, setText] = useState("");
+    const [initialText, setInitialText] = useState("");
     const [loading, setLoading] = useState(false);
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [showHistroyLoadingModal, setShowHistroyLoadingModal] = useState(false);
@@ -48,6 +49,14 @@ export default function Page() {
         handleGetHistory();
       }
     }, []);
+    useEffect(() => {
+      console.log(initialText);
+      if (initialText !== "") {
+        setLoading(true);
+        console.log(initialText);
+        handleSubmit();
+      }
+    }, [initialText]);
     const scrollViewRef = useRef();
     const handleChangeText = (value) => {
       setText(value);
@@ -348,27 +357,38 @@ export default function Page() {
                     >
                       Throwing / damaging objects or property behavior
                     </Text>
-                    <View
-                      style={[
-                        styles.bot_msg,
-                        {
-                          borderBottomRightRadius: 8,
-                          borderBottomLeftRadius: 8,
-                          borderTopLeftRadius: 8,
-                          borderTopRightRadius: 8,
-                        },
-                      ]}
-                    >
-                      <Text
-                        style={{
-                          fontSize: 16,
-                          fontFamily: "Rubik-Regular",
-                        }}
+                    <TouchableOpacity onPress={() => {
+                          try {
+                            setInitialText("How do you kindly tell your toddler to stop throwing everything?");
+                            setText("How do you kindly tell your toddler to stop throwing everything?");
+                            console.log(initialText);
+                            console.log(text)
+                        } catch (error) {
+                            console.error("Failed to set text or submit:", error);
+                        }
+                      }}>
+                      <View
+                        style={[
+                          styles.bot_msg,
+                          {
+                            borderBottomRightRadius: 8,
+                            borderBottomLeftRadius: 8,
+                            borderTopLeftRadius: 8,
+                            borderTopRightRadius: 8,
+                          },
+                        ]}
                       >
-                        How do you kindly tell your toddler to stop throwing
-                        everything?
-                      </Text>
-                    </View>
+                        <Text
+                          style={{
+                            fontSize: 16,
+                            fontFamily: "Rubik-Regular",
+                          }}
+                        >
+                          How do you kindly tell your toddler to stop throwing
+                          everything?
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
                   </View>
                   <View style={{ alignItems: "center", marginBottom: 16 }}>
                     <Text
@@ -380,28 +400,37 @@ export default function Page() {
                     >
                       Refusing to follow directions behavior
                     </Text>
-                    <View
-                      style={[
-                        styles.bot_msg,
-                        {
-                          borderBottomRightRadius: 8,
-                          borderBottomLeftRadius: 8,
-                          borderTopLeftRadius: 8,
-                          borderTopRightRadius: 8,
-                        },
-                      ]}
-                    >
-                      <Text
-                        style={{
-                          fontSize: 16,
-                          fontFamily: "Rubik-Regular",
-                        }}
+                    <TouchableOpacity onPress={() => {
+                          try {
+                            setInitialText("What are some effective methods of disciplining a child who refuses to listen and cries instead of following directions?");
+                            setText("What are some effective methods of disciplining a child who refuses to listen and cries instead of following directions?");
+                        } catch (error) {
+                            console.error("Failed to set text or submit:", error);
+                        }
+                      }}>
+                      <View
+                        style={[
+                          styles.bot_msg,
+                          {
+                            borderBottomRightRadius: 8,
+                            borderBottomLeftRadius: 8,
+                            borderTopLeftRadius: 8,
+                            borderTopRightRadius: 8,
+                          },
+                        ]}
                       >
-                        What are some effective methods of disciplining a child
-                        who refuses to listen and cries instead of following
-                        directions?
-                      </Text>
-                    </View>
+                           <Text
+                              style={{
+                                fontSize: 16,
+                                fontFamily: "Rubik-Regular",
+                              }}
+                            >
+                              What are some effective methods of disciplining a child
+                              who refuses to listen and cries instead of following
+                              directions?
+                            </Text>
+                      </View>
+                    </TouchableOpacity>
                   </View>
                   <View style={{ alignItems: "center", marginBottom: 16 }}>
                     <Text
@@ -413,17 +442,25 @@ export default function Page() {
                     >
                       Tantrums behavior
                     </Text>
-                    <View
-                      style={[
-                        styles.bot_msg,
-                        {
-                          borderBottomRightRadius: 8,
-                          borderBottomLeftRadius: 8,
-                          borderTopLeftRadius: 8,
-                          borderTopRightRadius: 8,
-                        },
-                      ]}
-                    >
+                  <TouchableOpacity onPress={() => {
+                        try {
+                          setInitialText( "How do I stop a child from throwing a tantrum in public?");
+                          setText( "How do I stop a child from throwing a tantrum in public?");
+                      } catch (error) {
+                          console.error("Failed to set text or submit:", error);
+                      }
+                      }}>
+                      <View
+                        style={[
+                          styles.bot_msg,
+                          {
+                            borderBottomRightRadius: 8,
+                            borderBottomLeftRadius: 8,
+                            borderTopLeftRadius: 8,
+                            borderTopRightRadius: 8,
+                          },
+                        ]}
+                      >
                       <Text
                         style={{
                           fontSize: 16,
@@ -433,6 +470,7 @@ export default function Page() {
                         How do I stop a child from throwing a tantrum in public?
                       </Text>
                     </View>
+                  </TouchableOpacity>
                   </View>
                 </>
               )}
