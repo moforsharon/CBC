@@ -15,7 +15,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { VStack, HStack } from "native-base";
 import { LinearGradient } from "expo-linear-gradient";
 import { AppContext } from "../../App";
-// import HistroyLoading from "../components/HistroyLoading.js";
+import HistroyLoading from "../components/HistroyLoading.js";
 import LoginRequiredModal from "../components/LoginRequiredModal.js";
 import VideoIcon from "../../assets/icons/video-camera-alt.png";
 import { useFonts } from "expo-font";
@@ -314,10 +314,10 @@ export default function Page() {
           showModal={showLoginModal}
           onClose={() => setShowLoginModal(false)}
         />
-        {/*<HistroyLoading
+        <HistroyLoading
           showModal={showHistroyLoadingModal}
           onClose={() => setShowHistroyLoadingModal(false)}
-        /> */}
+        />
         <View style={styles.Header}>
           <View style={styles.HeaderLogo}>
             {/* <TouchableOpacity onPress={() => setMenuOpen(true)}>
