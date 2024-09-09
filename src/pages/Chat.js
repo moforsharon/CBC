@@ -562,6 +562,7 @@ export default function Page() {
             </View>
 
             </ScrollView>
+            <View style={{height: 100, backgroundColor: "#E1F4F9"}}></View>
             {loading && (
               <View style={styles.answeringCon}>
                 <View style={styles.answering}>
@@ -586,7 +587,7 @@ export default function Page() {
               </View>
             )}
           </View>
-  
+          </View>
           <View style={styles.inputField}>
             <View style={styles.inputCon}>
               <TextInput
@@ -622,7 +623,6 @@ export default function Page() {
               )}
             </View>
           </View>
-        </View>
       </SafeAreaView>
     );
   }
@@ -665,9 +665,8 @@ const styles = StyleSheet.create({
     marginTop: 34,
   },
   scrollContainer: {
-    flex: 1,
+    flexGrow: 1,
     paddingHorizontal: 16,
-    paddingBottom: 200,
     marginTop: 80,
   },
   inputField: {
