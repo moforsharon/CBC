@@ -320,17 +320,18 @@ export default function Page() {
         />
         <View style={styles.Header}>
           <View style={styles.HeaderLogo}>
-            {/* <TouchableOpacity onPress={() => setMenuOpen(true)}>
+            <TouchableOpacity onPress={() => navigation.navigate('Landing')}>
               <Image
-                source={require("../../assets/icons/menuBlack.png")}
+                source={require("../../assets/icons/back.png")}
                 style={{width:32, height:32}}
                 
               />
-            </TouchableOpacity> */}
+            </TouchableOpacity>
             <Image
               source={require("../../assets/logo40.png")}
               style={{width:32, height:32}}
             />
+            <View style={{width:32, height:32}}></View>
             {/* <TouchableOpacity onPress={() => handleDeleteHistory()}>
               <Image
                 source={require("../../assets/icons/reset.png")}
@@ -648,7 +649,7 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     paddingHorizontal: 24,
     marginBottom: 16,
     marginTop: 5
