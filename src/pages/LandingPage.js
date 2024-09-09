@@ -1,18 +1,20 @@
-import React from "react";
+import React, {useContext} from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { VStack, HStack } from "native-base";
 import { useNavigation } from '@react-navigation/native';
+import { AppContext } from "../../App";
 
 const { height, width } = Dimensions.get('window');
 
 export default function Page() {
+  const { data, setData, setMenuOpen, menuOpen } = useContext(AppContext);
   const navigation = useNavigation();
   return (
     <SafeAreaView style={styles.container}>
       {/* Header Section */}
       <HStack style={styles.headerRow} alignItems="center">
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => setMenuOpen(true)}>
           <Image
             source={require("../../assets/icons/menu.png")}
             style={{ width: 32, height: 32 }}
@@ -27,7 +29,6 @@ export default function Page() {
           <Text style={styles.BetaText}>Beta</Text>
         </View>
       </HStack>
-
       {/* Image and Sample Message Section */}
       <VStack style={styles.imgInfoCon} space={4}>
         <Image

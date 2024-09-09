@@ -10,6 +10,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import NetInfo from '@react-native-community/netinfo';
 import { useFonts } from 'expo-font';
 // import { RootSiblingParent } from "react-native-root-siblings";
+import SideMenu from './src/components/SideMenu'
 
 // Import your components/screens
 // import SideMenu from "./src/components/SideMenu";
@@ -95,8 +96,8 @@ export default function App() {
           value={{ data, setData, menuOpen, setMenuOpen, user, setUser, isConnected, machineId, setMachineId }}
         >
           <View style={styles.container}> {/* Ensures full height */}
-            {/* <SideMenu /> */}
             <NavigationContainer>
+            <SideMenu />
               <Stack.Navigator initialRouteName="Landing" screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Loading" component={LoadingScreen} />
                 <Stack.Screen name="Landing" component={MyComponent} />
