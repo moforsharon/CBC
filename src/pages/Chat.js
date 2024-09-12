@@ -152,7 +152,7 @@ export default function Page() {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              Userid: user,
+              userid: user,
             },
             body: JSON.stringify({
               _id: "6593bc7a65e63b8aec728732",
@@ -203,7 +203,7 @@ export default function Page() {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
-              Userid: user,
+              userid: user,
             },
             body: JSON.stringify({}),
           }
@@ -254,7 +254,7 @@ export default function Page() {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              userId: user,
+              userid: user,
             },
             body: JSON.stringify({
               _id: "6593bc7a65e63b8aec728732",
