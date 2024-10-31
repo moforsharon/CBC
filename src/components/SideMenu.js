@@ -177,6 +177,34 @@ export default function SideMenu() {
             <TouchableOpacity
               onPress={() => {
                 moveLeft();
+                navigation.navigate('Library')
+              }}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginBottom: 20,
+                width: "100%",
+              }}
+            >
+              <Image
+                source={require("../../assets/books.png")}
+                style={{ width: 24, height: 24 }}
+              />
+
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontFamily: "Rubik-Regular",
+                  color: "#000",
+                  marginLeft: 10,
+                }}
+              >
+                Library
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                moveLeft();
                 navigation.navigate('Signin');
               }}
               style={{
@@ -261,6 +289,34 @@ export default function SideMenu() {
                 }}
               >
                 Chat
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                moveLeft();
+                navigation.navigate('Library')
+              }}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginBottom: 20,
+                width: "100%",
+              }}
+            >
+              <Image
+                source={require("../../assets/books.png")}
+                style={{ width: 24, height: 24 }}
+              />
+
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontFamily: "Rubik-Regular",
+                  color: "#000",
+                  marginLeft: 10,
+                }}
+              >
+                Library
               </Text>
             </TouchableOpacity>
             <TouchableOpacity

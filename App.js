@@ -18,9 +18,12 @@ import MyComponent from "./src/pages/LandingPage";
 import ChatPage from "./src/pages/Chat";
 import SignInPage from "./src/pages/Signin";
 import SignUpPage from "./src/pages/SignUp";
+import Library from "./src/pages/Library";
 import DeviceDetection from "./src/components/DeviceDetection";
 import LoadingScreen from "./src/components/LoadingPage";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+
+
 
 // Context creation
 export const AppContext = createContext();
@@ -98,12 +101,13 @@ export default function App() {
           <View style={styles.container}> {/* Ensures full height */}
             <NavigationContainer>
             <SideMenu />
-              <Stack.Navigator initialRouteName="Landing" screenOptions={{ headerShown: false }}>
+              <Stack.Navigator initialRouteName="Library" screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Loading" component={LoadingScreen} />
                 <Stack.Screen name="Landing" component={MyComponent} />
                 <Stack.Screen name="Chat" component={ChatPage} />
                 <Stack.Screen name="Signin" component={SignInPage} />
                 <Stack.Screen name="Signup" component={SignUpPage} />
+                <Stack.Screen name="Library" component={Library} />
               </Stack.Navigator>
             </NavigationContainer>
           </View>
