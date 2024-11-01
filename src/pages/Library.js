@@ -211,7 +211,6 @@ export default function Library() {
                                         plugins={[zoomPluginInstance]}
                                     />
                                 </Worker>
-
                                 {/* Zoom Controls */}
                                 <View style={styles.zoomControlsContainer}>
                                     <View style={styles.zoomControls}>
@@ -373,6 +372,7 @@ const styles = StyleSheet.create({
         fontFamily: "Rubik-Medium",
     },
     pdfContainer: {
+        marginTop: 4,
         flex: 1, // Take up the remaining space below the header
         width: "100%",
     },
