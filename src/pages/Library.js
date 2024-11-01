@@ -10,15 +10,49 @@ import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import "@react-pdf-viewer/zoom/lib/styles/index.css";
 import { WebView } from 'react-native-webview';
 
+import cardImage from "../../assets/icons/menu.png"; // Using require
+
 
 const { height, width } = Dimensions.get('window');
 
 // const zoomPluginInstance = zoomPlugin();
 
 const pdfData = [
-    { id: 1, title: "ABCs of Behavior.pdf", image: require("../../assets/icons/menu.png"), link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1osa0YZNm4IrozVbOyasQzM3Fhss9soBC" },
-    { id: 2, title: "Ask for Something.pdf", image: require("../../assets/icons/menu.png"), link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=10jdDkjE5tQRoNZmavaANstKfC5_m3YQ7" },
+    { id: 1, title: "ABCs of Behavior.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1osa0YZNm4IrozVbOyasQzM3Fhss9soBC" },
+    { id: 2, title: "Ask for Something.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=10jdDkjE5tQRoNZmavaANstKfC5_m3YQ7" },
+    { id: 3, title: "Ask for Time with You.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1MHHhuTVsWrUsoLt1cxogtOFHoWesZQ88" },
+    { id: 4, title: "Ask to be Done.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1EFs2c4s3Q2D1r2kdWET0hJjZVotZcYVT" },
+    { id: 5, title: "Avoid Attending.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1MIe92xeqZUwAsNQzhpLa1NCjUQutTyXy" },
+    { id: 6, title: "Behavior Expectations.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1YirIrsRmA8u5hpJ4wrqZ-OlG4JVS5695" },
+    { id: 7, title: "Choices of Demand.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1Qv3C9JmgvRbtk0YFskh9nBNcw3HP71TN" },
+    { id: 8, title: "Delay Access.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1QExZhRjtBBoSdzFMFyPIAXSUoUmYx1FL" },
+    { id: 9, title: "First-Then.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=14bfjvye1SytYuFpkBNnV-DXxo_POMcCz" },
+    { id: 10, title: "Follow Directions.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1_mhBfT60dXNY9b75jide5_zhsvF4jcNg" },
+    { id: 11, title: "Following Child's Lead.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1guc2CYxaPP0pdfiyMIeRFoVcZJFkTESR" },
+    { id: 12, title: "Give Choices.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1SMBPFEuro__6vNJ8a6RvESacGoDQ1X9T" },
+    { id: 13, title: "Give Transition Warnings.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=10fkyNj36nM7xeZlXJpAOPJIPLf3dMMwZ" },
+    { id: 14, title: "Help Once Calm.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=13oOjdlie9r0eoYauLMvXlRoN-KFZp4xL" },
+    { id: 15, title: "Hot Buttons.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1PWpqY_KjsD17K1qraBtcz3CgkR2EmnHn" },
+    { id: 16, title: "Importance of Language.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1HiVKK3SG4iXRsfV0UoLWNjau033R0Lye" },
+    { id: 17, title: "Keeping it Positive.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1EBk3tRA-NcT3Lp7ciArN54NrdqNOKwcL" },
+    { id: 18, title: "Make Choices.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1Qm3IuRWzRvJiQ0Gk1cytl6Ryubi6pujW" },
+    { id: 19, title: "Modeling and Labeling Feelings.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1TRZ7EuEQvUDDy2fO4qXZVXly5WWMH2M2" },
+    { id: 20, title: "Play Alone.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1BfRn4GvqoYin0umAMxq0-6i_etT5VvfK" },
+    { id: 21, title: "Playing with Your Child.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1eb7O-d56_UvFICxXjBcuwTqCDAVMaupN" },
+    { id: 22, title: "Positive Attention.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1HHofnaBA55irvIzC5UTsOQLrVQptIY2c" },
+    { id: 23, title: "Positive Descriptive Feedback.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1E61yu58tdvLSGWgaBpH-jXUWrI6uPGEX" },
+    { id: 24, title: "Prompt Follow Through.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1WBd5sptXoKUnnOei96Rr1Iz4t2ZU0jL2" },
+    { id: 25, title: "Prompts.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1-AoJW2QsF77ArCmqhldb-GjlHvZL6LvZ" },
+    { id: 26, title: "Quality Time.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1bfGIYxaCJFTIQ9Ew1BW4jscuWsDS3sBU" },
+    { id: 27, title: "Redirections.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1jsfaOggQtAjE0vxGdsq9ZEKfSyYyYQX9" },
+    { id: 28, title: "Stay Calm, Protect, Reconnect.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1HAn_iu6ZeoPzFKLI0FYHw3c0ypcoyEtu" },
+    { id: 29, title: "Take Turns.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1OeE-8jFkksiH8gEbQ8Mp4M9IKO4cG86t" },
+    { id: 30, title: "Taking Care of Yourself.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1OE1biXrzwfZ_J6ka6hUpViE4TY48ym-s" },
+    { id: 31, title: "Validating Feelings.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=15n73qH-7lXqGoUsJ7ZPozFBpP6VPmGqX" },
+    { id: 32, title: "Verbal Reminder.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1u5VhR2heZ2HgRkJHiWNDTiz4ihWpTVg4" },
+    { id: 33, title: "Visual Daily Schedule.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1hiEEStknMkIN7xIMLJmL0dvS-aS4bel4" }
 ];
+
 
 
 export default function Library() {
@@ -52,7 +86,7 @@ export default function Library() {
                             
                         />
                         </TouchableOpacity>
-                        <Text style={styles.headerlbltxt}>Behavior Support Plan</Text>
+                        <Text style={styles.headerlbltxt}>Library</Text>
                         <View style={{width:32, height:32}}></View>
                     </View>
                 </View>
@@ -110,11 +144,18 @@ export default function Library() {
                             borderColor: "#E0AB65",
                             borderBottomRightRadius: 10,
                             borderBottomLeftRadius: 10,
-                            marginHorizontal:'3%'
+                            marginHorizontal:'3%',
+                            height: '80%',
+                            paddingVertical:10
                         }}
                     >
                         <ScrollView style={styles.scrollContainer}>
-                            <Text>Hi</Text>
+                            {pdfData.map((pdf) => (
+                                <TouchableOpacity key={pdf.id} style={styles.card} onPress={() => openPdf(pdf.link)}>
+                                    <Image source={pdf.image}  style={{width:32, height:32}} resizeMode="contain"/>
+                                    <Text style={styles.cardTitle}>{pdf.title}</Text>
+                                </TouchableOpacity>
+                            ))}
                         </ScrollView>
                     </View>
                 }
@@ -128,13 +169,15 @@ export default function Library() {
                             borderColor: "#6A91E0",
                             borderBottomRightRadius: 10,
                             borderBottomLeftRadius: 10,
-                            marginHorizontal:'3%'
+                            marginHorizontal:'3%',
+                            height: '80%',
+                            paddingVertical:5
                         }}
                     >
                         <ScrollView style={styles.scrollContainer}>
                             {pdfData.map((pdf) => (
                                 <TouchableOpacity key={pdf.id} style={styles.card} onPress={() => openPdf(pdf.link)}>
-                                    <Image source={pdf.image} style={styles.cardImage} />
+                                    <Image source={require('../../assets/icons/pdf.png')}  style={styles.cardImage} resizeMode="contain"/>
                                     <Text style={styles.cardTitle}>{pdf.title}</Text>
                                 </TouchableOpacity>
                             ))}
@@ -240,8 +283,8 @@ const styles = StyleSheet.create({
         elevation: 2,
       },
       cardImage: {
-        width: 50,
-        height: 50,
+        width: 32,
+        height: 32,
         marginRight: 10,
       },
       cardTitle: {
@@ -274,8 +317,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
       },
       pdf: {
-        width: '100%',
-        height: '100%',
-        border: 'none',
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
       },
 });
