@@ -8,14 +8,10 @@ import { Viewer, Worker, SpecialZoomLevel } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 import "@react-pdf-viewer/zoom/lib/styles/index.css";
+import { zoomPlugin, Zoom } from '@react-pdf-viewer/zoom';
 import { WebView } from 'react-native-webview';
 
-import cardImage from "../../assets/icons/menu.png"; // Using require
-
-
 const { height, width } = Dimensions.get('window');
-
-// const zoomPluginInstance = zoomPlugin();
 
 const pdfData = [
     { id: 1, title: "ABCs of Behavior.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1osa0YZNm4IrozVbOyasQzM3Fhss9soBC" },
@@ -68,6 +64,10 @@ export default function Library() {
 
     const [scale, setScale] = useState(SpecialZoomLevel.PageWidth); // Initial zoom level
   
+    // Initialize zoomPlugin
+    const zoomPluginInstance = zoomPlugin();
+    const { ZoomIn, ZoomOut, ZoomPopover } = zoomPluginInstance;
+
     const openPdf = (pdfLink) => {
       setSelectedPdf(pdfLink);
       setModalVisible(true);
@@ -185,7 +185,7 @@ export default function Library() {
                     </View>
                 }
                 {/* Modal */}
-                <Modal visible={isModalVisible} animationType="slide" onRequestClose={() => setModalVisible(false)}>
+                {/* <Modal visible={isModalVisible} animationType="slide" onRequestClose={() => setModalVisible(false)}>
                     <View style={styles.modalContainer}>
                     <TouchableOpacity style={styles.closeButton} onPress={() => setModalVisible(false)}>
                         <Text style={styles.closeButtonText}>X</Text>
@@ -197,12 +197,38 @@ export default function Library() {
                                 </Worker>
                             </div>
                         )} */}
-                        {selectedPdf && (
+                       {/* {selectedPdf && (
                             <iframe
                                 src={selectedPdf}
                                 style={styles.pdf}
                                 allow="fullscreen"
                             />
+                        )}
+                    </View>
+                </Modal> */}
+                {/* Modal */}
+                <Modal visible={isModalVisible} animationType="slide" onRequestClose={() => setModalVisible(false)}>
+                    <View style={styles.modalContainer}>
+                        <TouchableOpacity style={styles.closeButton} onPress={() => setModalVisible(false)}>
+                            <Text style={styles.closeButtonText}>X</Text>
+                        </TouchableOpacity>
+                        {selectedPdf && (
+                            <div style={styles.pdf}>
+                                <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
+                                    <Viewer
+                                        fileUrl={selectedPdf}
+                                        plugins={[zoomPluginInstance]}
+                                    />
+                                </Worker>
+                                {/* Zoom controls */}
+                                <View style={{display: 'flex', justifyContent: 'space-around', position: "absolute", bottom: (height/10), right: (width/3), backgroundColor: "white"}}>
+                                    <View style={styles.zoomControls}>
+                                        <ZoomOut />
+                                        <ZoomPopover />
+                                        <ZoomIn />
+                                    </View>
+                                </View>
+                            </div>
                         )}
                     </View>
                 </Modal>
@@ -294,7 +320,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
 
-        backgroundColor: "#fff",
+        backgroundColor: "white",
         padding: 20,
         justifyContent: "center",
         alignItems: "center",
@@ -303,7 +329,7 @@ const styles = StyleSheet.create({
     closeButton: {
         position: "absolute",
         top: 20,
-        left: 20,
+        right: 20,
         backgroundColor: "rgba(0,0,0,0.5)",
         paddingTop: 10,
         paddingBottom: 10,
@@ -320,4 +346,8 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height,
       },
+      zoomControls: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
 });
