@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions, ScrollView, Modal } from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions, ScrollView, Modal, Platform } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { VStack, HStack } from "native-base";
 import { useNavigation } from '@react-navigation/native';
@@ -49,7 +49,27 @@ const pdfData = [
     { id: 33, title: "Visual Daily Schedule.pdf", link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1hiEEStknMkIN7xIMLJmL0dvS-aS4bel4" }
 ];
 
-
+const videoData = [
+    { id: 1, title: "ABCs of Behavior.mp4", link: "https://cbc-proxy-server.vercel.app/api/proxy/video?id=16C62vJAoUHc-FULdO7c-u-ycECLTt9YY" },
+    { id: 2, title: "Ask for Something.mp4", link: "https://cbc-proxy-server.vercel.app/api/proxy/video?id=1uXyfIwcVtC3FLf7--jliCWucphPoJijU" },
+    { id: 3, title: "Ask for Time with You.mp4", link: "https://cbc-proxy-server.vercel.app/api/proxy/video?id=1twV9UjwoGoXQBsZW8JI5IiuDULi7ejA9" },
+    { id: 4, title: "Ask to be Done.mp4", link: "https://cbc-proxy-server.vercel.app/api/proxy/video?id=1JJKzu5IMxxL0CffKP7fF6-utyB1rBoY4" },
+    { id: 5, title: "Avoid Attending.mp4", link: "https://cbc-proxy-server.vercel.app/api/proxy/video?id=16O0Jhzcwh0jBXl6tUtBp9ZUYQWWC11_j" },
+    { id: 6, title: "Behavior Support Plan.mp4", link: "https://cbc-proxy-server.vercel.app/api/proxy/video?id=1NOmzzqdHd_b30Kfszqk-di0zsn25Ja3d" },
+    { id: 7, title: "Choices of Demands.mp4", link: "https://cbc-proxy-server.vercel.app/api/proxy/video?id=1o2gWLTM7nBwPeW4mfRGW5Yj9AhjBmQ2O" },
+    { id: 8, title: "Delay Access.mp4", link: "https://cbc-proxy-server.vercel.app/api/proxy/video?id=1o2gWLTM7nBwPeW4mfRGW5Yj9AhjBmQ2O" },
+    { id: 9, title: "Follow Directions.mp4", link: "https://cbc-proxy-server.vercel.app/api/proxy/video?id=1JiTdiA6jMruRLsvFEtPUtf6_QfjmerqW" },
+    { id: 10, title: "Follow Your Child's Lead.mp4", link: "https://cbc-proxy-server.vercel.app/api/proxy/video?id=1uP1mEoVu7mnL5FU7j1FKENrbQWAe3rMK" },
+    { id: 11, title: "Frequent Positive Attention.mp4", link: "https://cbc-proxy-server.vercel.app/api/proxy/video?id=1EJy5oZq9VL402jsQI3JWZl-E4zHUk76P" },
+    { id: 12, title: "Give Choices.mp4", link: "https://cbc-proxy-server.vercel.app/api/proxy/video?id=1PUVN_wDVK_5wHAjyPEJrnp4gik8_2njy" },
+    { id: 13, title: "Help When Calm.mp4", link: "https://cbc-proxy-server.vercel.app/api/proxy/video?id=1zmEI6e-Y9acATaAns4V8MbDSdqbFGpvf" },
+    { id: 14, title: "Make choices.mp4", link: "https://cbc-proxy-server.vercel.app/api/proxy/video?id=1YOB8xBVQh_wZQ6jme8DOdUj3IbPJrtzQ" },
+    { id: 15, title: "Play Alone.mp4", link: "https://cbc-proxy-server.vercel.app/api/proxy/video?id=1brZHcjjeEKtQfTj8bY4axVMmqcGq9Jam" },
+    { id: 16, title: "Prompt Follow Through.mp4", link: "https://cbc-proxy-server.vercel.app/api/proxy/video?id=1eab5T5PImF0p2ARKRLpcORCAiIfbXPEJ" },
+    { id: 17, title: "Take turns.mp4", link: "https://cbc-proxy-server.vercel.app/api/proxy/video?id=1y3QLYYowwE-lrxrrdBQQg3N_-14y0s9D" },
+    { id: 18, title: "Transition Warnings.mp4", link: "https://cbc-proxy-server.vercel.app/api/proxy/video?id=1bkmKTOl4qb4S1QNnVfNZDgwt_vfX6g5l" },
+    { id: 19, title: "Verbal Reminders.mp4", link: "https://cbc-proxy-server.vercel.app/api/proxy/video?id=110BztfZTRhPD3DnFkPn3EZTgr7tbMhv_" }
+];
 
 export default function Library() {
 
@@ -62,6 +82,9 @@ export default function Library() {
     const [isModalVisible, setModalVisible] = useState(false);
     const [selectedPdf, setSelectedPdf] = useState(null);
     const [selectedPdfTitle, setSelectedPdfTitle] = useState(null);
+    const [selectedVideoTitle, setSelectedVideoTitle] = useState(null);
+    const [isVideoModalVisible, setVideoModalVisible] = useState(false);
+    const [selectedVideo, setSelectedVideo] = useState(null);
 
     const [scale, setScale] = useState(SpecialZoomLevel.PageWidth); // Initial zoom level
   
@@ -75,6 +98,11 @@ export default function Library() {
       setModalVisible(true);
     };
 
+    const openVideo = (videoLink, videoTitle) => {
+        setSelectedVideo(videoLink);
+        setSelectedVideoTitle(videoTitle)
+        setVideoModalVisible(true);
+    };
     return (
         <SafeAreaView style={styles.container}>
             <VStack height={height} width={width}>
@@ -152,10 +180,10 @@ export default function Library() {
                         }}
                     >
                         <ScrollView style={styles.scrollContainer}>
-                            {pdfData.map((pdf) => (
-                                <TouchableOpacity key={pdf.id} style={styles.card} onPress={() => openPdf(pdf.link)}>
-                                    <Image source={pdf.image}  style={{width:32, height:32}} resizeMode="contain"/>
-                                    <Text style={styles.cardTitle}>{pdf.title}</Text>
+                            {videoData.map((video) => (
+                                <TouchableOpacity key={video.id} style={styles.card} onPress={() => openVideo(video.link, video.title)}>
+                                    <Image source={require('../../assets/icons/video-player.png')}  style={styles.cardImage} resizeMode="contain"/>
+                                    <Text style={styles.cardTitle}>{video.title}</Text>
                                 </TouchableOpacity>
                             ))}
                         </ScrollView>
@@ -224,6 +252,36 @@ export default function Library() {
                     </VStack>
                 </Modal>
 
+
+                {/* Video Modal */}
+                <Modal visible={isVideoModalVisible} animationType="slide" onRequestClose={() => setVideoModalVisible(false)}>
+                    <VStack style={styles.modalContainer}>
+                        {/* Video Player Header */}
+                        <View style={styles.modalHeader}>
+                            <View style={styles.modalHeaderContent}>
+                                <TouchableOpacity onPress={() => setVideoModalVisible(false)}>
+                                    <Image source={require("../../assets/icons/back.png")} style={styles.backButton} />
+                                </TouchableOpacity>
+                                <Text style={styles.headerTitle}>{selectedVideoTitle}</Text>
+                            </View>
+                        </View>
+                        {/* Video Player */}
+                        {Platform.OS === 'web' ? (
+                            <iframe
+                                src={selectedVideo}
+                                style={styles.videoPlayer}
+                                frameBorder="0"
+                                allow="fullscreen"
+                            />
+                        ) : (
+                            <WebView
+                                source={{ uri: selectedVideo }}
+                                style={styles.videoPlayer}
+                                allowsFullscreenVideo
+                            />
+                        )}
+                    </VStack>
+                </Modal>
             </VStack>
         </SafeAreaView>
     );
@@ -392,4 +450,5 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
     },
+    videoPlayer: { flex: 1, width: "100%", height: "100%" },
 });
