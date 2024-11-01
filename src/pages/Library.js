@@ -155,13 +155,10 @@ export default function Library() {
                             </div>
                         )} */}
                         {selectedPdf && (
-                            <WebView
-                                source={{ uri: selectedPdf }}
+                            <iframe
+                                src={selectedPdf}
                                 style={styles.pdf}
-                                javaScriptEnabled={true}
-                                scalesPageToFit={true}
-                                bounces={false}
-                                scrollEnabled={true}
+                                allow="fullscreen"
                             />
                         )}
                     </View>
@@ -263,7 +260,7 @@ const styles = StyleSheet.create({
     closeButton: {
         position: "absolute",
         top: 20,
-        right: 20,
+        left: 20,
         backgroundColor: "rgba(0,0,0,0.5)",
         paddingTop: 10,
         paddingBottom: 10,
@@ -277,7 +274,8 @@ const styles = StyleSheet.create({
         fontSize: 18,
       },
       pdf: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
+        width: '100%',
+        height: '100%',
+        border: 'none',
       },
 });
