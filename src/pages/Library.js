@@ -61,6 +61,7 @@ export default function Library() {
 
     const [isModalVisible, setModalVisible] = useState(false);
     const [selectedPdf, setSelectedPdf] = useState(null);
+    const [selectedPdfTitle, setSelectedPdfTitle] = useState(null);
 
     const [scale, setScale] = useState(SpecialZoomLevel.PageWidth); // Initial zoom level
   
@@ -68,8 +69,9 @@ export default function Library() {
     const zoomPluginInstance = zoomPlugin();
     const { ZoomIn, ZoomOut, ZoomPopover } = zoomPluginInstance;
 
-    const openPdf = (pdfLink) => {
+    const openPdf = (pdfLink, pdfTitle) => {
       setSelectedPdf(pdfLink);
+      setSelectedPdfTitle(pdfTitle)
       setModalVisible(true);
     };
 
@@ -176,7 +178,7 @@ export default function Library() {
                     >
                         <ScrollView style={styles.scrollContainer}>
                             {pdfData.map((pdf) => (
-                                <TouchableOpacity key={pdf.id} style={styles.card} onPress={() => openPdf(pdf.link)}>
+                                <TouchableOpacity key={pdf.id} style={styles.card} onPress={() => openPdf(pdf.link, pdf.title)}>
                                     <Image source={require('../../assets/icons/pdf.png')}  style={styles.cardImage} resizeMode="contain"/>
                                     <Text style={styles.cardTitle}>{pdf.title}</Text>
                                 </TouchableOpacity>
@@ -185,53 +187,44 @@ export default function Library() {
                     </View>
                 }
                 {/* Modal */}
-                {/* <Modal visible={isModalVisible} animationType="slide" onRequestClose={() => setModalVisible(false)}>
-                    <View style={styles.modalContainer}>
-                    <TouchableOpacity style={styles.closeButton} onPress={() => setModalVisible(false)}>
-                        <Text style={styles.closeButtonText}>X</Text>
-                    </TouchableOpacity>
-                        {/* {selectedPdf && (
-                            <div style={styles.pdf}>
-                                <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
-                                    <Viewer fileUrl={selectedPdf}/>
-                                </Worker>
-                            </div>
-                        )} */}
-                       {/* {selectedPdf && (
-                            <iframe
-                                src={selectedPdf}
-                                style={styles.pdf}
-                                allow="fullscreen"
-                            />
-                        )}
-                    </View>
-                </Modal> */}
-                {/* Modal */}
                 <Modal visible={isModalVisible} animationType="slide" onRequestClose={() => setModalVisible(false)}>
-                    <View style={styles.modalContainer}>
-                        <TouchableOpacity style={styles.closeButton} onPress={() => setModalVisible(false)}>
-                            <Text style={styles.closeButtonText}>X</Text>
-                        </TouchableOpacity>
+                    <VStack style={styles.modalContainer}>
+                        {/* Header */}
+                        <View style={styles.modalHeader}>
+                            <View style={styles.modalHeaderContent}>
+                                <TouchableOpacity onPress={() => setModalVisible(false)}>
+                                    <Image
+                                        source={require("../../assets/icons/back.png")}
+                                        style={styles.backButton}
+                                    />
+                                </TouchableOpacity>
+                                <Text style={styles.headerTitle}>{selectedPdfTitle}</Text>
+                            </View>
+                        </View>
+
+                        {/* PDF Viewer */}
                         {selectedPdf && (
-                            <div style={styles.pdf}>
+                            <View style={styles.pdfContainer}>
                                 <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
                                     <Viewer
                                         fileUrl={selectedPdf}
                                         plugins={[zoomPluginInstance]}
                                     />
                                 </Worker>
-                                {/* Zoom controls */}
-                                <View style={{display: 'flex', justifyContent: 'space-around', position: "absolute", bottom: (height/10), right: (width/3), backgroundColor: "white"}}>
+
+                                {/* Zoom Controls */}
+                                <View style={styles.zoomControlsContainer}>
                                     <View style={styles.zoomControls}>
                                         <ZoomOut />
                                         <ZoomPopover />
                                         <ZoomIn />
                                     </View>
                                 </View>
-                            </div>
+                            </View>
                         )}
-                    </View>
+                    </VStack>
                 </Modal>
+
             </VStack>
         </SafeAreaView>
     );
@@ -316,37 +309,86 @@ const styles = StyleSheet.create({
       cardTitle: {
         fontSize: 16,
       },
-      modalContainer: {
+    //   modalContainer: {
+    //     flex: 1,
+    //     backgroundColor: "white",
+    //     padding: 0,
+    //     justifyContent: "center",
+    //     alignItems: "center",
+    //     textAlign: 'center'
+    // },
+    // closeButton: {
+    //     position: "absolute",
+    //     top: 20,
+    //     right: 20,
+    //     backgroundColor: "rgba(0,0,0,0.5)",
+    //     paddingTop: 10,
+    //     paddingBottom: 10,
+    //     borderRadius: 30,
+    //     paddingRight: 15,
+    //     paddingLeft: 15,
+    //     zIndex: 1,
+    // },
+    //   closeButtonText: {
+    //     color: "#fff",
+    //     fontSize: 18,
+    //   },
+    //   pdf: {
+    //     width: "100%",
+    //     flex: 1,
+    //   },
+    //   zoomControls: {
+    //     flexDirection: 'row',
+    //     justifyContent: 'center',
+    // },
+    modalContainer: {
         flex: 1,
-        flexDirection: 'column',
-
         backgroundColor: "white",
-        padding: 20,
+        padding: 0,
+    },
+    modalHeader: {
+        width: "100%",
+        height: 90,
+        backgroundColor: "#F2F6F8",
         justifyContent: "center",
         alignItems: "center",
-        textAlign: 'center'
+        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
     },
-    closeButton: {
+    modalHeaderContent: {
+        height: 40,
+        width: "100%",
+        flexDirection: "row",
+        alignItems: "center",
+        paddingHorizontal: 24,
+        marginBottom: 16,
+        marginTop: 5,
+    },
+    backButton: {
+        width: 32,
+        height: 32,
+        marginRight: 20,
+    },
+    headerTitle: {
+        fontSize: 16,
+        fontFamily: "Rubik-Medium",
+    },
+    pdfContainer: {
+        flex: 1, // Take up the remaining space below the header
+        width: "100%",
+    },
+    zoomControlsContainer: {
         position: "absolute",
-        top: 20,
-        right: 20,
-        backgroundColor: "rgba(0,0,0,0.5)",
-        paddingTop: 10,
-        paddingBottom: 10,
-        borderRadius: 30,
-        paddingRight: 15,
-        paddingLeft: 15,
-        zIndex: 1,
+        bottom: "10%", // Adjust as needed
+        right: "15%", // Adjust as needed
+        backgroundColor: "white",
+        padding: 10,
+        borderRadius: 8,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
     },
-      closeButtonText: {
-        color: "#fff",
-        fontSize: 18,
-      },
-      pdf: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
-      },
-      zoomControls: {
+    zoomControls: {
         flexDirection: 'row',
         justifyContent: 'center',
     },
