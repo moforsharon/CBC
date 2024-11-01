@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions, ScrollView, Modal, Platform } from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions, ScrollView, Modal, Platform, ActivityIndicator } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { VStack, HStack } from "native-base";
 import { useNavigation } from '@react-navigation/native';
@@ -85,6 +85,7 @@ export default function Library() {
     const [selectedVideoTitle, setSelectedVideoTitle] = useState(null);
     const [isVideoModalVisible, setVideoModalVisible] = useState(false);
     const [selectedVideo, setSelectedVideo] = useState(null);
+    const [loading, setLoading] = useState(true); // Loading state for video
 
     const [scale, setScale] = useState(SpecialZoomLevel.PageWidth); // Initial zoom level
   
@@ -101,6 +102,7 @@ export default function Library() {
     const openVideo = (videoLink, videoTitle) => {
         setSelectedVideo(videoLink);
         setSelectedVideoTitle(videoTitle)
+        setLoading(true);
         setVideoModalVisible(true);
     };
     return (
@@ -265,6 +267,9 @@ export default function Library() {
                                 <Text style={styles.headerTitle}>{selectedVideoTitle}</Text>
                             </View>
                         </View>
+                        {loading && (
+                            <ActivityIndicator size="small" color="gray" style={styles.spinner} />
+                        )}
                         {/* Video Player */}
                         {Platform.OS === 'web' ? (
                             <iframe
@@ -272,12 +277,14 @@ export default function Library() {
                                 style={styles.videoPlayer}
                                 frameBorder="0"
                                 allow="fullscreen"
+                                onLoad={() => setLoading(false)} // Hide spinner once iframe loads
                             />
                         ) : (
                             <WebView
                                 source={{ uri: selectedVideo }}
                                 style={styles.videoPlayer}
                                 allowsFullscreenVideo
+                                onLoadEnd={() => setLoading(false)}
                             />
                         )}
                     </VStack>
@@ -451,4 +458,5 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     videoPlayer: { flex: 1, width: "100%", height: "100%" },
+    spinner: { position: "absolute", top: "50%", left: "50%", transform: [{ translateX: -20 }, { translateY: -20 }] }
 });
