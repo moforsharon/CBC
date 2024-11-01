@@ -4,13 +4,16 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { VStack, HStack } from "native-base";
 import { useNavigation } from '@react-navigation/native';
 import { AppContext } from "../../App";
-import { Viewer, Worker } from '@react-pdf-viewer/core';
+import { Viewer, Worker, SpecialZoomLevel } from '@react-pdf-viewer/core';
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
-// import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.min.js';
+import "@react-pdf-viewer/zoom/lib/styles/index.css";
+import { WebView } from 'react-native-webview';
 
 
 const { height, width } = Dimensions.get('window');
+
+// const zoomPluginInstance = zoomPlugin();
 
 const pdfData = [
     { id: 1, title: "ABCs of Behavior.pdf", image: require("../../assets/icons/menu.png"), link: "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1osa0YZNm4IrozVbOyasQzM3Fhss9soBC" },
@@ -28,6 +31,8 @@ export default function Library() {
 
     const [isModalVisible, setModalVisible] = useState(false);
     const [selectedPdf, setSelectedPdf] = useState(null);
+
+    const [scale, setScale] = useState(SpecialZoomLevel.PageWidth); // Initial zoom level
   
     const openPdf = (pdfLink) => {
       setSelectedPdf(pdfLink);
@@ -142,12 +147,22 @@ export default function Library() {
                     <TouchableOpacity style={styles.closeButton} onPress={() => setModalVisible(false)}>
                         <Text style={styles.closeButtonText}>X</Text>
                     </TouchableOpacity>
-                        {selectedPdf && (
+                        {/* {selectedPdf && (
                             <div style={styles.pdf}>
                                 <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
-                                    <Viewer fileUrl={selectedPdf} />
+                                    <Viewer fileUrl={selectedPdf}/>
                                 </Worker>
                             </div>
+                        )} */}
+                        {selectedPdf && (
+                            <WebView
+                                source={{ uri: selectedPdf }}
+                                style={styles.pdf}
+                                javaScriptEnabled={true}
+                                scalesPageToFit={true}
+                                bounces={false}
+                                scrollEnabled={true}
+                            />
                         )}
                     </View>
                 </Modal>
@@ -237,25 +252,31 @@ const styles = StyleSheet.create({
       },
       modalContainer: {
         flex: 1,
+        flexDirection: 'column',
+
         backgroundColor: "#fff",
         padding: 20,
-        alignItems: "center",
         justifyContent: "center",
-      },
-      closeButton: {
+        alignItems: "center",
+        textAlign: 'center'
+    },
+    closeButton: {
         position: "absolute",
         top: 20,
         right: 20,
         backgroundColor: "rgba(0,0,0,0.5)",
-        padding: 10,
-        borderRadius: 20,
-      },
+        paddingTop: 10,
+        paddingBottom: 10,
+        borderRadius: 30,
+        paddingRight: 15,
+        paddingLeft: 15,
+        zIndex: 1,
+    },
       closeButtonText: {
         color: "#fff",
         fontSize: 18,
       },
       pdf: {
-        flex: 1,
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height,
       },
