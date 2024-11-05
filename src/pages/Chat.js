@@ -95,7 +95,7 @@ export default function Page() {
       try {
         const response = await fetch(
           // "https://childbehaviorcheckin.com/generic/assistant",
-          "http://104.248.37.74:30008/generic/assistant",
+          "https://cbc-proxy-server.vercel.app/api/proxy/generic/assistant",
           {
             method: "POST",
             headers: {
