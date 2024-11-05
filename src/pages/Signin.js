@@ -131,7 +131,7 @@ export default function Page() {  // Rename function to match the file name
     let machine_id = await getStoredMachineID();
     try {
       const response = await fetch(
-        "https://cbc-proxy-server.vercel.app/api/proxy/google-login",
+        "https://api.childbehaviorcheck.com/back/users/google",
         {
           method: "POST",
           headers: {
@@ -182,7 +182,7 @@ export default function Page() {  // Rename function to match the file name
       let machine_id = await getStoredMachineID();
       try {
         const response = await fetch(
-          "https://cbc-proxy-server.vercel.app/api/proxy/login",
+          "https://api.childbehaviorcheck.com/back/users/login",
           {
             method: "POST",
             headers: {

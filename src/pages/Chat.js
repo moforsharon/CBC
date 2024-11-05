@@ -94,8 +94,7 @@ export default function Page() {
       setLoading(true);
       try {
         const response = await fetch(
-          // "https://childbehaviorcheckin.com/generic/assistant",
-          "https://cbc-proxy-server.vercel.app/api/proxy/generic/assistant",
+          "https://chat.childbehaviorcheck.com/generic/assistant",
           {
             method: "POST",
             headers: {
@@ -148,7 +147,7 @@ export default function Page() {
     const handleSaveHistory = async (msg, responce) => {
       try {
         const response = await fetch(
-          "https://cbc-proxy-server.vercel.app/api/proxy/history",
+          "https://api.childbehaviorcheck.com/back/history",
           {
             method: "POST",
             headers: {
@@ -199,7 +198,7 @@ export default function Page() {
         setShowHistroyLoadingModal(true);
   
         const response = await fetch(
-          "https://cbc-proxy-server.vercel.app/api/proxy/history/delete",
+          "https://api.childbehaviorcheck.com/history/delete",
           {
             method: "PUT",
             headers: {
@@ -250,7 +249,7 @@ export default function Page() {
       try {
         setShowHistroyLoadingModal(true);
         const response = await fetch(
-          "https://cbc-proxy-server.vercel.app/api/proxy/history/get",
+          "https://api.childbehaviorcheck.com/back/history/get",
           {
             method: "POST",
             headers: {
