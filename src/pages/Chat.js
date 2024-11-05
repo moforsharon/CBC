@@ -94,7 +94,8 @@ export default function Page() {
       setLoading(true);
       try {
         const response = await fetch(
-          "https://childbehaviorcheckin.com/generic/assistant",
+          // "https://childbehaviorcheckin.com/generic/assistant",
+          "http://104.248.37.74:30008/generic/assistant",
           {
             method: "POST",
             headers: {
