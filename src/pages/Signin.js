@@ -49,7 +49,7 @@ export default function Page() {  // Rename function to match the file name
     // iosClientId:
     //   "1061604714884-7ic645ch76khbm50pkgr3macqa5j7scs.apps.googleusercontent.com",
     webClientId:
-      "479839708074-25qmvg4us99ft5mf5a44vidb8nhs52ut.apps.googleusercontent.com",
+      "1014694494024-u8i6j4vufr6ukjk34g682pq95sri2qfa.apps.googleusercontent.com",
 
     // redirectUri: 'https://cbc-one.vercel.app',
     // expoClientId:
