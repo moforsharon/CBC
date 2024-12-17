@@ -71,6 +71,43 @@ const videoData = [
     { id: 19, title: "Verbal Reminders.mp4", link: "https://cbc-proxy-server.vercel.app/api/proxy/video?id=110BztfZTRhPD3DnFkPn3EZTgr7tbMhv_" }
 ];
 
+const spanishPdfData = [
+    { "id": 1, "title": "¿Qué es un apoyo.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1cpCPioL5bLo8Q1rJO38Bo4uDbXY3DPGc" },
+    { "id": 2, "title": "Advertencias de Transición.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1iit-MAYSJWKXKa9QX8pywnj0BxWbQVku" },
+    { "id": 3, "title": "Aplicando el ABC.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1r33OkO35AEi-Vf9XB2uf5GrhMP19hK98" },
+    { "id": 4, "title": "Comentarios Descriptivos Positivos.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1JSAjxBaOSc09EYpvqf8lfgE6Bz55cgSp" },
+    { "id": 5, "title": "Continúe de inmediato.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1k7uJgTsepyVJb2FgdjNdmc6VLS_y_s8P" },
+    { "id": 6, "title": "Cuídese a Sí Mismo.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1FoGtmT5S4M34S_y_4ussXmi6jvrY1jxS" },
+    { "id": 7, "title": "Dar opciones.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=18OpoRrxMlGLx12FjmvKNFDZGMYyifeTp" },
+    { "id": 8, "title": "El ABC de conducta.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1LlTmO6m-kJroV4a0uCPCwMm-yFt50h-X" },
+    { "id": 9, "title": "Establecer Expectativas de Comportamiento Claras.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1zmQDQPKBAopx5ScJo0HgNTOC-H8jaAqD" },
+    { "id": 10, "title": "Evite Prestar Atención al Comportamiento.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=11bfOdYct_J3DK6dZ-EGnfcoyF4Xht-_k" },
+    { "id": 11, "title": "Haciendo un Visual.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=15M2bdc4s363ENsdYQgCHBu9OffdwinrA" },
+    { "id": 12, "title": "Jugando solo.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1yxlFlOLsNn8uMmLldITbkQFLNwl7f_so" },
+    { "id": 13, "title": "La Importancia Del Lenguaje.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=167td90VL09CetIhnRPgPypV1CrCjX_5l" },
+    { "id": 14, "title": "Modelando y etiquetando sentimientos.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1NN9ewX2Ilh3f_nBaY1VciuVR_uBON54H" },
+    { "id": 15, "title": "Pedir Algo.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1tauxaPwyRlp9qMbBZkHRgRmXTzur78em" },
+    { "id": 16, "title": "Pedir Tiempo con Usted.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1q7mxQPwI620rWLu7exUZm5t9aF5e2kpS" },
+    { "id": 17, "title": "Permitir opciones al pedir.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1nHc142LEHuwSi4b4Szfc8Ztxa6hZa08N" },
+    { "id": 18, "title": "Primero – Luego.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1W-_Ydj01CfjbPYWM7l8GssR3_JjHHVZI" },
+    { "id": 19, "title": "Proporcione un recordatorio verbal.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=14GaTZ4MhyThyVJ7xs7ru8JGUtePexrPV" },
+    { "id": 20, "title": "Proveer atención positiva frecuente.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1E33--rRkiFxYmWkaAD8AHXJGjeesoBKP" },
+    { "id": 21, "title": "Reconociendo sus alertas.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1JfR7YiW9pw-rh4Jjqah2p0RjeVCcnNEp" },
+    { "id": 22, "title": "Redirigir.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=12hAzlnEsY76d1D9CkrFV-P3TAJ8RAXkq" },
+    { "id": 23, "title": "Retrasar al acceso un objeto.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1WkFoDQpbzLq_1Xe9lISfCmui28mCGU6p" },
+    { "id": 24, "title": "Seguir instrucciones.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1FAhJz6TrwrFWSFpTlQKg9jP4rm-Lnq1p" },
+    { "id": 25, "title": "Siguiendo el ejemplo de su hijo.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1j2k7oJRYklAWxSJzZ83Xohy5N8upZAon" },
+    { "id": 26, "title": "Tiempo de calidad.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1biS7lPN2V5-bNEquxbzhQegmJNySgKpn" },
+    { "id": 27, "title": "Tomar decisiones.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=19Ia0yXlpAuHRS7Gv1fHHef8p3tCXFP8H" },
+    { "id": 28, "title": "Tomar turnos.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1XqBq4RW7vskYve6PtRovDTtl4rjDStgC" },
+    { "id": 29, "title": "Validando sentimientos.pdf", "link": "https://cbc-proxy-server.vercel.app/api/proxy/pdf?id=1mjzGr8PFEv_uUeZpzI9rnTQbwl8wi6LN" }
+  ];
+
+  const spanishVideoData = [
+    { "id": 1, "title": "Tomar Decisiones.mp4", "link": "https://cbc-proxy-server.vercel.app/api/proxy/video?id=1E_-DRklgswXXiebj0Ojo_95tf_VikYkG" }
+
+  ]
+
 export default function Library() {
 
     const { data, setData, setMenuOpen, menuOpen } = useContext(AppContext);
@@ -88,6 +125,18 @@ export default function Library() {
     const [loading, setLoading] = useState(true); // Loading state for video
 
     const [scale, setScale] = useState(SpecialZoomLevel.PageWidth); // Initial zoom level
+
+    const [language, setLanguage] = useState('English');
+    const [showDropdown, setShowDropdown] = useState(false);
+
+    const handleLanguageChange = (lang) => {
+    setLanguage(lang);
+    setShowDropdown(false);
+    };
+
+    const handleDropdownToggle = () => {
+    setShowDropdown(!showDropdown);
+    };
   
     // Initialize zoomPlugin
     const zoomPluginInstance = zoomPlugin();
@@ -119,7 +168,25 @@ export default function Library() {
                         />
                         </TouchableOpacity>
                         <Text style={styles.headerlbltxt}>Library</Text>
-                        <View style={{width:32, height:32}}></View>
+                        <View style={styles.languageSelector}>
+                            <TouchableOpacity style={styles.languageSelector} onPress={() => handleDropdownToggle()}>
+                                <Text style={styles.languageText}>{language}</Text>
+                                <Image
+                                    source={require("../../assets/dropdown.png")}
+                                    style={{ width: 16, height: 16 }}
+                                />
+                            </TouchableOpacity>
+                            {showDropdown && (
+                                <View style={styles.dropdownMenu}>
+                                <TouchableOpacity onPress={() => handleLanguageChange('English')}>
+                                    <Text style={styles.dropdownItem}>English</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => handleLanguageChange('Spanish')}>
+                                    <Text style={styles.dropdownItem}>Spanish</Text>
+                                </TouchableOpacity>
+                                </View>
+                            )}
+                            </View>
                     </View>
                 </View>
                 {/*Heading tabs*/}
@@ -166,7 +233,7 @@ export default function Library() {
                     </TouchableOpacity>
                 </HStack>
                 {/* Videos section */}
-                {isWatchVideos && 
+                {isWatchVideos &&  language === 'English' && (
                     // <Text>h</Text>
                     <View
                         style={{
@@ -181,8 +248,41 @@ export default function Library() {
                             paddingVertical:10
                         }}
                     >
-                        <ScrollView style={styles.scrollContainer}>
+                        {/* <ScrollView style={styles.scrollContainer}>
                             {videoData.map((video) => (
+                                <TouchableOpacity key={video.id} style={styles.card} onPress={() => openVideo(video.link, video.title)}>
+                                    <Image source={require('../../assets/icons/video-player.png')}  style={styles.cardImage} resizeMode="contain"/>
+                                    <Text style={styles.cardTitle}>{video.title}</Text>
+                                </TouchableOpacity>
+                            ))}
+                        </ScrollView> */}
+                        <ScrollView style={styles.scrollContainer}>
+                            <Text style={styles.videoCategoryTitle}>Universal Strategies</Text>
+                            {videoData.filter(video => ["Frequent Positive Attention.mp4"].includes(video.title)).map((video) => (
+                                <TouchableOpacity key={video.id} style={styles.card} onPress={() => openVideo(video.link, video.title)}>
+                                    <Image source={require('../../assets/icons/video-player.png')}  style={styles.cardImage} resizeMode="contain"/>
+                                    <Text style={styles.cardTitle}>{video.title}</Text>
+                                </TouchableOpacity>
+                            ))}
+                            
+                            <Text style={styles.videoCategoryTitle}>Prevent Strategies</Text>
+                            {videoData.filter(video => ["Avoid Attending.mp4", "Delay Access.mp4", "Give Choices.mp4", "Transition Warnings.mp4"].includes(video.title)).map((video) => (
+                                <TouchableOpacity key={video.id} style={styles.card} onPress={() => openVideo(video.link, video.title)}>
+                                    <Image source={require('../../assets/icons/video-player.png')}  style={styles.cardImage} resizeMode="contain"/>
+                                    <Text style={styles.cardTitle}>{video.title}</Text>
+                                </TouchableOpacity>
+                            ))}
+                            
+                            <Text style={styles.videoCategoryTitle}>Teach Strategies</Text>
+                            {videoData.filter(video => ["ABCs of Behavior.mp4", "Ask for Something.mp4", "Ask for Time with You.mp4", "Ask to be Done.mp4", "Behavior Support Plan.mp4", "Choices of Demands.mp4", "Follow Directions.mp4", "Follow Your Child's Lead.mp4", "Make choices.mp4", "Play Alone.mp4", "Prompt Follow Through.mp4", "Take turns.mp4", "Verbal Reminders.mp4"].includes(video.title)).map((video) => (
+                                <TouchableOpacity key={video.id} style={styles.card} onPress={() => openVideo(video.link, video.title)}>
+                                    <Image source={require('../../assets/icons/video-player.png')}  style={styles.cardImage} resizeMode="contain"/>
+                                    <Text style={styles.cardTitle}>{video.title}</Text>
+                                </TouchableOpacity>
+                            ))}
+                            
+                            <Text style={styles.videoCategoryTitle}>Response Strategies</Text>
+                            {videoData.filter(video => ["Help When Calm.mp4"].includes(video.title)).map((video) => (
                                 <TouchableOpacity key={video.id} style={styles.card} onPress={() => openVideo(video.link, video.title)}>
                                     <Image source={require('../../assets/icons/video-player.png')}  style={styles.cardImage} resizeMode="contain"/>
                                     <Text style={styles.cardTitle}>{video.title}</Text>
@@ -190,9 +290,34 @@ export default function Library() {
                             ))}
                         </ScrollView>
                     </View>
-                }
+                )}
+                {/* spanish videos */}
+                {isWatchVideos && language === 'Spanish' && (
+                    <View
+                    style={{
+                        borderLeftWidth: 2,
+                        borderRightWidth: 2,
+                        borderBottomWidth: 2,
+                        borderColor: "#E0AB65",
+                        borderBottomRightRadius: 10,
+                        borderBottomLeftRadius: 10,
+                        marginHorizontal:'3%',
+                        height: '80%',
+                        paddingVertical:10
+                    }}
+                    >
+                        <ScrollView style={styles.scrollContainer}>
+                            {spanishVideoData.map((video) => (
+                                <TouchableOpacity key={video.id} style={styles.card} onPress={() => openVideo(video.link, video.title)}>
+                                    <Image source={require('../../assets/icons/video-player.png')}  style={styles.cardImage} resizeMode="contain"/>
+                                    <Text style={styles.cardTitle}>{video.title}</Text>
+                                </TouchableOpacity>
+                            ))}
+                        </ScrollView>
+                    </View>
+                    )}
                 {/* Pdfs section */}
-                {isSeeIllustrations &&
+                {isSeeIllustrations && language === 'English' && (
                     <View
                         style={{
                             borderLeftWidth: 2,
@@ -207,7 +332,32 @@ export default function Library() {
                         }}
                     >
                         <ScrollView style={styles.scrollContainer}>
-                            {pdfData.map((pdf) => (
+                            <Text style={styles.pdfCategoryTitle}>Universal Strategies</Text>
+                            {pdfData.filter(pdf => ["Importance of Language.pdf", "Keeping it Positive.pdf", "Taking Care of Yourself.pdf"].includes(pdf.title)).map((pdf) => (
+                                <TouchableOpacity key={pdf.id} style={styles.card} onPress={() => openPdf(pdf.link, pdf.title)}>
+                                    <Image source={require('../../assets/icons/pdf.png')}  style={styles.cardImage} resizeMode="contain"/>
+                                    <Text style={styles.cardTitle}>{pdf.title}</Text>
+                                </TouchableOpacity>
+                            ))}
+                            
+                            <Text style={styles.pdfCategoryTitle}>Prevent Strategies</Text>
+                            {pdfData.filter(pdf => ["Avoid Attending.pdf", "Delay Access.pdf", "Give Choices.pdf", "Give Transition Warnings.pdf", "Quality Time.pdf", "Redirections.pdf"].includes(pdf.title)).map((pdf) => (
+                                <TouchableOpacity key={pdf.id} style={styles.card} onPress={() => openPdf(pdf.link, pdf.title)}>
+                                    <Image source={require('../../assets/icons/pdf.png')}  style={styles.cardImage} resizeMode="contain"/>
+                                    <Text style={styles.cardTitle}>{pdf.title}</Text>
+                                </TouchableOpacity>
+                            ))}
+                            
+                            <Text style={styles.pdfCategoryTitle}>Teach Strategies</Text>
+                            {pdfData.filter(pdf => ["ABCs of Behavior.pdf", "Ask for Something.pdf", "Ask for Time with You.pdf", "Ask to be Done.pdf", "Behavior Expectations.pdf", "Choices of Demand.pdf", "First-Then.pdf", "Follow Directions.pdf", "Following Child's Lead.pdf", "Make Choices.pdf", "Modeling and Labeling Feelings.pdf", "Play Alone.pdf", "Playing with Your Child.pdf", "Positive Attention.pdf", "Positive Descriptive Feedback.pdf", "Prompts.pdf", "Take Turns.pdf", "Validating Feelings.pdf", "Verbal Reminder.pdf", "Visual Daily Schedule.pdf"].includes(pdf.title)).map((pdf) => (
+                                <TouchableOpacity key={pdf.id} style={styles.card} onPress={() => openPdf(pdf.link, pdf.title)}>
+                                    <Image source={require('../../assets/icons/pdf.png')}  style={styles.cardImage} resizeMode="contain"/>
+                                    <Text style={styles.cardTitle}>{pdf.title}</Text>
+                                </TouchableOpacity>
+                            ))}
+                            
+                            <Text style={styles.pdfCategoryTitle}>Response Strategies</Text>
+                            {pdfData.filter(pdf => ["Help Once Calm.pdf", "Hot Buttons.pdf", "Stay Calm, Protect, Reconnect.pdf"].includes(pdf.title)).map((pdf) => (
                                 <TouchableOpacity key={pdf.id} style={styles.card} onPress={() => openPdf(pdf.link, pdf.title)}>
                                     <Image source={require('../../assets/icons/pdf.png')}  style={styles.cardImage} resizeMode="contain"/>
                                     <Text style={styles.cardTitle}>{pdf.title}</Text>
@@ -215,7 +365,57 @@ export default function Library() {
                             ))}
                         </ScrollView>
                     </View>
-                }
+                )}
+                {/* Spanish pdfs */}
+                {isSeeIllustrations && language === 'Spanish' && (
+                    <View
+                        style={{
+                            borderLeftWidth: 2,
+                            borderRightWidth: 2,
+                            borderBottomWidth: 2,
+                            borderColor: "#6A91E0",
+                            borderBottomRightRadius: 10,
+                            borderBottomLeftRadius: 10,
+                            marginHorizontal:'3%',
+                            height: '80%',
+                            paddingVertical:5
+                        }}
+                    >
+                        <ScrollView style={styles.scrollContainer}>
+                            <Text style={styles.pdfCategoryTitle}>Estrategias Universales</Text>
+                            {spanishPdfData.filter(pdf => ["La Importancia Del Lenguaje.pdf", "¿Qué es un apoyo.pdf", "Cuídese a Sí Mismo.pdf"].includes(pdf.title)).map((pdf) => (
+                                <TouchableOpacity key={pdf.id} style={styles.card} onPress={() => openPdf(pdf.link, pdf.title)}>
+                                <Image source={require('../../assets/icons/pdf.png')}  style={styles.cardImage} resizeMode="contain"/>
+                                <Text style={styles.cardTitle}>{pdf.title}</Text>
+                                </TouchableOpacity>
+                            ))}
+                            
+                            <Text style={styles.pdfCategoryTitle}>Estrategias de Prevención</Text>
+                            {spanishPdfData.filter(pdf => ["Evite Prestar Atención al Comportamiento.pdf", "Retrasar al acceso un objeto.pdf", "Dar opciones.pdf", "Advertencias de Transición.pdf", "Tiempo de calidad.pdf", "Redirigir.pdf"].includes(pdf.title)).map((pdf) => (
+                                <TouchableOpacity key={pdf.id} style={styles.card} onPress={() => openPdf(pdf.link, pdf.title)}>
+                                <Image source={require('../../assets/icons/pdf.png')}  style={styles.cardImage} resizeMode="contain"/>
+                                <Text style={styles.cardTitle}>{pdf.title}</Text>
+                                </TouchableOpacity>
+                            ))}
+                            
+                            <Text style={styles.pdfCategoryTitle}>Estrategias de Enseñanza</Text>
+                            {spanishPdfData.filter(pdf => ["El ABC de conducta.pdf", "Pedir Algo.pdf", "Pedir Tiempo con Usted.pdf", "Establecer Expectativas de Comportamiento Claras.pdf", "Permitir opciones al pedir.pdf", "Primero – Luego.pdf", "Seguir instrucciones.pdf", "Siguiendo el ejemplo de su hijo.pdf", "Hacer un Visual.pdf", "Jugando solo.pdf", "Modelando y etiquetando sentimientos.pdf", "Proporcione un recordatorio verbal.pdf", "Proveer atención positiva frecuente.pdf", "Tomar decisiones.pdf", "Tomar turnos.pdf"].includes(pdf.title)).map((pdf) => (
+                                <TouchableOpacity key={pdf.id} style={styles.card} onPress={() => openPdf(pdf.link, pdf.title)}>
+                                <Image source={require('../../assets/icons/pdf.png')}  style={styles.cardImage} resizeMode="contain"/>
+                                <Text style={styles.cardTitle}>{pdf.title}</Text>
+                                </TouchableOpacity>
+                            ))}
+                            
+                            <Text style={styles.pdfCategoryTitle}>Estrategias de Respuesta</Text>
+                            {spanishPdfData.filter(pdf => ["Reconociendo sus alertas.pdf", "Continúe de inmediato.pdf", "Validando sentimientos.pdf"].includes(pdf.title)).map((pdf) => (
+                                <TouchableOpacity key={pdf.id} style={styles.card} onPress={() => openPdf(pdf.link, pdf.title)}>
+                                <Image source={require('../../assets/icons/pdf.png')}  style={styles.cardImage} resizeMode="contain"/>
+                                <Text style={styles.cardTitle}>{pdf.title}</Text>
+                                </TouchableOpacity>
+                            ))}
+                            </ScrollView>
+                    </View>
+                    )}
                 {/* Modal */}
                 <Modal visible={isModalVisible} animationType="slide" onRequestClose={() => setModalVisible(false)}>
                     <VStack style={styles.modalContainer}>
@@ -327,7 +527,33 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontFamily: "Rubik-Medium",
       },
-
+      languageSelector: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        width: 100,
+        height: 32,
+        backgroundColor: '#f0f0f0',
+        borderRadius: 4,
+        padding: 8,
+      },
+      languageText: {
+        fontSize: 14,
+        fontWeight: "bold"
+      },
+      dropdownMenu: {
+        position: 'absolute',
+        top: 32,
+        backgroundColor: '#f0f0f0',
+        borderRadius: 4,
+        padding: 8,
+        zIndex: 1,
+      },
+      dropdownItem: {
+        fontSize: 14,
+        paddingVertical: 4,
+        fontWeight: "bold"
+      },
       headingTabs: {
         width: "100%",
         height: 40,
@@ -373,6 +599,18 @@ const styles = StyleSheet.create({
       cardTitle: {
         fontSize: 16,
       },
+    videoCategoryTitle: {
+        fontSize: 18,
+        fontWeight: 'semi-bold',
+        marginBottom: 14,
+        color: '#E0AB65'
+    },
+    pdfCategoryTitle: {
+        fontSize: 18,
+        fontWeight: 'semi-bold',
+        marginBottom: 14,
+        color: '#6A91E0'
+    },
     //   modalContainer: {
     //     flex: 1,
     //     backgroundColor: "white",
