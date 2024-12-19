@@ -148,18 +148,18 @@ export default function SideMenu() {
           style={{
             flexDirection: "row",
             alignItems: "center",
-            marginTop: 50,
+            marginTop: 25,
             marginLeft: 24,
           }}
         >
           <Image
             source={require("../../assets/logo40.png")}
-            style={{ width: 64, height: 64 }}
+            style={{ width: 50, height: 50 }}
           />
 
           <Text
             style={{
-              fontSize: 46,
+              fontSize: 30,
               fontFamily: "Rubik-Medium",
               color: "#000",
               marginLeft: 10,
