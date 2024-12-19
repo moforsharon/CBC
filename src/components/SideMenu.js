@@ -19,7 +19,33 @@ import { AppContext } from "../../App";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { useNavigation } from "expo-router";
 import { useNavigation } from "@react-navigation/native"; 
+import { PlusIcon, ShareIcon, ArchiveBoxArrowDownIcon } from "react-native-heroicons/solid";
 
+const recentChats = [
+  {
+    date: "Today",
+    chats: [
+      { id: 1, title: "Side Menu Implementation" },
+      { id: 2, title: "Nummernklärung Praxis-Code" },
+    ],
+  },
+  {
+    date: "Yesterday",
+    chats: [
+      { id: 3, title: "Fix Excel Overlap" },
+      { id: 4, title: "KO JS Object Bindings"},
+    ],
+  },
+  {
+    date: "Previous 7 Days",
+    chats: [
+      { id: 5, title: "Ausbildungsberechtigung für FO" },
+      { id: 6, title: "Python Excel QR Integration"},
+    ],
+  },
+];
+
+const { height: screenHeight } = Dimensions.get("window");
 export default function SideMenu() {
   // const router = useRouter();
   const navigation = useNavigation();
@@ -29,7 +55,7 @@ export default function SideMenu() {
   const [statusBarHeight, setStatusBarHeight] = useState(0);
   const [height, setHeight] = useState(100);
   useEffect(() => {
-    const { height: screenHeight } = Dimensions.get("window");
+   
     // Subtract 20% from the screen height
     StatusBar.currentHeight && setStatusBarHeight(StatusBar.currentHeight);
     
@@ -66,7 +92,7 @@ export default function SideMenu() {
   const moveRight = () => {
     Animated.timing(position, {
       toValue: { x: 0, y: 0 },
-      duration: 1000,
+      duration: 500,
       useNativeDriver: false,
     }).start();
   };
@@ -74,7 +100,7 @@ export default function SideMenu() {
   const moveLeft = (to) => {
     Animated.timing(position, {
       toValue: { x: -360, y: 0 },
-      duration: 1000,
+      duration: 500,
       useNativeDriver: false,
     }).start(() => {
       setMenuOpen(false);
@@ -142,11 +168,79 @@ export default function SideMenu() {
             CBC
           </Text>
         </View>
+        <View
+          style={[
+            styles.container,
+            { marginRight:  112 }, // pr-28 in tailwind translates to 112px
+          ]}
+        >
+          <TouchableOpacity
+            onPress={() => {
+              // setSelectedItem(0);
+              // dispatch(closeSidebar());
+              moveLeft();
+              navigation.navigate('Chat')
+            }}
+            style={[
+              styles.button,
+              styles.expandedButton,
+            ]}
+          >
+            <PlusIcon style={[styles.icon, { marginLeft: 8 }]} />
+            <Text style={styles.text}>New Chat</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View
+          style={{
+            marginTop: 40,
+            marginHorizontal: 20,
+          }}
+        >
+          <Text style={styles.chatDate}>Recent Chats</Text>
+        </View>
+
+        <ScrollView
+          style={styles.chatSection}
+          contentContainerStyle={{ flexGrow: 1 }}
+          showsVerticalScrollIndicator={false}
+        >
+          {recentChats.map((group, index) => (
+            <View key={index} style={styles.chatGroup}>
+              <Text style={styles.chatDate}>{group.date}</Text>
+              {group.chats.map((chat) => (
+                <TouchableOpacity
+                  key={chat.id}
+                  style={styles.chatItem}
+                  onPress={() => {
+                    moveLeft();
+                    navigation.navigate("Chat", { chatId: chat.id });
+                  }}
+                >
+                  <View style={styles.chatRow}>
+                    <View style={styles.chatTitleContainer}>
+                      <Text style={styles.chatTitle}  numberOfLines={1} >{chat.title}</Text>
+                    </View>
+                    <View style={styles.iconsContainer}>
+                      {/* <TouchableOpacity onPress={() => console.log("Share pressed")}>
+                        <ShareIcon style={[styles.icon, { marginLeft: 8 }]} />
+                      </TouchableOpacity> */}
+                      <TouchableOpacity onPress={() => console.log("Archive pressed")}>
+                        <ArchiveBoxArrowDownIcon  style={[styles.icon, { marginLeft: 8, color: "black" }]}/>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </View>
+          ))}
+        </ScrollView>
+
         {user == null ? (
           <View
-            style={{ position: "absolute", bottom: 30, left: 24, width: "80%" }}
+            style={{ position: "relative", bottom: 8, left: 24, width: "80%" }}
           >
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => {
                 moveLeft();
                 navigation.navigate('Chat');
@@ -173,7 +267,7 @@ export default function SideMenu() {
               >
                 Chat
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity
               onPress={() => {
                 moveLeft();
@@ -261,9 +355,9 @@ export default function SideMenu() {
           </View>
         ) : (
           <View
-            style={{ position: "absolute", bottom: 30, left: 24, width: "80%" }}
+            style={{ position: "relative", bottom: 8, left: 24, width: "80%" }}
           >
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => {
                 moveLeft();
                 navigation.navigate('Chat')
@@ -290,7 +384,7 @@ export default function SideMenu() {
               >
                 Chat
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <TouchableOpacity
               onPress={() => {
                 moveLeft();
@@ -403,5 +497,84 @@ const styles = StyleSheet.create({
     fontFamily: "Rubik-SemiBold",
     color: "#fff",
     marginHorizontal: 6,
+  },
+  chatSection: {
+    marginTop: 8,
+    marginBottom: 30,
+    marginHorizontal: 20,
+    flex: 1, // Allows it to grow within its parent
+    overflow: "hidden", // Prevents content from visually spilling over
+    height: 40
+  },
+  
+  chatGroup: {
+    marginBottom: 20,
+  },
+  chatDate: {
+    fontSize: 16,
+    fontFamily: "Rubik-Bold",
+    color: "#000",
+    marginBottom: 10,
+  },
+  chatItem: {
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ddd",
+  },
+  chatRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  chatTitleContainer: {
+    flex: 1,
+  },
+  iconsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: 60, // adjust width as needed
+  },
+  chatTitle: {
+    fontSize: 16,
+    fontFamily: "Rubik-Regular",
+    color: "#333",
+  },
+  chatTimestamp: {
+    fontSize: 14,
+    fontFamily: "Rubik-Light",
+    color: "#888",
+  },
+  container: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 40, // mt-4 in tailwind
+    marginHorizontal: 15
+  },
+  button: {
+    borderRadius: 10, // rounded-full in tailwind
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#0C3948", // Adjust for your "bg-secondary bg-opacity-40" color
+  },
+  collapsedButton: {
+    justifyContent: "center",
+    padding: 12, // p-3 in tailwind
+  },
+  expandedButton: {
+    paddingVertical: 12, // py-3 in tailwind
+    paddingHorizontal: 8, // px-2 in tailwind
+    width: "95%", // w-[95%] in tailwind
+    gap: 4, // gap-4 in tailwind
+  },
+  icon: {
+    width: 16, // w-4 in tailwind
+    height: 16, // h-4 in tailwind
+    color: "white"
+  },
+  text: {
+    color: "white",
+    fontSize: 14, // Adjust variant="small" to a size you need
+    marginBottom: 0, // Equivalent to mb-[0px!important]
   },
 });
