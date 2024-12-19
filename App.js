@@ -22,6 +22,7 @@ import Library from "./src/pages/Library";
 import DeviceDetection from "./src/components/DeviceDetection";
 import LoadingScreen from "./src/components/LoadingPage";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+import axios from "axios";
 
 
 
@@ -39,6 +40,7 @@ export default function App() {
   const [user, setUser] = useState(null);
   const [machineId, setMachineId] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
+  const [recentChats, setRecentChats] = useState([]);
 
   const getStoredUserID = async () => {
     try {
@@ -76,6 +78,54 @@ export default function App() {
     lockOrientation();
   }, []);
 
+  useEffect(() => {
+    // Fetch chats from API
+    const fetchChats = async () => {
+      try {
+        const userId = user;
+        if (userId) {
+          const response = await axios.get(
+            "https://api.childbehaviorcheck.com/back/history/get-user-chat-summaries",
+            {
+              headers: {
+                userid: userId,
+              },
+            }
+          );
+
+          // Transform data into grouped chats by date
+          const groupedChats = groupChatsByDate(response.data);
+          setRecentChats(groupedChats);
+        }
+      } catch (error) {
+        console.error("Error fetching chat summaries:", error);
+      }
+    };
+
+    fetchChats();
+  }, []);
+
+  const groupChatsByDate = (chats) => {
+    const grouped = {};
+
+    chats.forEach((chat) => {
+      const date = new Date(chat.created_at).toLocaleDateString();
+      if (!grouped[date]) {
+        grouped[date] = [];
+      }
+      grouped[date].push({
+        id: chat.chat_summary_id,
+        title: chat.chat_summary,
+      });
+    });
+
+    return Object.keys(grouped).map((date) => ({
+      date,
+      chats: grouped[date],
+    }));
+  };
+
+
   const [fontsLoaded, fontError] = useFonts({
     "Rubik-Regular": require("./assets/fonts/Rubik-Regular.ttf"),
     "Rubik-Medium": require("./assets/fonts/Rubik-Medium.ttf"),
@@ -96,7 +146,7 @@ export default function App() {
   return (
       <NativeBaseProvider>
         <AppContext.Provider
-          value={{ data, setData, menuOpen, setMenuOpen, user, setUser, isConnected, machineId, setMachineId }}
+          value={{ data, setData, menuOpen, setMenuOpen, user, setUser, isConnected, machineId, setMachineId, recentChats }}
         >
           <View style={styles.container}> {/* Ensures full height */}
             <NavigationContainer>
