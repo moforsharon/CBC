@@ -101,11 +101,12 @@ export default function App() {
           }
   
           const data = await response.json();
-          console.log(`user chat summaries: ${data}`)
+          console.log("user chat summaries:", data)
   
           // Transform data into grouped chats by date
           const groupedChats = groupChatsByDate(data);
           setRecentChats(groupedChats);
+          console.log("Recent chats:", recentChats)
         }
       } catch (error) {
         console.error("Error fetching chat summaries:", error);
