@@ -113,7 +113,7 @@ export default function Page() {
   
         const data = await response.json();
         console.log(data.success.message);
-        if (currentChatSummary = 0)
+        if (currentChatSummary == 0)
           await generateChatSummary(toQuestion);
         setChatHistory([
           ...chatHistory,
