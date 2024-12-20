@@ -315,7 +315,7 @@ export default function Page() {
               });
             }
           }
-          console.log(temp)
+          console.log("chat history is", temp)
           setChatHistory(temp);
           setShowHistroyLoadingModal(false);
   
