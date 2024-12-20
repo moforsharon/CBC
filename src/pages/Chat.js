@@ -284,6 +284,7 @@ export default function Page() {
             headers: {
               "Content-Type": "application/json",
               userid: user,
+              chatsummaryid: currentChatSummary
             },
             body: JSON.stringify({
               _id: "6593bc7a65e63b8aec728732",

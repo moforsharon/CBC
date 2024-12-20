@@ -218,6 +218,7 @@ export default function SideMenu() {
                   key={chat.id}
                   style={styles.chatItem}
                   onPress={() => {
+                    setCurrentChatSummary(chat.id)
                     moveLeft();
                     navigation.navigate("Chat", { chatId: chat.id });
                   }}
