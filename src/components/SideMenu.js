@@ -117,6 +117,33 @@ export default function SideMenu() {
     console.log("Chat summary id: " , currentChatSummary)
   }, [currentChatSummary])
 
+
+  const archiveChat = async (chatSummaryId) => {
+    try {
+      const userId = user; // assuming 'user' is the current user ID
+      const response = await fetch('https://api.childbehaviorcheck.com/back/history/archive_chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          userid: userId,
+          chatsummaryid: chatSummaryId,
+        },
+      });
+  
+      if (response.ok) {
+        // Remove archived chat from recentChats list
+        setRecentChats(recentChats.filter((group) => {
+          group.chats = group.chats.filter((chat) => chat.id !== chatSummaryId);
+          return group.chats.length > 0;
+        }));
+      } else {
+        console.error('Error archiving chat:', await response.text());
+      }
+    } catch (error) {
+      console.error('Error archiving chat:', error);
+    }
+  };
+
   return (
     <View
       style={[
@@ -235,7 +262,7 @@ export default function SideMenu() {
                       {/* <TouchableOpacity onPress={() => console.log("Share pressed")}>
                         <ShareIcon style={[styles.icon, { marginLeft: 8 }]} />
                       </TouchableOpacity> */}
-                      <TouchableOpacity onPress={() => console.log("Archive pressed")}>
+                      <TouchableOpacity onPress={() =>  archiveChat(chat.id)}>
                         <ArchiveBoxArrowDownIcon  style={[styles.icon, { marginLeft: 8, color: "black" }]}/>
                       </TouchableOpacity>
                     </View>

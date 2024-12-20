@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useCallback} from "react";
+import React, {useContext, useEffect, useCallback, useState} from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions, Modal, FlatList, ScrollView} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { VStack, HStack } from "native-base";
@@ -8,24 +8,25 @@ import { useFocusEffect } from '@react-navigation/native';
 import { ArchiveBoxArrowDownIcon, ArchiveBoxIcon, LightBulbIcon } from "react-native-heroicons/outline";
 
 // Dummy data for archived chats
-const archivedChats = [
-  { id: '1', title: 'John Doe' },
-  { id: '2', title: 'Jane Smith' },
-  { id: '3', title: 'Bob Johnson' },
-  { id: '4', title: 'Alice Brown' },
-  { id: '5', title: 'Charlie Wilson' },
-  { id: '6', title: 'Diana Taylor' },
-  { id: '7', title: 'Edward Moore' },
-  { id: '8', title: 'Fiona Clark' },
-  { id: '9', title: 'George Adams' },
-  { id: '10', title: 'Hannah Lewis' },
-];
+// const archivedChats = [
+//   { id: '1', title: 'John Doe' },
+//   { id: '2', title: 'Jane Smith' },
+//   { id: '3', title: 'Bob Johnson' },
+//   { id: '4', title: 'Alice Brown' },
+//   { id: '5', title: 'Charlie Wilson' },
+//   { id: '6', title: 'Diana Taylor' },
+//   { id: '7', title: 'Edward Moore' },
+//   { id: '8', title: 'Fiona Clark' },
+//   { id: '9', title: 'George Adams' },
+//   { id: '10', title: 'Hannah Lewis' },
+// ];
 
 const { height, width } = Dimensions.get('window');
 
 export default function Page() {
   const { data, setData, setMenuOpen, menuOpen, currentChatSummary, setCurrentChatSummary, user, recentChats, setRecentChats, modalVisible, setModalVisible } = useContext(AppContext);
   const navigation = useNavigation();
+  const [archivedChats, setArchivedChats] = useState([])
 
   const openModal = () => {
     setModalVisible(true);
@@ -40,7 +41,7 @@ export default function Page() {
           console.log(`User id is : ${userId}`)
           if (userId) {
             const response = await fetch(
-              "https://api.childbehaviorcheck.com/back/history/get-user-chat-summaries",
+              "https://api.childbehaviorcheck.com/back/history/active_chats",
               {
                 method: "POST",
                 headers: {
@@ -124,10 +125,63 @@ export default function Page() {
           fetchChats();
       }, [user]) // Dependencies: This ensures it re-fetches whenever user changes
   );
+
+  const fetchArchivedChats = async () => {
+    try {
+      const userId = user; // assuming 'user' is the current user ID
+      const response = await fetch('https://api.childbehaviorcheck.com/back/history/get_archive_chats', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          userid: userId,
+        },
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        const archivedChatsData = data.map((item) => ({
+          id: item.chat_summary_id,
+          title: item.chat_summary,
+        }));
+        setArchivedChats(archivedChatsData);
+      } else {
+        console.error('Error fetching archived chats:', data);
+      }
+    } catch (error) {
+      console.error('Error fetching archived chats:', error);
+    }
+  };
+
+  const unarchiveChat = async (chatSummaryId) => {
+    try {
+      const userId = user; // assuming 'user' is the current user ID
+      const response = await fetch('https://api.childbehaviorcheck.com/back/history/unarchive_chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          userid: userId,
+          chatsummaryid: chatSummaryId,
+        },
+      });
+  
+      if (response.ok) {
+        // Remove unarchived chat from list
+        setArchivedChats(archivedChats.filter((chat) => chat.id !== chatSummaryId));
+      } else {
+        console.error('Error unarchiving chat:', await response.text());
+      }
+    } catch (error) {
+      console.error('Error unarchiving chat:', error);
+    }
+  };
+  useEffect(() => {
+    fetchArchivedChats();
+  }, []);
   const renderItem = ({ item }) => (
     <View style={styles.listItem}>
       <Text style={styles.listItemTitle}>{item.title}</Text>
-      <TouchableOpacity onPress={() => console.log(`Unarchive chat ${item.id}`)}>
+      <TouchableOpacity onPress={() => unarchiveChat(item.id)}>
         <ArchiveBoxIcon style={styles.unarchiveIcon} />
       </TouchableOpacity>
     </View>

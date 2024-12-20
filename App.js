@@ -90,7 +90,7 @@ export default function App() {
         console.log(`User id is : ${userId}`)
         if (userId) {
           const response = await fetch(
-            "https://api.childbehaviorcheck.com/back/history/get-user-chat-summaries",
+            "https://api.childbehaviorcheck.com/back/history/active_chats",
             {
               method: "POST",
               headers: {
@@ -128,7 +128,7 @@ export default function App() {
     const yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);
   
     chats.forEach((chat) => {
-      const chatDate = new Date(chat.created_at);
+      const chatDate = new Date(chat.updated_at);
       let date;
   
       if (isSameDay(chatDate, today)) {
