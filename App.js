@@ -22,7 +22,8 @@ import Library from "./src/pages/Library";
 import DeviceDetection from "./src/components/DeviceDetection";
 import LoadingScreen from "./src/components/LoadingPage";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import axios from "axios";
+
+
 
 
 
@@ -78,67 +79,6 @@ export default function App() {
 
     lockOrientation();
   }, []);
-
-  useEffect(() => {
-    console.log("Starting to fetch chats")
-    // Fetch chats from API
-    const fetchChats = async () => {
-      try {
-        const userId = user;
-        console.log(`User id is : ${userId}`)
-        if (userId) {
-          const response = await fetch(
-            "https://api.childbehaviorcheck.com/back/history/get-user-chat-summaries",
-            {
-              method: "POST",
-              headers: {
-                userid: userId,
-              },
-            }
-          );
-  
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-  
-          const data = await response.json();
-          console.log("user chat summaries:", data)
-  
-          // Transform data into grouped chats by date
-          const groupedChats = groupChatsByDate(data);
-          setRecentChats(groupedChats);
-        }
-      } catch (error) {
-        console.error("Error fetching chat summaries:", error);
-      }
-    };
-  
-    fetchChats();
-  }, [user]);
-
-  useEffect(() => {
-    console.log("Recent chats:", recentChats);
-  }, [recentChats]);
-
-  const groupChatsByDate = (chats) => {
-    const grouped = {};
-
-    chats.forEach((chat) => {
-      const date = new Date(chat.created_at).toLocaleDateString();
-      if (!grouped[date]) {
-        grouped[date] = [];
-      }
-      grouped[date].push({
-        id: chat.chat_summary_id,
-        title: chat.chat_summary,
-      });
-    });
-
-    return Object.keys(grouped).map((date) => ({
-      date,
-      chats: grouped[date],
-    }));
-  };
 
 
   const [fontsLoaded, fontError] = useFonts({

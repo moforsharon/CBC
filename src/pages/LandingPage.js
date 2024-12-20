@@ -1,15 +1,80 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useCallback} from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { VStack, HStack } from "native-base";
 import { useNavigation } from '@react-navigation/native';
 import { AppContext } from "../../App";
+import { useFocusEffect } from '@react-navigation/native';
 
 const { height, width } = Dimensions.get('window');
 
 export default function Page() {
-  const { data, setData, setMenuOpen, menuOpen } = useContext(AppContext);
+  const { data, setData, setMenuOpen, menuOpen, currentChatSummary, setCurrentChatSummary, user, recentChats, setRecentChats } = useContext(AppContext);
   const navigation = useNavigation();
+
+
+    const fetchChats = async () => {
+      try {
+        const userId = user;
+        console.log(`User id is : ${userId}`)
+        if (userId) {
+          const response = await fetch(
+            "https://api.childbehaviorcheck.com/back/history/get-user-chat-summaries",
+            {
+              method: "POST",
+              headers: {
+                userid: userId,
+              },
+            }
+          );
+  
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+  
+          const data = await response.json();
+          console.log("user chat summaries:", data)
+  
+          // Transform data into grouped chats by date
+          const groupedChats = groupChatsByDate(data);
+          setRecentChats(groupedChats);
+        }
+      } catch (error) {
+        console.error("Error fetching chat summaries:", error);
+      }
+    };
+
+
+  useEffect(() => {
+    console.log("Recent chats:", recentChats);
+  }, [recentChats]);
+
+  const groupChatsByDate = (chats) => {
+    const grouped = {};
+
+    chats.forEach((chat) => {
+      const date = new Date(chat.created_at).toLocaleDateString();
+      if (!grouped[date]) {
+        grouped[date] = [];
+      }
+      grouped[date].push({
+        id: chat.chat_summary_id,
+        title: chat.chat_summary,
+      });
+    });
+
+    return Object.keys(grouped).map((date) => ({
+      date,
+      chats: grouped[date],
+    }));
+  };
+
+
+  useFocusEffect(
+    useCallback(() => {
+        fetchChats();
+    }, [user]) // Dependencies: This ensures it re-fetches whenever `user` changes
+);
   return (
     <SafeAreaView style={styles.container}>
       {/* Header Section */}
@@ -61,7 +126,11 @@ export default function Page() {
 
       {/* Bottom Button Section */}
       <View style={styles.BtmBtnCon}>
-        <TouchableOpacity onPress={() => {navigation.navigate('Chat');}} style={styles.BtmBtn}>
+        <TouchableOpacity onPress={() => {
+              setCurrentChatSummary(0);
+              navigation.navigate('Chat');
+            }} 
+            style={styles.BtmBtn}>
           <Text style={styles.buttonText}>Talk to me</Text>
         </TouchableOpacity>
       </View>
