@@ -45,10 +45,10 @@ export default function Page() {
       },
     ]);
     useEffect(() => {
-      if (user != null) {
+      if (currentChatSummary != 0) {
         handleGetHistory();
       }
-    }, []);
+    }, [currentChatSummary]);
     useEffect(() => {
       console.log(initialText);
       if (initialText !== "") {
@@ -315,6 +315,7 @@ export default function Page() {
               });
             }
           }
+          console.log(temp)
           setChatHistory(temp);
           setShowHistroyLoadingModal(false);
   
