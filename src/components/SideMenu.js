@@ -28,10 +28,14 @@ export default function SideMenu() {
   // const router = useRouter();
   const navigation = useNavigation();
 
-  const { menuOpen, setMenuOpen, user, setUser , recentChats, currentChatSummary, setCurrentChatSummary} = useContext(AppContext);
+  const { menuOpen, setMenuOpen, user, setUser , recentChats, currentChatSummary, setCurrentChatSummary, setModalVisible} = useContext(AppContext);
   const position = useRef(new Animated.ValueXY({ x: -360, y: 0 })).current;
   const [statusBarHeight, setStatusBarHeight] = useState(0);
   const [height, setHeight] = useState(100);
+
+  const openModal = () => {
+    setModalVisible(true);
+  };
 
   useEffect(() => {
    
@@ -246,34 +250,6 @@ export default function SideMenu() {
           <View
             style={{ position: "relative", bottom: 8, left: 24, width: "80%" }}
           >
-            {/* <TouchableOpacity
-              onPress={() => {
-                moveLeft();
-                navigation.navigate('Chat');
-              }}
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginBottom: 20,
-                width: "100%",
-              }}
-            >
-              <Image
-                source={require("../../assets/icons/chat.png")}
-                style={{ width: 24, height: 24 }}
-              />
-
-              <Text
-                style={{
-                  fontSize: 20,
-                  fontFamily: "Rubik-Regular",
-                  color: "#000",
-                  marginLeft: 10,
-                }}
-              >
-                Chat
-              </Text>
-            </TouchableOpacity> */}
             <TouchableOpacity
               onPress={() => {
                 moveLeft();
@@ -293,7 +269,7 @@ export default function SideMenu() {
 
               <Text
                 style={{
-                  fontSize: 20,
+                  fontSize: 18,
                   fontFamily: "Rubik-Regular",
                   color: "#000",
                   marginLeft: 10,
@@ -302,7 +278,61 @@ export default function SideMenu() {
                 Library
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginVertical: 10 }}>
+                <TouchableOpacity
+                  onPress={() => {
+                    moveLeft();
+                    navigation.navigate('Signin');
+                  }}
+                  style={{
+                    backgroundColor: '#27AFDE',
+                    paddingVertical: 10,
+                    paddingHorizontal: 20,
+                    borderRadius: 10,
+                    flex: 1,
+                    marginRight: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      fontFamily: 'Rubik-Regular',
+                      color: '#fff',
+                      textAlign: 'center',
+                    }}
+                  >
+                    Login
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => {
+                    moveLeft();
+                    navigation.navigate('Signup');
+                  }}
+                  style={{
+                    backgroundColor: 'transparent',
+                    paddingVertical: 10,
+                    paddingHorizontal: 20,
+                    borderColor: '#0C3948',
+                    borderWidth: 2,
+                    borderRadius: 10,
+                    flex: 1,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      fontFamily: 'Rubik-Regular',
+                      color: '#0C3948',
+                      textAlign: 'center',
+                    }}
+                  >
+                    Sign Up
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            {/* <TouchableOpacity
               onPress={() => {
                 moveLeft();
                 navigation.navigate('Signin');
@@ -357,7 +387,7 @@ export default function SideMenu() {
               >
                 Sign Up
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         ) : (
           <View
@@ -391,6 +421,31 @@ export default function SideMenu() {
                 Chat
               </Text>
             </TouchableOpacity> */}
+                        <TouchableOpacity
+              onPress={() => {
+                moveLeft();
+                openModal()
+              }}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginBottom: 20,
+                width: "100%",
+              }}
+            >
+              <ArchiveBoxArrowDownIcon  style={[{ width: 24, height: 24 }, { color: "black" }]}/>
+
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontFamily: "Rubik-Regular",
+                  color: "#000",
+                  marginLeft: 10,
+                }}
+              >
+                Manage Archive
+              </Text>
+            </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
                 moveLeft();
@@ -410,7 +465,7 @@ export default function SideMenu() {
 
               <Text
                 style={{
-                  fontSize: 20,
+                  fontSize: 18,
                   fontFamily: "Rubik-Regular",
                   color: "#000",
                   marginLeft: 10,
@@ -421,23 +476,31 @@ export default function SideMenu() {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => SignMeOut()}
+              // style={{
+              //   flexDirection: "row",
+              //   alignItems: "center",
+              //   marginBottom: 20,
+              //   width: "100%",
+              // }}
               style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginBottom: 20,
-                width: "100%",
+                backgroundColor: '#27AFDE',
+                paddingVertical: 10,
+                paddingHorizontal: 20,
+                borderRadius: 10,
+                flex: 1,
+                marginRight: 10,
               }}
             >
-              <Image
+              {/* <Image
                 source={require("../../assets/icons/signin.png")}
                 style={{ width: 24, height: 24 }}
-              />
+              /> */}
 
               <Text
                 style={{
-                  fontSize: 20,
+                  fontSize: 15,
                   fontFamily: "Rubik-Regular",
-                  color: "#000",
+                  color: "#fff",
                   marginLeft: 10,
                 }}
               >

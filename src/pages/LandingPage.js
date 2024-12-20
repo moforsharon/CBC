@@ -1,18 +1,39 @@
 import React, {useContext, useEffect, useCallback} from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions, Modal, FlatList, ScrollView} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { VStack, HStack } from "native-base";
 import { useNavigation } from '@react-navigation/native';
 import { AppContext } from "../../App";
 import { useFocusEffect } from '@react-navigation/native';
+import { ArchiveBoxArrowDownIcon, ArchiveBoxIcon, LightBulbIcon } from "react-native-heroicons/outline";
+
+// Dummy data for archived chats
+const archivedChats = [
+  { id: '1', title: 'John Doe' },
+  { id: '2', title: 'Jane Smith' },
+  { id: '3', title: 'Bob Johnson' },
+  { id: '4', title: 'Alice Brown' },
+  { id: '5', title: 'Charlie Wilson' },
+  { id: '6', title: 'Diana Taylor' },
+  { id: '7', title: 'Edward Moore' },
+  { id: '8', title: 'Fiona Clark' },
+  { id: '9', title: 'George Adams' },
+  { id: '10', title: 'Hannah Lewis' },
+];
 
 const { height, width } = Dimensions.get('window');
 
 export default function Page() {
-  const { data, setData, setMenuOpen, menuOpen, currentChatSummary, setCurrentChatSummary, user, recentChats, setRecentChats } = useContext(AppContext);
+  const { data, setData, setMenuOpen, menuOpen, currentChatSummary, setCurrentChatSummary, user, recentChats, setRecentChats, modalVisible, setModalVisible } = useContext(AppContext);
   const navigation = useNavigation();
 
+  const openModal = () => {
+    setModalVisible(true);
+  };
 
+  const closeModal = () => {
+    setModalVisible(false);
+  };
       const fetchChats = async () => {
         try {
           const userId = user;
@@ -103,6 +124,15 @@ export default function Page() {
           fetchChats();
       }, [user]) // Dependencies: This ensures it re-fetches whenever user changes
   );
+  const renderItem = ({ item }) => (
+    <View style={styles.listItem}>
+      <Text style={styles.listItemTitle}>{item.title}</Text>
+      <TouchableOpacity onPress={() => console.log(`Unarchive chat ${item.id}`)}>
+        <ArchiveBoxIcon style={styles.unarchiveIcon} />
+      </TouchableOpacity>
+    </View>
+  );
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -162,6 +192,37 @@ export default function Page() {
             style={styles.BtmBtn}>
           <Text style={styles.buttonText}>Talk to me</Text>
         </TouchableOpacity>
+
+
+        <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={closeModal}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalTitle}>Archived chats</Text>
+            <View style={styles.subtextContainer}>
+              <LightBulbIcon style={styles.lightBulbIcon} />
+              <Text style={styles.subtext}>
+                To be able to view an archived chat content, first unarchive the chat
+              </Text>
+            </View>
+            <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+              <FlatList
+                data={archivedChats}
+                renderItem={renderItem}
+                keyExtractor={item => item.id}
+                ItemSeparatorComponent={() => <View style={styles.separator} />}
+              />
+            </ScrollView>
+            <TouchableOpacity style={styles.closeButton} onPress={closeModal}>
+              <Text style={styles.closeButtonText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
       </View>
     </SafeAreaView>
   );
@@ -278,5 +339,73 @@ const styles = StyleSheet.create({
     color: "#27AFDE",
     fontSize: 16,
     fontFamily: "Rubik-Regular",
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalView: {
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 20,
+    width: '90%',
+    maxHeight: '50%',
+  },
+  modalTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  subtextContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  lightBulbIcon: {
+    width: 20,
+    height: 20,
+    marginRight: 5,
+    color: 'black',
+  },
+  subtext: {
+    fontSize: 14,
+    color: 'gray',
+  },
+  scrollView: {
+    maxHeight: '70%',
+  },
+  listItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 5,
+  },
+  listItemTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  unarchiveIcon: {
+    width: 24,
+    height: 24,
+    color: 'black',
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#E0E0E0',
+    marginVertical: 5,
+  },
+  closeButton: {
+    marginTop: 20,
+    backgroundColor: '#27AFDE',
+    borderRadius: 10,
+    padding: 10,
+    elevation: 2,
+  },
+  closeButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });
