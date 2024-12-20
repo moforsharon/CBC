@@ -13,68 +13,68 @@ export default function Page() {
   const navigation = useNavigation();
 
 
-    const fetchChats = async () => {
-      try {
-        const userId = user;
-        console.log(`User id is : ${userId}`)
-        if (userId) {
-          const response = await fetch(
-            "https://api.childbehaviorcheck.com/back/history/get-user-chat-summaries",
-            {
-              method: "POST",
-              headers: {
-                userid: userId,
-              },
+      const fetchChats = async () => {
+        try {
+          const userId = user;
+          console.log(`User id is : ${userId}`)
+          if (userId) {
+            const response = await fetch(
+              "https://api.childbehaviorcheck.com/back/history/get-user-chat-summaries",
+              {
+                method: "POST",
+                headers: {
+                  userid: userId,
+                },
+              }
+            );
+    
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
             }
-          );
-  
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+    
+            const data = await response.json();
+            console.log("user chat summaries:", data)
+    
+            // Transform data into grouped chats by date
+            const groupedChats = groupChatsByDate(data);
+            setRecentChats(groupedChats);
           }
-  
-          const data = await response.json();
-          console.log("user chat summaries:", data)
-  
-          // Transform data into grouped chats by date
-          const groupedChats = groupChatsByDate(data);
-          setRecentChats(groupedChats);
+        } catch (error) {
+          console.error("Error fetching chat summaries:", error);
         }
-      } catch (error) {
-        console.error("Error fetching chat summaries:", error);
-      }
-    };
+      };
 
-
-  useEffect(() => {
-    console.log("Recent chats:", recentChats);
-  }, [recentChats]);
-
-  const groupChatsByDate = (chats) => {
-    const grouped = {};
-
-    chats.forEach((chat) => {
-      const date = new Date(chat.created_at).toLocaleDateString();
-      if (!grouped[date]) {
-        grouped[date] = [];
-      }
-      grouped[date].push({
-        id: chat.chat_summary_id,
-        title: chat.chat_summary,
+  
+    useEffect(() => {
+      console.log("Recent chats:", recentChats);
+    }, [recentChats]);
+  
+    const groupChatsByDate = (chats) => {
+      const grouped = {};
+  
+      chats.forEach((chat) => {
+        const date = new Date(chat.created_at).toLocaleDateString();
+        if (!grouped[date]) {
+          grouped[date] = [];
+        }
+        grouped[date].push({
+          id: chat.chat_summary_id,
+          title: chat.chat_summary,
+        });
       });
-    });
+  
+      return Object.keys(grouped).map((date) => ({
+        date,
+        chats: grouped[date],
+      }));
+    };
+  
+    useFocusEffect(
+      useCallback(() => {
+          fetchChats();
+      }, [user]) // Dependencies: This ensures it re-fetches whenever user changes
+  );
 
-    return Object.keys(grouped).map((date) => ({
-      date,
-      chats: grouped[date],
-    }));
-  };
-
-
-  useFocusEffect(
-    useCallback(() => {
-        fetchChats();
-    }, [user]) // Dependencies: This ensures it re-fetches whenever `user` changes
-);
   return (
     <SafeAreaView style={styles.container}>
       {/* Header Section */}
