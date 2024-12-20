@@ -123,9 +123,21 @@ export default function App() {
 
   const groupChatsByDate = (chats) => {
     const grouped = {};
-
+    const today = new Date();
+    const yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);
+  
     chats.forEach((chat) => {
-      const date = new Date(chat.created_at).toLocaleDateString();
+      const chatDate = new Date(chat.created_at);
+      let date;
+  
+      if (isSameDay(chatDate, today)) {
+        date = "Today";
+      } else if (isSameDay(chatDate, yesterday)) {
+        date = "Yesterday";
+      } else {
+        date = formatChatDate(chatDate);
+      }
+  
       if (!grouped[date]) {
         grouped[date] = [];
       }
@@ -134,13 +146,29 @@ export default function App() {
         title: chat.chat_summary,
       });
     });
-
+  
     return Object.keys(grouped).map((date) => ({
       date,
       chats: grouped[date],
     }));
   };
-
+  
+  const isSameDay = (date1, date2) => {
+    return (
+      date1.getFullYear() === date2.getFullYear() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getDate() === date2.getDate()
+    );
+  };
+  
+  const formatChatDate = (date) => {
+    const day = date.toLocaleString("en-US", { weekday: "short" });
+    const month = date.toLocaleString("en-US", { month: "short" });
+    const dayOfMonth = date.getDate();
+    const year = date.getFullYear();
+  
+    return `${day}. ${month} ${dayOfMonth}, ${year}`;
+  }
 
 
   const [fontsLoaded, fontError] = useFonts({

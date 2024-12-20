@@ -170,6 +170,13 @@ export default function Library() {
                         <Text style={styles.headerlbltxt}>Library</Text>
                         <View style={styles.languageSelector}>
                             <TouchableOpacity style={styles.languageSelector} onPress={() => handleDropdownToggle()}>
+                                {language == "English" ?  (                                <Image
+                                    source={require("../../assets/english.png")}
+                                    style={{ width: 18, height: 16, marginRight: 10 }}
+                                />) :  (                                <Image
+                                    source={require("../../assets/spanish.png")}
+                                    style={{ width: 18, height: 16, marginRight: 10 }}
+                                />) }
                                 <Text style={styles.languageText}>{language}</Text>
                                 <Image
                                     source={require("../../assets/dropdown.png")}
@@ -209,7 +216,7 @@ export default function Library() {
                             setIsWatchVideos(true)
                         ]}
                     >
-                        <Text style={styles.headingTabOne}>Watch videos</Text>
+                        {language == "English" ? (<Text style={styles.headingTabOne}>Watch videos</Text>) : (<Text style={styles.headingTabOne}>Ver videos</Text>)}
                     </TouchableOpacity>
                     <TouchableOpacity 
                         style={{
@@ -229,7 +236,9 @@ export default function Library() {
                             setIsSeeIllustrations(true),
                         ]}
                     >
-                        <Text style={styles.headingTabTwo}>See illustrations</Text>
+                        {language == "English" ? (<Text style={styles.headingTabTwo}>See illustrations</Text>) : (
+                            <Text style={styles.headingTabTwo}>Ver ilustraciones</Text>
+                        )}
                     </TouchableOpacity>
                 </HStack>
                 {/* Videos section */}
