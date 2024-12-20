@@ -20,47 +20,37 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { useNavigation } from "expo-router";
 import { useNavigation } from "@react-navigation/native"; 
 import { PlusIcon, ShareIcon, ArchiveBoxArrowDownIcon } from "react-native-heroicons/solid";
+import axios from "axios";
 
-const recentChats = [
-  {
-    date: "Today",
-    chats: [
-      { id: 1, title: "Side Menu Implementation" },
-      { id: 2, title: "Nummernklärung Praxis-Code" },
-    ],
-  },
-  {
-    date: "Yesterday",
-    chats: [
-      { id: 3, title: "Fix Excel Overlap" },
-      { id: 4, title: "KO JS Object Bindings"},
-    ],
-  },
-  {
-    date: "Previous 7 Days",
-    chats: [
-      { id: 5, title: "Ausbildungsberechtigung für FO" },
-      { id: 6, title: "Python Excel QR Integration"},
-    ],
-  },
-];
 
 const { height: screenHeight } = Dimensions.get("window");
 export default function SideMenu() {
   // const router = useRouter();
   const navigation = useNavigation();
 
-  const { menuOpen, setMenuOpen, user, setUser } = useContext(AppContext);
+  const { menuOpen, setMenuOpen, user, setUser , recentChats} = useContext(AppContext);
   const position = useRef(new Animated.ValueXY({ x: -360, y: 0 })).current;
   const [statusBarHeight, setStatusBarHeight] = useState(0);
   const [height, setHeight] = useState(100);
+
   useEffect(() => {
    
     // Subtract 20% from the screen height
     StatusBar.currentHeight && setStatusBarHeight(StatusBar.currentHeight);
     
       setHeight(screenHeight);
-  }, []);
+      // Fetch chats from API
+      
+      }, []);
+
+    useEffect(() => {
+      console.log("Recent chats from side bar is:", recentChats);
+    }, [1]);
+
+    useEffect(() => {
+      console.log("Recent chats from side bar is:", recentChats);
+    }, [1]);
+
   const SignMeOut = async () => {
     try {
       await AsyncStorage.removeItem("user_id", null);
