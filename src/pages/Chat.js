@@ -29,7 +29,7 @@ import { v4 as uuidv4 } from "uuid";
 const { height, width } = Dimensions.get('window');
 
 export default function Page() {
-    const { data, setMenuOpen, menuOpen, user, machineId, isConnected } =
+    const { data, setMenuOpen, menuOpen, user, machineId, isConnected, currentChatSummary, setCurrentChatSummary } =
       useContext(AppContext);
     const navigation = useNavigation();
     const [text, setText] = useState("");
@@ -113,6 +113,8 @@ export default function Page() {
   
         const data = await response.json();
         console.log(data.success.message);
+        if (currentChatSummary != 0)
+          await generateChatSummary(toQuestion);
         setChatHistory([
           ...chatHistory,
           {
@@ -144,6 +146,32 @@ export default function Page() {
   
       setLoading(false);
     };
+
+    const generateChatSummary = async (userQuestion) => {
+      try {
+        const response = await fetch(
+          "https://api.childbehaviorcheck.com/back/history/generate-chat-summary",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              userid: user,
+            },
+            body: JSON.stringify({ userQuestion }),
+          }
+        );
+    
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+    
+        const data = await response.json();
+        setCurrentChatSummary(data.chat_summary_id);
+      } catch (error) {
+        console.error("Error generating chat summary:", error);
+      }
+    };
+
     const handleSaveHistory = async (msg, responce) => {
       try {
         const response = await fetch(

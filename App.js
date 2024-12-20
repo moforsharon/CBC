@@ -41,6 +41,7 @@ export default function App() {
   const [machineId, setMachineId] = useState(null);
   const [isConnected, setIsConnected] = useState(false);
   const [recentChats, setRecentChats] = useState([]);
+  const [currentChatSummary, setCurrentChatSummary] = useState(0)
 
   const getStoredUserID = async () => {
     try {
@@ -160,7 +161,7 @@ export default function App() {
   return (
       <NativeBaseProvider>
         <AppContext.Provider
-          value={{ data, setData, menuOpen, setMenuOpen, user, setUser, isConnected, machineId, setMachineId, recentChats }}
+          value={{ data, setData, menuOpen, setMenuOpen, user, setUser, isConnected, machineId, setMachineId, recentChats, currentChatSummary, setCurrentChatSummary }}
         >
           <View style={styles.container}> {/* Ensures full height */}
             <NavigationContainer>

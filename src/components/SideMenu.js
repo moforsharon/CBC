@@ -28,7 +28,7 @@ export default function SideMenu() {
   // const router = useRouter();
   const navigation = useNavigation();
 
-  const { menuOpen, setMenuOpen, user, setUser , recentChats} = useContext(AppContext);
+  const { menuOpen, setMenuOpen, user, setUser , recentChats, currentChatSummary, setCurrentChatSummary} = useContext(AppContext);
   const position = useRef(new Animated.ValueXY({ x: -360, y: 0 })).current;
   const [statusBarHeight, setStatusBarHeight] = useState(0);
   const [height, setHeight] = useState(100);
@@ -96,6 +96,23 @@ export default function SideMenu() {
       setMenuOpen(false);
     });
   };
+
+  const handleNewChatClicked = async () => {
+    try {
+      setCurrentChatSummary(0)
+      moveLeft();
+      navigation.navigate('Chat')
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    console.log("Chat summary id: " , currentChatSummary)
+  }, [currentChatSummary])
+
   return (
     <View
       style={[
@@ -166,10 +183,8 @@ export default function SideMenu() {
         >
           <TouchableOpacity
             onPress={() => {
-              // setSelectedItem(0);
-              // dispatch(closeSidebar());
-              moveLeft();
-              navigation.navigate('Chat')
+              handleNewChatClicked()
+
             }}
             style={[
               styles.button,
