@@ -106,7 +106,6 @@ export default function App() {
           // Transform data into grouped chats by date
           const groupedChats = groupChatsByDate(data);
           setRecentChats(groupedChats);
-          console.log("Recent chats:", recentChats)
         }
       } catch (error) {
         console.error("Error fetching chat summaries:", error);
@@ -115,6 +114,10 @@ export default function App() {
   
     fetchChats();
   }, [user]);
+
+  useEffect(() => {
+    console.log("Recent chats:", recentChats);
+  }, [recentChats]);
 
   const groupChatsByDate = (chats) => {
     const grouped = {};
