@@ -69,11 +69,11 @@ export default function Page() {
       }));
     };
   
-  //   useFocusEffect(
-  //     useCallback(() => {
-  //         fetchChats();
-  //     }, [user]) // Dependencies: This ensures it re-fetches whenever user changes
-  // );
+    useFocusEffect(
+      useCallback(() => {
+          fetchChats();
+      }, [user]) // Dependencies: This ensures it re-fetches whenever user changes
+  );
 
   return (
     <SafeAreaView style={styles.container}>

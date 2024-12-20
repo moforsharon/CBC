@@ -45,10 +45,10 @@ export default function Page() {
       },
     ]);
     useEffect(() => {
-      if (currentChatSummary != 0) {
+      if (user != null && currentChatSummary != 0) {
         handleGetHistory();
       }
-    }, [currentChatSummary]);
+    }, [user]);
     useEffect(() => {
       console.log(initialText);
       if (initialText !== "") {
