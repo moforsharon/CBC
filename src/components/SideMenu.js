@@ -569,7 +569,7 @@ const styles = StyleSheet.create({
   },
   chatSection: {
     marginTop: 8,
-    marginBottom: 30,
+    marginBottom: 60,
     marginHorizontal: 20,
     flex: 1, // Allows it to grow within its parent
     overflow: "hidden", // Prevents content from visually spilling over
