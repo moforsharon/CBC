@@ -189,7 +189,7 @@ export default function Page() {
               response: responce,
               machine_id: machineId,
               chat_id: uuidv4(),
-              chat_summary_id: currentChatSummarry
+              chat_summary_id: currentChatSummary
             }),
           }
         );
