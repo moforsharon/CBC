@@ -113,7 +113,7 @@ export default function Page() {
   
         const data = await response.json();
         console.log(data.success.message);
-        if (currentChatSummary != 0)
+        if (currentChatSummary = 0)
           await generateChatSummary(toQuestion);
         setChatHistory([
           ...chatHistory,
@@ -189,6 +189,7 @@ export default function Page() {
               response: responce,
               machine_id: machineId,
               chat_id: uuidv4(),
+              chat_summary_id: currentChatSummarry
             }),
           }
         );
