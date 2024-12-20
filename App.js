@@ -79,31 +79,41 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    console.log("Starting to fetch chats")
     // Fetch chats from API
     const fetchChats = async () => {
       try {
         const userId = user;
+        console.log(`User id is : ${userId}`)
         if (userId) {
-          const response = await axios.get(
+          const response = await fetch(
             "https://api.childbehaviorcheck.com/back/history/get-user-chat-summaries",
             {
+              method: "POST",
               headers: {
                 userid: userId,
               },
             }
           );
-
+  
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+  
+          const data = await response.json();
+          console.log(`user chat summaries: ${data}`)
+  
           // Transform data into grouped chats by date
-          const groupedChats = groupChatsByDate(response.data);
+          const groupedChats = groupChatsByDate(data);
           setRecentChats(groupedChats);
         }
       } catch (error) {
         console.error("Error fetching chat summaries:", error);
       }
     };
-
+  
     fetchChats();
-  }, []);
+  }, [user]);
 
   const groupChatsByDate = (chats) => {
     const grouped = {};
