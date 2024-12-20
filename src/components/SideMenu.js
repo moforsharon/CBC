@@ -28,7 +28,7 @@ export default function SideMenu() {
   // const router = useRouter();
   const navigation = useNavigation();
 
-  const { menuOpen, setMenuOpen, user, setUser , recentChats, currentChatSummary, setCurrentChatSummary, setModalVisible} = useContext(AppContext);
+  const { menuOpen, setMenuOpen, user, setUser , recentChats, currentChatSummary, setCurrentChatSummary, setModalVisible, setRecentChats} = useContext(AppContext);
   const position = useRef(new Animated.ValueXY({ x: -360, y: 0 })).current;
   const [statusBarHeight, setStatusBarHeight] = useState(0);
   const [height, setHeight] = useState(100);
