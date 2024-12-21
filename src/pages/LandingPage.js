@@ -175,9 +175,10 @@ export default function Page() {
         // setArchivedChats(archivedChats.filter((chat) => chat.id !== chatSummaryId));
         setArchivedChats((prevChats) => {
           const updatedChats = prevChats.filter((chat) => chat.id !== chatSummaryId);
-          setArchivedChatsVersion((prevVersion) => prevVersion + 1); // Increment version
           return updatedChats;
         });  
+
+        setArchivedChatsVersion((prevVersion) => prevVersion + 1); // Increment version
 
       } else {
         console.error('Error unarchiving chat:', await response.text());
@@ -188,7 +189,7 @@ export default function Page() {
   };
   useEffect(() => {
     fetchArchivedChats();
-  }, [archivedChats, archivedChats.length === 0]);
+  }, [archivedChatsVersion, recentChats]);
 
   const renderItem = ({ item }) => (
     <View style={styles.listItem}>
