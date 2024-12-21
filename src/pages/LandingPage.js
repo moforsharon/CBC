@@ -126,6 +126,10 @@ export default function Page() {
       }, [user]) // Dependencies: This ensures it re-fetches whenever user changes
   );
 
+  useEffect(() => {
+    fetchChats();
+  }, [recentChats.length]);
+
   const fetchArchivedChats = async () => {
     try {
       const userId = user; // assuming 'user' is the current user ID
@@ -167,7 +171,9 @@ export default function Page() {
   
       if (response.ok) {
         // Remove unarchived chat from list
-        setArchivedChats(archivedChats.filter((chat) => chat.id !== chatSummaryId));
+        // setArchivedChats(archivedChats.filter((chat) => chat.id !== chatSummaryId));
+        setArchivedChats((prevChats) => prevChats.filter((chat) => chat.id !== chatSummaryId));
+
       } else {
         console.error('Error unarchiving chat:', await response.text());
       }
@@ -177,7 +183,7 @@ export default function Page() {
   };
   useEffect(() => {
     fetchArchivedChats();
-  }, [archivedChats]);
+  }, [archivedChats.length]);
 
   const renderItem = ({ item }) => (
     <View style={styles.listItem}>
