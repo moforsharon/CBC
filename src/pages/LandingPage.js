@@ -188,7 +188,7 @@ export default function Page() {
   };
   useEffect(() => {
     fetchArchivedChats();
-  }, [archivedChatsVersion]);
+  }, [archivedChats, archivedChats.length === 0]);
 
   const renderItem = ({ item }) => (
     <View style={styles.listItem}>
