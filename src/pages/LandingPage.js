@@ -27,6 +27,7 @@ export default function Page() {
   const { data, setData, setMenuOpen, menuOpen, currentChatSummary, setCurrentChatSummary, user, recentChats, setRecentChats, modalVisible, setModalVisible } = useContext(AppContext);
   const navigation = useNavigation();
   const [archivedChats, setArchivedChats] = useState([])
+  const [archivedChatsVersion, setArchivedChatsVersion] = useState(0);
 
   const openModal = () => {
     setModalVisible(true);
@@ -128,7 +129,7 @@ export default function Page() {
 
   useEffect(() => {
     fetchChats();
-  }, [recentChats]);
+  }, [recentChats, archivedChats]);
 
   const fetchArchivedChats = async () => {
     try {
@@ -172,7 +173,11 @@ export default function Page() {
       if (response.ok) {
         // Remove unarchived chat from list
         // setArchivedChats(archivedChats.filter((chat) => chat.id !== chatSummaryId));
-        setArchivedChats((prevChats) => prevChats.filter((chat) => chat.id !== chatSummaryId));
+        setArchivedChats((prevChats) => {
+          const updatedChats = prevChats.filter((chat) => chat.id !== chatSummaryId);
+          setArchivedChatsVersion((prevVersion) => prevVersion + 1); // Increment version
+          return updatedChats;
+        });  
 
       } else {
         console.error('Error unarchiving chat:', await response.text());
@@ -183,7 +188,7 @@ export default function Page() {
   };
   useEffect(() => {
     fetchArchivedChats();
-  }, [archivedChats, recentChats]);
+  }, [archivedChatsVersion, recentChats]);
 
   const renderItem = ({ item }) => (
     <View style={styles.listItem}>
