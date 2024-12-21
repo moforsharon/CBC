@@ -128,7 +128,7 @@ export default function Page() {
 
   useEffect(() => {
     fetchChats();
-  }, [recentChats.length]);
+  }, [recentChats]);
 
   const fetchArchivedChats = async () => {
     try {
@@ -183,7 +183,7 @@ export default function Page() {
   };
   useEffect(() => {
     fetchArchivedChats();
-  }, [archivedChats.length]);
+  }, [archivedChats]);
 
   const renderItem = ({ item }) => (
     <View style={styles.listItem}>
