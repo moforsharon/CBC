@@ -177,7 +177,8 @@ export default function Page() {
   };
   useEffect(() => {
     fetchArchivedChats();
-  }, [modalVisible]);
+  }, [archivedChats]);
+
   const renderItem = ({ item }) => (
     <View style={styles.listItem}>
       <Text style={styles.listItemTitle}>{item.title}</Text>
