@@ -184,22 +184,45 @@ export default function SideMenu() {
   };
 
   const generatePdf = async (chatData) => {
-    const pdfDoc = new PDFDocument();
-    const page = pdfDoc.addPages(1)[0];
+    try {
+      // Create a new PDF document
+      const pdfDoc = new PDFDocument();
   
-    // Set font and font size
-    page.setFont('Helvetica', 12);
+      // Add a single page to the document
+      const page = pdfDoc.addPage();
   
-    // Add chat data to the page
-    chatData.forEach((chat) => {
-      page.drawText(chat.title, 10, 10);
-      page.drawText(`-- ${chat.username}`, 10, 20);
-    });
+      // Set font and font size
+      page.setFont('Helvetica');
+      page.setFontSize(12);
   
-    // Save the PDF to a file
-    const pdfFile = await pdfDoc.saveToFilePath();
-    return pdfFile;
+      // Initialize y-coordinate for drawing text
+      let yPosition = 750; // Start from the top of the page (adjust as needed)
+  
+      // Add chat data to the page
+      chatData.forEach((chat) => {
+        // Check if there's enough space on the current page, else add a new page
+        if (yPosition < 50) {
+          page = pdfDoc.addPage(); // Add a new page
+          yPosition = 750; // Reset yPosition for the new page
+        }
+  
+        // Draw chat title and username
+        page.drawText(chat.title, { x: 50, y: yPosition });
+        yPosition -= 20; // Move down for the next line
+        page.drawText(`-- ${chat.username}`, { x: 50, y: yPosition });
+        yPosition -= 30; // Move down for the next entry
+      });
+  
+      // Save the PDF to a file
+      const pdfBytes = await pdfDoc.save(); // Use save() to get PDF as a Uint8Array
+  
+      return pdfBytes; // Return the generated PDF bytes
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      throw error; // Re-throw the error for further handling
+    }
   };
+  
 
   // const sharePdf = async (pdfFilePath) => {
   //   if (Platform.OS !== 'web' && Share) {
@@ -375,9 +398,9 @@ export default function SideMenu() {
                       <Text style={styles.chatTitle}  numberOfLines={1} >{chat.title}</Text>
                     </View>
                     <View style={styles.iconsContainer}>
-                      <TouchableOpacity onPress={() => handleShareIconPress()}>
+                      {/* <TouchableOpacity onPress={() => handleShareIconPress()}>
                         <ShareIcon style={[styles.icon, { marginLeft: 8 }]} />
-                      </TouchableOpacity>
+                      </TouchableOpacity> */}
                       <TouchableOpacity onPress={() =>  archiveChat(chat.id)}>
                         <ArchiveBoxArrowDownIcon  style={[styles.icon, { marginLeft: 8, color: "black" }]}/>
                       </TouchableOpacity>
