@@ -23,9 +23,10 @@ import { PlusIcon, ShareIcon, ArchiveBoxArrowDownIcon } from "react-native-heroi
 import PDFLib, { PDFDocument, PDFPage } from 'react-native-pdf-lib';
 import { Platform } from 'react-native';
 
-if (Platform.OS !== 'web') {
-  const Share = require('react-native-share');
-}
+// let Share;
+// if (Platform.OS !== 'web') {
+//   Share = require('react-native-share');
+// }
 
 
 
@@ -200,19 +201,57 @@ export default function SideMenu() {
     return pdfFile;
   };
 
-  const sharePdf = async (pdfFilePath) => {
-    const shareOptions = {
-      title: 'Share Chat',
-      message: 'Check out this chat!',
-      url: `file://${pdfFilePath}`,
-      type: 'application/pdf',
-    };
+  // const sharePdf = async (pdfFilePath) => {
+  //   if (Platform.OS !== 'web' && Share) {
+  //   const shareOptions = {
+  //     title: 'Share Chat',
+  //     message: 'Check out this chat!',
+  //     url: `file://${pdfFilePath}`,
+  //     type: 'application/pdf',
+  //   };
   
-    try {
-      const shareResponse = await Share.open(shareOptions);
-      console.log(shareResponse);
-    } catch (error) {
-      console.error('Error sharing PDF:', error);
+  //   try {
+  //     const shareResponse = await Share.open(shareOptions);
+  //     console.log(shareResponse);
+  //   } catch (error) {
+  //     console.error('Error sharing PDF:', error);
+  //   }
+  // }else {
+  //   console.log('Sharing is not supported on the web.');
+  // }
+  // };
+
+  const sharePdf = async (pdfFilePath) => {
+    if (Platform.OS === 'web') {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: 'Share Chat',
+            text: 'Check out this chat!',
+            url: pdfFilePath, // Use a URL accessible by the browser
+          });
+          console.log('PDF shared successfully!');
+        } catch (error) {
+          console.error('Error sharing on the web:', error);
+        }
+      } else {
+        console.log('Web sharing is not supported in this browser.');
+      }
+    } else {
+      const Share = await import('react-native-share');
+      const shareOptions = {
+        title: 'Share Chat',
+        message: 'Check out this chat!',
+        url: `file://${pdfFilePath}`,
+        type: 'application/pdf',
+      };
+  
+      try {
+        const shareResponse = await Share.default.open(shareOptions);
+        console.log(shareResponse);
+      } catch (error) {
+        console.error('Error sharing PDF:', error);
+      }
     }
   };
 
