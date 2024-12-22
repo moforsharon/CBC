@@ -135,7 +135,7 @@ export default function Page() {
 
   const unarchiveChat = async (chatSummaryId) => {
     try {
-      setArchivedChats((prevChats) => prevChats.filter((chat) => chat.id !== chatId));
+      setArchivedChats((prevChats) => prevChats.filter((chat) => chat.id !== chatSummaryId));
       const userId = user; // assuming 'user' is the current user ID
       const response = await fetch('https://api.childbehaviorcheck.com/back/history/unarchive_chat', {
         method: 'POST',
