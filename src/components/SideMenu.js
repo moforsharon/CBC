@@ -20,7 +20,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // import { useNavigation } from "expo-router";
 import { useNavigation } from "@react-navigation/native"; 
 import { PlusIcon, ShareIcon, ArchiveBoxArrowDownIcon } from "react-native-heroicons/solid";
-import axios from "axios";
+import PDFLib, { PDFDocument, PDFPage } from 'react-native-pdf-lib';
+import { Platform } from 'react-native';
+
+if (Platform.OS !== 'web') {
+  const Share = require('react-native-share');
+}
+
 
 
 const { height: screenHeight } = Dimensions.get("window");
@@ -176,6 +182,45 @@ export default function SideMenu() {
     }
   };
 
+  const generatePdf = async (chatData) => {
+    const pdfDoc = new PDFDocument();
+    const page = pdfDoc.addPages(1)[0];
+  
+    // Set font and font size
+    page.setFont('Helvetica', 12);
+  
+    // Add chat data to the page
+    chatData.forEach((chat) => {
+      page.drawText(chat.title, 10, 10);
+      page.drawText(`-- ${chat.username}`, 10, 20);
+    });
+  
+    // Save the PDF to a file
+    const pdfFile = await pdfDoc.saveToFilePath();
+    return pdfFile;
+  };
+
+  const sharePdf = async (pdfFilePath) => {
+    const shareOptions = {
+      title: 'Share Chat',
+      message: 'Check out this chat!',
+      url: `file://${pdfFilePath}`,
+      type: 'application/pdf',
+    };
+  
+    try {
+      const shareResponse = await Share.open(shareOptions);
+      console.log(shareResponse);
+    } catch (error) {
+      console.error('Error sharing PDF:', error);
+    }
+  };
+
+  const handleShareIconPress = async () => {
+    const chatData = await fetchArchivedChats(); // Replace with your chat data fetching logic
+    const pdfFilePath = await generatePdf(chatData);
+    await sharePdf(pdfFilePath);
+  };
   return (
     <View
       style={[
@@ -291,9 +336,9 @@ export default function SideMenu() {
                       <Text style={styles.chatTitle}  numberOfLines={1} >{chat.title}</Text>
                     </View>
                     <View style={styles.iconsContainer}>
-                      {/* <TouchableOpacity onPress={() => console.log("Share pressed")}>
+                      <TouchableOpacity onPress={() => handleShareIconPress()}>
                         <ShareIcon style={[styles.icon, { marginLeft: 8 }]} />
-                      </TouchableOpacity> */}
+                      </TouchableOpacity>
                       <TouchableOpacity onPress={() =>  archiveChat(chat.id)}>
                         <ArchiveBoxArrowDownIcon  style={[styles.icon, { marginLeft: 8, color: "black" }]}/>
                       </TouchableOpacity>
