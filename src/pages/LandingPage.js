@@ -24,9 +24,8 @@ import { ArchiveBoxArrowDownIcon, ArchiveBoxIcon, LightBulbIcon } from "react-na
 const { height, width } = Dimensions.get('window');
 
 export default function Page() {
-  const { data, setData, setMenuOpen, menuOpen, currentChatSummary, setCurrentChatSummary, user, recentChats, setRecentChats, modalVisible, setModalVisible } = useContext(AppContext);
+  const { data, setData, setMenuOpen, menuOpen, currentChatSummary, setCurrentChatSummary, user, recentChats, setRecentChats, modalVisible, setModalVisible, archivedChats, setArchivedChats } = useContext(AppContext);
   const navigation = useNavigation();
-  const [archivedChats, setArchivedChats] = useState([])
   const [archivedChatsVersion, setArchivedChatsVersion] = useState(0);
 
   const openModal = () => {
@@ -35,6 +34,7 @@ export default function Page() {
 
   const closeModal = () => {
     setModalVisible(false);
+    fetchChats()
   };
       const fetchChats = async () => {
         try {
@@ -127,39 +127,15 @@ export default function Page() {
       }, [user]) // Dependencies: This ensures it re-fetches whenever user changes
   );
 
-  useEffect(() => {
-    fetchChats();
-  }, [recentChats, archivedChats]);
+  // useEffect(() => {
+  //   fetchChats();
+  // }, [recentChats, archivedChats]);
 
-  const fetchArchivedChats = async () => {
-    try {
-      const userId = user; // assuming 'user' is the current user ID
-      const response = await fetch('https://api.childbehaviorcheck.com/back/history/get_archive_chats', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          userid: userId,
-        },
-      });
-  
-      const data = await response.json();
-  
-      if (response.ok) {
-        const archivedChatsData = data.map((item) => ({
-          id: item.chat_summary_id,
-          title: item.chat_summary,
-        }));
-        setArchivedChats(archivedChatsData);
-      } else {
-        console.error('Error fetching archived chats:', data);
-      }
-    } catch (error) {
-      console.error('Error fetching archived chats:', error);
-    }
-  };
+
 
   const unarchiveChat = async (chatSummaryId) => {
     try {
+      setArchivedChats((prevChats) => prevChats.filter((chat) => chat.id !== chatId));
       const userId = user; // assuming 'user' is the current user ID
       const response = await fetch('https://api.childbehaviorcheck.com/back/history/unarchive_chat', {
         method: 'POST',
@@ -173,10 +149,10 @@ export default function Page() {
       if (response.ok) {
         // Remove unarchived chat from list
         // setArchivedChats(archivedChats.filter((chat) => chat.id !== chatSummaryId));
-        setArchivedChats((prevChats) => {
-          const updatedChats = prevChats.filter((chat) => chat.id !== chatSummaryId);
-          return updatedChats;
-        });  
+        // setArchivedChats((prevChats) => {
+        //   const updatedChats = prevChats.filter((chat) => chat.id !== chatSummaryId);
+        //   return updatedChats;
+        // });  
 
         setArchivedChatsVersion((prevVersion) => prevVersion + 1); // Increment version
 
@@ -187,9 +163,9 @@ export default function Page() {
       console.error('Error unarchiving chat:', error);
     }
   };
-  useEffect(() => {
-    fetchArchivedChats();
-  }, [archivedChatsVersion, recentChats]);
+  // useEffect(() => {
+  //   fetchArchivedChats();
+  // }, [archivedChatsVersion, recentChats]);
 
   const renderItem = ({ item }) => (
     <View style={styles.listItem}>

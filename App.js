@@ -44,6 +44,7 @@ export default function App() {
   const [recentChats, setRecentChats] = useState([]);
   const [currentChatSummary, setCurrentChatSummary] = useState(0)
   const [modalVisible, setModalVisible] = useState(false);
+  const [archivedChats, setArchivedChats] = useState([])
 
   const getStoredUserID = async () => {
     try {
@@ -192,7 +193,7 @@ export default function App() {
   return (
       <NativeBaseProvider>
         <AppContext.Provider
-          value={{ data, setData, menuOpen, setMenuOpen, user, setUser, isConnected, machineId, setMachineId, recentChats, currentChatSummary, setCurrentChatSummary, setRecentChats, modalVisible, setModalVisible }}
+          value={{ data, setData, menuOpen, setMenuOpen, user, setUser, isConnected, machineId, setMachineId, recentChats, currentChatSummary, setCurrentChatSummary, setRecentChats, modalVisible, setModalVisible, archivedChats, setArchivedChats }}
         >
           <View style={styles.container}> {/* Ensures full height */}
             <NavigationContainer>

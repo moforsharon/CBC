@@ -28,13 +28,14 @@ export default function SideMenu() {
   // const router = useRouter();
   const navigation = useNavigation();
 
-  const { menuOpen, setMenuOpen, user, setUser , recentChats, currentChatSummary, setCurrentChatSummary, setModalVisible, setRecentChats} = useContext(AppContext);
+  const { menuOpen, setMenuOpen, user, setUser , recentChats, currentChatSummary, setCurrentChatSummary, setModalVisible, setRecentChats, archivedChats, setArchivedChats} = useContext(AppContext);
   const position = useRef(new Animated.ValueXY({ x: -360, y: 0 })).current;
   const [statusBarHeight, setStatusBarHeight] = useState(0);
   const [height, setHeight] = useState(100);
 
   const openModal = () => {
     setModalVisible(true);
+    fetchArchivedChats()
   };
 
   useEffect(() => {
@@ -120,6 +121,10 @@ export default function SideMenu() {
 
   const archiveChat = async (chatSummaryId) => {
     try {
+        setRecentChats(recentChats.filter((group) => {
+          group.chats = group.chats.filter((chat) => chat.id !== chatSummaryId);
+          return group.chats.length > 0;
+        }));
       const userId = user; // assuming 'user' is the current user ID
       const response = await fetch('https://api.childbehaviorcheck.com/back/history/archive_chat', {
         method: 'POST',
@@ -132,15 +137,42 @@ export default function SideMenu() {
   
       if (response.ok) {
         // Remove archived chat from recentChats list
-        setRecentChats(recentChats.filter((group) => {
-          group.chats = group.chats.filter((chat) => chat.id !== chatSummaryId);
-          return group.chats.length > 0;
-        }));
+        // setRecentChats(recentChats.filter((group) => {
+        //   group.chats = group.chats.filter((chat) => chat.id !== chatSummaryId);
+        //   return group.chats.length > 0;
+        // }));
       } else {
         console.error('Error archiving chat:', await response.text());
       }
     } catch (error) {
       console.error('Error archiving chat:', error);
+    }
+  };
+
+  const fetchArchivedChats = async () => {
+    try {
+      const userId = user; // assuming 'user' is the current user ID
+      const response = await fetch('https://api.childbehaviorcheck.com/back/history/get_archive_chats', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          userid: userId,
+        },
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        const archivedChatsData = data.map((item) => ({
+          id: item.chat_summary_id,
+          title: item.chat_summary,
+        }));
+        setArchivedChats(archivedChatsData);
+      } else {
+        console.error('Error fetching archived chats:', data);
+      }
+    } catch (error) {
+      console.error('Error fetching archived chats:', error);
     }
   };
 
