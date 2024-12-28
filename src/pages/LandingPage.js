@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { AppContext } from "../../App";
 import { useFocusEffect } from '@react-navigation/native';
 import { ArchiveBoxArrowDownIcon, ArchiveBoxIcon, LightBulbIcon } from "react-native-heroicons/outline";
+import ShareBottomSheet from '../components/ShareBottomSheet';
 
 // Dummy data for archived chats
 // const archivedChats = [
@@ -24,7 +25,7 @@ import { ArchiveBoxArrowDownIcon, ArchiveBoxIcon, LightBulbIcon } from "react-na
 const { height, width } = Dimensions.get('window');
 
 export default function Page() {
-  const { data, setData, setMenuOpen, menuOpen, currentChatSummary, setCurrentChatSummary, user, recentChats, setRecentChats, modalVisible, setModalVisible, archivedChats, setArchivedChats } = useContext(AppContext);
+  const { data, setData, setMenuOpen, menuOpen, currentChatSummary, setCurrentChatSummary, user, recentChats, setRecentChats, modalVisible, setModalVisible, archivedChats, setArchivedChats, visible, setVisible } = useContext(AppContext);
   const navigation = useNavigation();
   const [archivedChatsVersion, setArchivedChatsVersion] = useState(0);
 
@@ -266,6 +267,13 @@ export default function Page() {
           </View>
         </View>
       </Modal>
+      <ShareBottomSheet
+        visible={visible}
+        onClose={() => setVisible(false)}
+        chatTitle={"Hi"}
+        chatId={currentChatSummary}
+        user={user}
+      />
       </View>
     </SafeAreaView>
   );

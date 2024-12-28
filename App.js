@@ -19,10 +19,13 @@ import ChatPage from "./src/pages/Chat";
 import SignInPage from "./src/pages/Signin";
 import SignUpPage from "./src/pages/SignUp";
 import Library from "./src/pages/Library";
+import SharedChatNavigator from "./src/components/SharedChatNavigator"
 import DeviceDetection from "./src/components/DeviceDetection";
 import LoadingScreen from "./src/components/LoadingPage";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useFocusEffect } from '@react-navigation/native';
+import { Linking } from 'react-native';
+// import { useNavigation } from '@react-navigation/native';
 
 
 
@@ -45,6 +48,7 @@ export default function App() {
   const [currentChatSummary, setCurrentChatSummary] = useState(0)
   const [modalVisible, setModalVisible] = useState(false);
   const [archivedChats, setArchivedChats] = useState([])
+  const [visible, setVisible] = useState(false);
 
   const getStoredUserID = async () => {
     try {
@@ -190,10 +194,31 @@ export default function App() {
     return null;
   }
 
+
   return (
       <NativeBaseProvider>
         <AppContext.Provider
-          value={{ data, setData, menuOpen, setMenuOpen, user, setUser, isConnected, machineId, setMachineId, recentChats, currentChatSummary, setCurrentChatSummary, setRecentChats, modalVisible, setModalVisible, archivedChats, setArchivedChats }}
+          value={{ 
+            data, 
+            setData, 
+            menuOpen, 
+            setMenuOpen, 
+            user, 
+            setUser, 
+            isConnected, 
+            machineId, 
+            setMachineId, 
+            recentChats, 
+            currentChatSummary, 
+            setCurrentChatSummary, 
+            setRecentChats, 
+            modalVisible, 
+            setModalVisible, 
+            archivedChats, 
+            setArchivedChats,
+            visible, 
+            setVisible 
+          }}
         >
           <View style={styles.container}> {/* Ensures full height */}
             <NavigationContainer>
@@ -205,6 +230,7 @@ export default function App() {
                 <Stack.Screen name="Signin" component={SignInPage} />
                 <Stack.Screen name="Signup" component={SignUpPage} />
                 <Stack.Screen name="Library" component={Library} />
+                <Stack.Screen name="SharedChat" component={SharedChatNavigator} />
               </Stack.Navigator>
             </NavigationContainer>
           </View>

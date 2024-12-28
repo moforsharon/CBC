@@ -35,7 +35,7 @@ export default function SideMenu() {
   // const router = useRouter();
   const navigation = useNavigation();
 
-  const { menuOpen, setMenuOpen, user, setUser , recentChats, currentChatSummary, setCurrentChatSummary, setModalVisible, setRecentChats, archivedChats, setArchivedChats} = useContext(AppContext);
+  const { menuOpen, setMenuOpen, user, setUser , recentChats, currentChatSummary, setCurrentChatSummary, setModalVisible, setRecentChats, archivedChats, setArchivedChats, visible, setVisible} = useContext(AppContext);
   const position = useRef(new Animated.ValueXY({ x: -360, y: 0 })).current;
   const [statusBarHeight, setStatusBarHeight] = useState(0);
   const [height, setHeight] = useState(100);
@@ -43,6 +43,12 @@ export default function SideMenu() {
   const openModal = () => {
     setModalVisible(true);
     fetchArchivedChats()
+  };
+
+  const handleShareIconPress = (chatId) => {
+    setCurrentChatSummary(chatId)
+    setMenuOpen(false);
+    setVisible(true);
   };
 
   useEffect(() => {
@@ -183,106 +189,6 @@ export default function SideMenu() {
     }
   };
 
-  const generatePdf = async (chatData) => {
-    try {
-      // Create a new PDF document
-      const pdfDoc = new PDFDocument();
-  
-      // Add a single page to the document
-      const page = pdfDoc.addPage();
-  
-      // Set font and font size
-      page.setFont('Helvetica');
-      page.setFontSize(12);
-  
-      // Initialize y-coordinate for drawing text
-      let yPosition = 750; // Start from the top of the page (adjust as needed)
-  
-      // Add chat data to the page
-      chatData.forEach((chat) => {
-        // Check if there's enough space on the current page, else add a new page
-        if (yPosition < 50) {
-          page = pdfDoc.addPage(); // Add a new page
-          yPosition = 750; // Reset yPosition for the new page
-        }
-  
-        // Draw chat title and username
-        page.drawText(chat.title, { x: 50, y: yPosition });
-        yPosition -= 20; // Move down for the next line
-        page.drawText(`-- ${chat.username}`, { x: 50, y: yPosition });
-        yPosition -= 30; // Move down for the next entry
-      });
-  
-      // Save the PDF to a file
-      const pdfBytes = await pdfDoc.save(); // Use save() to get PDF as a Uint8Array
-  
-      return pdfBytes; // Return the generated PDF bytes
-    } catch (error) {
-      console.error('Error generating PDF:', error);
-      throw error; // Re-throw the error for further handling
-    }
-  };
-  
-
-  // const sharePdf = async (pdfFilePath) => {
-  //   if (Platform.OS !== 'web' && Share) {
-  //   const shareOptions = {
-  //     title: 'Share Chat',
-  //     message: 'Check out this chat!',
-  //     url: `file://${pdfFilePath}`,
-  //     type: 'application/pdf',
-  //   };
-  
-  //   try {
-  //     const shareResponse = await Share.open(shareOptions);
-  //     console.log(shareResponse);
-  //   } catch (error) {
-  //     console.error('Error sharing PDF:', error);
-  //   }
-  // }else {
-  //   console.log('Sharing is not supported on the web.');
-  // }
-  // };
-
-  const sharePdf = async (pdfFilePath) => {
-    if (Platform.OS === 'web') {
-      if (navigator.share) {
-        try {
-          await navigator.share({
-            title: 'Share Chat',
-            text: 'Check out this chat!',
-            url: pdfFilePath, // Use a URL accessible by the browser
-          });
-          console.log('PDF shared successfully!');
-        } catch (error) {
-          console.error('Error sharing on the web:', error);
-        }
-      } else {
-        console.log('Web sharing is not supported in this browser.');
-      }
-    } else {
-      const Share = await import('react-native-share');
-      const shareOptions = {
-        title: 'Share Chat',
-        message: 'Check out this chat!',
-        url: `file://${pdfFilePath}`,
-        type: 'application/pdf',
-      };
-  
-      try {
-        const shareResponse = await Share.default.open(shareOptions);
-        console.log(shareResponse);
-      } catch (error) {
-        console.error('Error sharing PDF:', error);
-      }
-    }
-  };
-
-  const handleShareIconPress = async () => {
-    const chatData = await fetchArchivedChats(); // Replace with your chat data fetching logic
-    const pdfFilePath = await generatePdf(chatData);
-    await sharePdf(pdfFilePath);
-  };
   return (
     <View
       style={[
@@ -398,9 +304,9 @@ export default function SideMenu() {
                       <Text style={styles.chatTitle}  numberOfLines={1} >{chat.title}</Text>
                     </View>
                     <View style={styles.iconsContainer}>
-                      {/* <TouchableOpacity onPress={() => handleShareIconPress()}>
+                      <TouchableOpacity onPress={() => handleShareIconPress(chat.id)}>
                         <ShareIcon style={[styles.icon, { marginLeft: 8 }]} />
-                      </TouchableOpacity> */}
+                      </TouchableOpacity>
                       <TouchableOpacity onPress={() =>  archiveChat(chat.id)}>
                         <ArchiveBoxArrowDownIcon  style={[styles.icon, { marginLeft: 8, color: "black" }]}/>
                       </TouchableOpacity>
