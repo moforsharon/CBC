@@ -40,9 +40,9 @@ if (Platform.OS === 'web') {
       console.log('\n\n\nCurrent Path:', currentPath);
 
       // Ensure the modal opens every time the user visits
-      if (!currentPath.startsWith('/shared')) { // Avoid showing on `SharedChat` routes
+      // if (!currentPath.startsWith('/shared')) { // Avoid showing on `SharedChat` routes
         setIsOpen(true);
-      }
+      // }
 
       return () => {
         window.removeEventListener('beforeinstallprompt', promptHandler);
