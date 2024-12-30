@@ -1,14 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 import { View, Text, TouchableOpacity, Clipboard, Linking, StyleSheet } from 'react-native';
 import { Modalize } from 'react-native-modalize';
+import { AppContext } from "../../App";
 
 const ShareBottomSheet = ({ visible, onClose, chatTitle, chatId, user }) => {
-  const modalizeRef = useRef(null);
+  // const modalizeRef = useRef(null);
+  const { modalizeRef, currentChatSummary, currentChatSummaryTitle } = useContext(AppContext);
   const [copied, setCopied] = React.useState(false);
 
-  const handleOpen = () => {
-    modalizeRef.current?.open();
-  };
+  // const handleOpen = () => {
+  //   modalizeRef.current?.open();
+  // };
 
   const handleClose = () => {
     modalizeRef.current?.close();
@@ -16,15 +18,15 @@ const ShareBottomSheet = ({ visible, onClose, chatTitle, chatId, user }) => {
   };
 
   const handleCopyLink = () => {
-    const link = `https://childbehaviorcheck.com/shared/${user}/${chatId}`;
+    const link = `https://childbehaviorcheck.com/shared/${user}/${currentChatSummary}`;
     Clipboard.setString(link); // Copies the link to clipboard
     setCopied(true);
   };
 
   return (
     <>
-      {/* Button to trigger the bottom sheet
-      <TouchableOpacity onPress={handleOpen} style={styles.triggerButton}>
+      {/* Button to trigger the bottom sheet */}
+      {/* <TouchableOpacity onPress={handleOpen} style={styles.triggerButton}>
         <Text style={styles.triggerButtonText}>Open Share Bottom Sheet</Text>
       </TouchableOpacity> */}
 
@@ -32,13 +34,13 @@ const ShareBottomSheet = ({ visible, onClose, chatTitle, chatId, user }) => {
       <Modalize
         ref={modalizeRef}
         onClose={handleClose}
-        modalHeight={200}
+        modalHeight={250}
         handleStyle={styles.handle}
         modalStyle={styles.modal}
       >
         <View style={styles.content}>
-          <Text style={styles.title}>{chatTitle}</Text>
           <Text style={styles.subTitle}>Share chat</Text>
+          <Text style={styles.title}>{currentChatSummaryTitle}</Text>
           <TouchableOpacity
             onPress={handleCopyLink}
             style={styles.copyButton}

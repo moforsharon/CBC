@@ -35,7 +35,7 @@ export default function SideMenu() {
   // const router = useRouter();
   const navigation = useNavigation();
 
-  const { menuOpen, setMenuOpen, user, setUser , recentChats, currentChatSummary, setCurrentChatSummary, setModalVisible, setRecentChats, archivedChats, setArchivedChats, visible, setVisible} = useContext(AppContext);
+  const { menuOpen, setMenuOpen, user, setUser , recentChats, currentChatSummary, setCurrentChatSummary, setModalVisible, setRecentChats, archivedChats, setArchivedChats, visible, setVisible, modalizeRef,currentChatSummaryTitle, setCurrentChatSummaryTitle} = useContext(AppContext);
   const position = useRef(new Animated.ValueXY({ x: -360, y: 0 })).current;
   const [statusBarHeight, setStatusBarHeight] = useState(0);
   const [height, setHeight] = useState(100);
@@ -45,10 +45,12 @@ export default function SideMenu() {
     fetchArchivedChats()
   };
 
-  const handleShareIconPress = (chatId) => {
+  const handleShareIconPress = (chatId, title) => {
     setCurrentChatSummary(chatId)
+    setCurrentChatSummaryTitle(title)
     setMenuOpen(false);
     setVisible(true);
+    modalizeRef.current?.open(); // Open the bottom sheet
   };
 
   useEffect(() => {
@@ -279,6 +281,7 @@ export default function SideMenu() {
           }}
         >
           <Text style={styles.chatDate}>Recent Chats</Text>
+         
         </View>
 
         <ScrollView
@@ -304,8 +307,8 @@ export default function SideMenu() {
                       <Text style={styles.chatTitle}  numberOfLines={1} >{chat.title}</Text>
                     </View>
                     <View style={styles.iconsContainer}>
-                      <TouchableOpacity onPress={() => handleShareIconPress(chat.id)}>
-                        <ShareIcon style={[styles.icon, { marginLeft: 8 }]} />
+                      <TouchableOpacity onPress={() => handleShareIconPress(chat.id, chat.title)}>
+                        <ShareIcon style={[styles.icon, { marginLeft: 8, color: "black" }]} />
                       </TouchableOpacity>
                       <TouchableOpacity onPress={() =>  archiveChat(chat.id)}>
                         <ArchiveBoxArrowDownIcon  style={[styles.icon, { marginLeft: 8, color: "black" }]}/>

@@ -1,4 +1,4 @@
-import React, { useCallback, createContext, useState, useEffect } from "react";
+import React, { useCallback, createContext, useState, useEffect, useRef } from "react";
 import { StatusBar } from "expo-status-bar";
 import * as ScreenOrientation from "expo-screen-orientation";
 // import * as SplashScreen from "expo-splash-screen";
@@ -21,6 +21,7 @@ import SignUpPage from "./src/pages/SignUp";
 import Library from "./src/pages/Library";
 import SharedChatNavigator from "./src/components/SharedChatNavigator"
 import DeviceDetection from "./src/components/DeviceDetection";
+import SharedChatScreen from './src/pages/SharedChatScreen'
 import LoadingScreen from "./src/components/LoadingPage";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useFocusEffect } from '@react-navigation/native';
@@ -35,6 +36,24 @@ export const AppContext = createContext();
 
 const Stack = createStackNavigator();
 const { height } = Dimensions.get('window');
+const linking = {
+  prefixes: ['http://localhost:19006'],
+  config: {
+    screens: {
+      SharedChat: {
+        path: 'shared/:user?/:chatId',
+        parse: {
+          chatId: (chatId) => `${chatId}`, // Ensure it's parsed as a string
+        },
+      },
+      Landing: '',
+      Chat: 'chat',
+      Signin: 'signin',
+      Signup: 'signup',
+      Library: 'library',
+    },
+  },
+};
 
 // SplashScreen.preventAutoHideAsync();
 
@@ -49,6 +68,9 @@ export default function App() {
   const [modalVisible, setModalVisible] = useState(false);
   const [archivedChats, setArchivedChats] = useState([])
   const [visible, setVisible] = useState(false);
+  const modalizeRef = useRef(null);
+  const [currentChatSummaryTitle, setCurrentChatSummaryTitle] = useState("")
+
 
   const getStoredUserID = async () => {
     try {
@@ -217,11 +239,14 @@ export default function App() {
             archivedChats, 
             setArchivedChats,
             visible, 
-            setVisible 
+            setVisible,
+            modalizeRef, 
+            currentChatSummaryTitle, 
+            setCurrentChatSummaryTitle
           }}
         >
           <View style={styles.container}> {/* Ensures full height */}
-            <NavigationContainer>
+            <NavigationContainer linking={linking} fallback={<MyComponent />}>
             <SideMenu />
               <Stack.Navigator initialRouteName="Landing" screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Loading" component={LoadingScreen} />
@@ -230,7 +255,7 @@ export default function App() {
                 <Stack.Screen name="Signin" component={SignInPage} />
                 <Stack.Screen name="Signup" component={SignUpPage} />
                 <Stack.Screen name="Library" component={Library} />
-                <Stack.Screen name="SharedChat" component={SharedChatNavigator} />
+                <Stack.Screen name="SharedChat" component={SharedChatScreen} />
               </Stack.Navigator>
             </NavigationContainer>
           </View>
