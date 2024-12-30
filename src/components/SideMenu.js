@@ -280,7 +280,10 @@ export default function SideMenu() {
             marginHorizontal: 20,
           }}
         >
-          <Text style={styles.chatDate}>Recent Chats</Text>
+          <TouchableOpacity onPress={() => handleShareIconPress(1, "hello")}>
+            <Text style={styles.chatDate}>Recent Chats</Text>
+
+          </TouchableOpacity>
          
         </View>
 

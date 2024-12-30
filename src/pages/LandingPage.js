@@ -267,14 +267,10 @@ export default function Page() {
           </View>
         </View>
       </Modal>
+      </View>
       <ShareBottomSheet
-        visible={visible}
-        onClose={() => setVisible(false)}
-        chatTitle={"Hi"}
-        chatId={currentChatSummary}
         user={user}
       />
-      </View>
     </SafeAreaView>
   );
 }

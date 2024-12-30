@@ -37,7 +37,7 @@ export const AppContext = createContext();
 const Stack = createStackNavigator();
 const { height } = Dimensions.get('window');
 const linking = {
-  prefixes: ['http://localhost:19006'],
+  prefixes: ['https://childbehaviorcheck.com'],
   config: {
     screens: {
       SharedChat: {

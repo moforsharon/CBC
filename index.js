@@ -33,11 +33,16 @@ if (Platform.OS === 'web') {
         console.log("beforeinstallprompt event fired");
         setInstallPromptEvent(event);
       };
-      
+      // Check the current route
+      const currentPath = window.location.pathname;
       window.addEventListener('beforeinstallprompt', beforeInstallPromptHandler);
 
+      console.log('\n\n\nCurrent Path:', currentPath);
+
       // Ensure the modal opens every time the user visits
-      setIsOpen(true);
+      if (!currentPath.startsWith('/shared')) { // Avoid showing on `SharedChat` routes
+        setIsOpen(true);
+      }
 
       return () => {
         window.removeEventListener('beforeinstallprompt', promptHandler);

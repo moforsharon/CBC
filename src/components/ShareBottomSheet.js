@@ -1,7 +1,10 @@
 import React, { useRef, useContext } from 'react';
-import { View, Text, TouchableOpacity, Clipboard, Linking, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Clipboard, Linking, StyleSheet, ScrollView } from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import { AppContext } from "../../App";
+import { Dimensions } from 'react-native';
+
+const { height } = Dimensions.get('window'); // Get screen height
 
 const ShareBottomSheet = ({ visible, onClose, chatTitle, chatId, user }) => {
   // const modalizeRef = useRef(null);
@@ -13,9 +16,11 @@ const ShareBottomSheet = ({ visible, onClose, chatTitle, chatId, user }) => {
   // };
 
   const handleClose = () => {
-    modalizeRef.current?.close();
-    if (onClose) onClose();
+    if (onClose && typeof onClose === 'function') {
+      onClose(); // Invoke the callback safely
+    }
   };
+  
 
   const handleCopyLink = () => {
     const link = `https://childbehaviorcheck.com/shared/${user}/${currentChatSummary}`;
@@ -34,11 +39,11 @@ const ShareBottomSheet = ({ visible, onClose, chatTitle, chatId, user }) => {
       <Modalize
         ref={modalizeRef}
         onClose={handleClose}
-        modalHeight={250}
+        modalHeight={Math.min(height * 0.4, 250)} // Ensure it’s at most 40% of the screen height
         handleStyle={styles.handle}
         modalStyle={styles.modal}
       >
-        <View style={styles.content}>
+        <ScrollView contentContainerStyle={styles.content}>
           <Text style={styles.subTitle}>Share chat</Text>
           <Text style={styles.title}>{currentChatSummaryTitle}</Text>
           <TouchableOpacity
@@ -52,7 +57,7 @@ const ShareBottomSheet = ({ visible, onClose, chatTitle, chatId, user }) => {
               <Text style={styles.copyHint}>Copy</Text>
             )}
           </TouchableOpacity>
-        </View>
+        </ScrollView>
       </Modalize>
     </>
   );
@@ -79,13 +84,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 10,
   },
+  content: {
+    padding: 20,
+    maxHeight: '100%', // Prevents the content from overflowing
+  },
   modal: {
     backgroundColor: '#fff',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-  },
-  content: {
-    padding: 20,
   },
   title: {
     fontSize: 18,

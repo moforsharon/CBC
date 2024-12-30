@@ -513,7 +513,7 @@ const SharedChatScreen = ({ route }) => {
                 </>
               )} */}
             <View style={{ height:  height - 210, paddingBottom: 200 }}>
-                {chatHistory.length > 0 ? (
+                {chatHistory.length > 1 ? (
                     chatHistory.map((item, index) =>
                     item.role === "user" ? (
                         <LinearGradient
@@ -548,7 +548,7 @@ const SharedChatScreen = ({ route }) => {
                     )
                     )
                 ) : (
-                    <Text>No chat history available</Text>
+                    <Text></Text>
                 )}
             </View>
 
@@ -562,7 +562,8 @@ const SharedChatScreen = ({ route }) => {
             marginHorizontal: 10
           }}> 
             <TouchableOpacity
-                onPress={() => {}}onPress={() => Linking.openURL('https://childbehaviorcheck.com/')}style={{
+                onPress={() => Linking.openURL('https://childbehaviorcheck.com/')}
+                style={{
                   backgroundColor: '#27AFDE',
                   paddingVertical: 10,
                   paddingHorizontal: 20,
