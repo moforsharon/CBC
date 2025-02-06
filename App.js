@@ -19,6 +19,9 @@ import ChatPage from "./src/pages/Chat";
 import SignInPage from "./src/pages/Signin";
 import SignUpPage from "./src/pages/SignUp";
 import Library from "./src/pages/Library";
+import BasicInfoPage from "./src/pages/add_child/BasicInfoScreen";
+import MethodsOfCommunicationForm from "./src/pages/add_child/MethodsOfCommunicationScreen";
+import MoreInfoScreen from "./src/pages/add_child/MoreInfoScreen";
 import SharedChatNavigator from "./src/components/SharedChatNavigator"
 import DeviceDetection from "./src/components/DeviceDetection";
 import SharedChatScreen from './src/pages/SharedChatScreen'
@@ -70,6 +73,7 @@ export default function App() {
   const [visible, setVisible] = useState(false);
   const modalizeRef = useRef(null);
   const [currentChatSummaryTitle, setCurrentChatSummaryTitle] = useState("")
+  const [childName, setChildName] = useState("");
 
 
   const getStoredUserID = async () => {
@@ -242,7 +246,9 @@ export default function App() {
             setVisible,
             modalizeRef, 
             currentChatSummaryTitle, 
-            setCurrentChatSummaryTitle
+            setCurrentChatSummaryTitle,
+            childName, 
+            setChildName
           }}
         >
           <View style={styles.container}> {/* Ensures full height */}
@@ -256,6 +262,9 @@ export default function App() {
                 <Stack.Screen name="Signup" component={SignUpPage} />
                 <Stack.Screen name="Library" component={Library} />
                 <Stack.Screen name="SharedChat" component={SharedChatScreen} />
+                <Stack.Screen name="BasicInfo" component={BasicInfoPage} />
+                <Stack.Screen name="MethodsOfCommunication" component={MethodsOfCommunicationForm} />
+                <Stack.Screen name="MoreInfo" component={MoreInfoScreen} />
               </Stack.Navigator>
             </NavigationContainer>
           </View>

@@ -143,6 +143,14 @@ export default function Page() { // Rename the function to match the file name
     return emailRegex.test(email);
   };
 
+  //handle navigation to add child screen
+  const handleNavigationToAddChildScreen = async () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "BasicInfo" }],
+    });
+  }
+
   const handleSignup = async () => {
     Keyboard.dismiss();
     if (!isConnected) {
@@ -385,7 +393,8 @@ export default function Page() { // Rename the function to match the file name
               </Text>
             </View>
             <TouchableOpacity
-              onPress={handleSignup}
+              // onPress={handleSignup}
+              onPress={handleNavigationToAddChildScreen}
               style={{
                 borderRadius: 10,
                 padding: 10,
