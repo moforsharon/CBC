@@ -62,7 +62,13 @@ export default function CommunicationForm() {
         }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[
+        styles.container, 
+        {
+          marginTop: statusBarHeight,
+          height: height,
+        }
+      ]}>
         <View style={styles.Header}>
             <View style={styles.HeaderLogo}>
             <View style={{width:32, height:32}}></View>
@@ -167,7 +173,8 @@ const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
     padding: 16,
-    minHeight: screenHeight - 90,
+    // minHeight: screenHeight - 90,
+    minHeight: "80%",
     justifyContent: "center",
     marginTop: "25%"
   },
