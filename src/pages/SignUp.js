@@ -188,9 +188,13 @@ export default function Page() { // Rename the function to match the file name
           setLoading(false);
           let tempLogin = await handleLogin();
           if (tempLogin) {
+            // navigation.reset({
+            //   index: 0,
+            //   routes: [{ name: "Chat" }],
+            // });
             navigation.reset({
               index: 0,
-              routes: [{ name: "Chat" }],
+              routes: [{ name: "BasicInfo" }],
             });
           } else {
             navigation.reset({
@@ -394,7 +398,7 @@ export default function Page() { // Rename the function to match the file name
             </View>
             <TouchableOpacity
               // onPress={handleSignup}
-              onPress={handleNavigationToAddChildScreen}
+              onPress={handleSignup}
               style={{
                 borderRadius: 10,
                 padding: 10,
