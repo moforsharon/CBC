@@ -18,7 +18,7 @@ const { height: screenHeight } = Dimensions.get("window");
 
 export default function MoreInfoScreen() {
     const navigation = useNavigation();
-    const {childName} = useContext(AppContext);
+    const {childName, setChildName, childRace, setChildRace, childGender, setChildGender, diagnosis, setDiagnosis, educationPlan, setEducationPlan, diagnosisDetails, setDiagnosisDetails, otherServices, setOtherServices, serviceDetails, setServiceDetails, requestingAttention, setRequestingAttention, refusingActions, setRefusingActions} = useContext(AppContext);
     const [favoriteThings, setFavoriteThings] = useState("");
     const [statusBarHeight, setStatusBarHeight] = useState(0);
     const [height, setHeight] = useState(100);

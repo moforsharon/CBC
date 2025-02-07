@@ -74,6 +74,15 @@ export default function App() {
   const modalizeRef = useRef(null);
   const [currentChatSummaryTitle, setCurrentChatSummaryTitle] = useState("")
   const [childName, setChildName] = useState("");
+  const [childRace, setChildRace] = useState("")
+  const [childGender, setChildGender] = useState("")
+  const [diagnosis, setDiagnosis] = useState(null)
+  const [educationPlan, setEducationPlan] = useState(null)
+  const [diagnosisDetails, setDiagnosisDetails] = useState("")
+  const [otherServices, setOtherServices] = useState(null)
+  const [serviceDetails, setServiceDetails] = useState("")
+  const [requestingAttention, setRequestingAttention] = useState([]);
+  const [refusingActions, setRefusingActions] = useState([]);
 
 
   const getStoredUserID = async () => {
@@ -248,7 +257,26 @@ export default function App() {
             currentChatSummaryTitle, 
             setCurrentChatSummaryTitle,
             childName, 
-            setChildName
+            setChildName,
+            childRace,
+            setChildRace,
+            childGender,
+            setChildGender,
+            diagnosis,
+            setDiagnosis,
+            educationPlan,
+            setEducationPlan,
+            diagnosisDetails,
+            setDiagnosisDetails,
+            otherServices,
+            setOtherServices,
+            serviceDetails,
+            setServiceDetails,
+            requestingAttention,
+            setRequestingAttention,
+            refusingActions,
+            setRefusingActions
+
           }}
         >
           <View style={styles.container}> {/* Ensures full height */}

@@ -18,10 +18,8 @@ import { AppContext } from '../../../App';
 const screenHeight = Dimensions.get("window").height;
 
 export default function CommunicationForm() {
-    const {childName} = useContext(AppContext);
+    const {childName, requestingAttention, setRequestingAttention, refusingActions, setRefusingActions} = useContext(AppContext);
     const navigation = useNavigation();
-    const [requestingAttention, setRequestingAttention] = useState([]);
-    const [refusingActions, setRefusingActions] = useState([]);
     const [statusBarHeight, setStatusBarHeight] = useState(0);
     const [height, setHeight] = useState(100);
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
@@ -36,7 +34,11 @@ export default function CommunicationForm() {
   ];
 
   const handleSelection = (option, setList) => {
-    setList(option);
+    setList(prevList => 
+      prevList.includes(option) 
+        ? prevList.filter(item => item !== option) 
+        : [...prevList, option]
+    );
   };
 
   const handleNext = () => {
@@ -97,7 +99,7 @@ export default function CommunicationForm() {
           {communicationOptions.map((option, index) => (
             <View key={index} style={styles.checkboxContainer}>
               <Checkbox
-                status={requestingAttention === option ? "checked" : "unchecked"}
+                status={requestingAttention.includes(option) ? "checked" : "unchecked"}
                 onPress={() => handleSelection(option, setRequestingAttention)}
                 color="#5EB0E0"
               />
@@ -115,7 +117,7 @@ export default function CommunicationForm() {
           {communicationOptions.map((option, index) => (
             <View key={index} style={styles.checkboxContainer}>
               <Checkbox
-                status={refusingActions === option ? "checked" : "unchecked"}
+                status={refusingActions.includes(option) ? "checked" : "unchecked"}
                 onPress={() => handleSelection(option, setRefusingActions)}
                 color="#5EB0E0"
               />
