@@ -6,6 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { ChevronDownIcon } from "react-native-heroicons/outline"
 import DropDownPicker from "react-native-dropdown-picker"
 import { AppContext } from '../../../App';
+import { useNavigation } from "@react-navigation/native";
 
 const { width } = Dimensions.get("window")
 const { height: screenHeight } = Dimensions.get("window")
@@ -17,6 +18,7 @@ const { height: screenHeight } = Dimensions.get("window")
 //     ]
 
 export default function AdditionalCaregiver() {
+  const navigation = useNavigation();
   const {user} = useContext(AppContext);
   const [open, setOpen] = useState(false)
   const [value, setValue] = useState(null)

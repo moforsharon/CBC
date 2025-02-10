@@ -289,7 +289,7 @@ export default function App() {
           <View style={styles.container}> {/* Ensures full height */}
             <NavigationContainer linking={linking} fallback={<MyComponent />}>
             <SideMenu />
-              <Stack.Navigator initialRouteName="MethodsOfCommunication" screenOptions={{ headerShown: false }}>
+              <Stack.Navigator initialRouteName="Landing" screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Loading" component={LoadingScreen} />
                 <Stack.Screen name="Landing" component={MyComponent} />
                 <Stack.Screen name="Chat" component={ChatPage} />
