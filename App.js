@@ -84,6 +84,8 @@ export default function App() {
   const [serviceDetails, setServiceDetails] = useState("")
   const [requestingAttention, setRequestingAttention] = useState([]);
   const [refusingActions, setRefusingActions] = useState([]);
+  const [simplifiedRequesting, setSimplifiedRequesting] = useState([]);
+  const [simplifiedRefusal, setSimplifiedRefusal] = useState([]);
 
 
   const getStoredUserID = async () => {
@@ -276,14 +278,18 @@ export default function App() {
             requestingAttention,
             setRequestingAttention,
             refusingActions,
-            setRefusingActions
+            setRefusingActions,
+            simplifiedRequesting, 
+            setSimplifiedRequesting,
+            simplifiedRefusal, 
+            setSimplifiedRefusal,
 
           }}
         >
           <View style={styles.container}> {/* Ensures full height */}
             <NavigationContainer linking={linking} fallback={<MyComponent />}>
             <SideMenu />
-              <Stack.Navigator initialRouteName="Landing" screenOptions={{ headerShown: false }}>
+              <Stack.Navigator initialRouteName="MethodsOfCommunication" screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Loading" component={LoadingScreen} />
                 <Stack.Screen name="Landing" component={MyComponent} />
                 <Stack.Screen name="Chat" component={ChatPage} />

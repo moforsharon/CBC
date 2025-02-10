@@ -18,22 +18,56 @@ import { AppContext } from '../../../App';
 const screenHeight = Dimensions.get("window").height;
 
 export default function CommunicationForm() {
-    const {childName, requestingAttention, setRequestingAttention, refusingActions, setRefusingActions} = useContext(AppContext);
+    const {childName, requestingAttention, setRequestingAttention, refusingActions, setRefusingActions, setSimplifiedRequesting, setSimplifiedRefusal, simplifiedRequesting, simplifiedRefusal} = useContext(AppContext);
     const navigation = useNavigation();
     const [statusBarHeight, setStatusBarHeight] = useState(0);
     const [height, setHeight] = useState(100);
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
-  const communicationOptions = [
-    "Talking",
-    "Sign language",
-    "Augmentative and alternative communication (communication device, such as GoTalk, tablet with language software)",
-    "Body motion or gestures (pointing at an object, moving towards a person)",
-    "Crying, hitting, ignoring, refusing, or other behaviors",
-    "Other",
-  ];
+    const requestingOptions = [
+      "Talking (at least one-word phrases)",
+      "Sign language",
+      "Augmentative and alternative communication (communication device, such as GoTalk, tablet with language software)",
+      "Body motion or gestures (pointing at an object, moving towards a person)",
+      "Crying, whining, screaming, or other behaviors",
+      "Other",
+    ];
+    
+    const refusalOptions = [
+      "Talking (at least one-word phrases)",
+      "Sign language",
+      "Augmentative and alternative communication (communication device, such as GoTalk, tablet with language software)",
+      "Body motion or gestures (pointing at an object, moving towards a person)",
+      "Crying, hitting, ignoring, refusing, or other behaviors",
+      "Other",
+    ];
 
-  const handleSelection = (option, setList) => {
+
+    const mapRequestingOption = (option) => {
+      const mapping = {
+        "Talking (at least one-word phrases)": "Talking",
+        "Sign language": "Sign language",
+        "Augmentative and alternative communication (communication device, such as GoTalk, tablet with language software)": "Augmentative communication",
+        "Body motion or gestures (pointing at an object, moving towards a person)": "Body motion",
+        "Crying, whining, screaming, or other behaviors": "Crying/whining",
+        "Other": "Other",
+      };
+      return mapping[option];
+    };
+    
+    const mapRefusalOption = (option) => {
+      const mapping = {
+        "Talking (at least one-word phrases)": "Talking",
+        "Sign language": "Sign language",
+        "Augmentative and alternative communication (communication device, such as GoTalk, tablet with language software)": "Augmentative communication",
+        "Body motion or gestures (pointing at an object, moving towards a person)": "Body motion",
+        "Crying, hitting, ignoring, refusing, or other behaviors": "Crying/hitting/ignoring",
+        "Other": "Other",
+      };
+      return mapping[option];
+    };
+
+  const handleRequestingSelection = (option, setList) => {
     setList(prevList => 
       prevList.includes(option) 
         ? prevList.filter(item => item !== option) 
@@ -41,9 +75,39 @@ export default function CommunicationForm() {
     );
   };
 
+  const handleRefusalSelection = (option, setList) => {
+    setList(prevList => 
+      prevList.includes(option) 
+        ? prevList.filter(item => item !== option) 
+        : [...prevList, option]
+    );
+  };
+
+  useEffect(() => {
+    if (requestingAttention && requestingAttention.length > 0) {
+      const simplifiedRequesting = requestingAttention.map(mapRequestingOption).filter(Boolean);
+      setSimplifiedRequesting(simplifiedRequesting);
+    } else {
+      setSimplifiedRequesting([]);
+    }
+  }, [requestingAttention]);
+  
+  useEffect(() => {
+    if (refusingActions && refusingActions.length > 0) {
+      const simplifiedRefusal = refusingActions.map(mapRefusalOption).filter(Boolean);
+      setSimplifiedRefusal(simplifiedRefusal);
+    } else {
+      setSimplifiedRefusal([]);
+    }
+  }, [refusingActions]);
+
   const handleNext = () => {
-    console.log("Preferred method for requesting attention:", requestingAttention);
-    console.log("Preferred method for refusing actions:", refusingActions);
+    // const simplifiedRequesting = requestingAttention.map(mapRequestingOption);
+    // const simplifiedRefusal = refusingActions.map(mapRefusalOption);
+    // setSimplifiedRequesting(requestingAttention.map(mapRequestingOption))
+    // setSimplifiedRefusal(refusingActions.map(mapRefusalOption))
+    console.log("Preferred method for requesting attention:", simplifiedRequesting);
+    console.log("Preferred method for refusing actions:", simplifiedRefusal);
     navigation.reset({
         index: 0,
         routes: [{ name: "MoreInfo" }],
@@ -96,11 +160,14 @@ export default function CommunicationForm() {
                     Preferred method of communication for requesting attention
                 </Text>
             </LinearGradient>
-          {communicationOptions.map((option, index) => (
+          {requestingOptions.map((option, index) => (
             <View key={index} style={styles.checkboxContainer}>
               <Checkbox
                 status={requestingAttention.includes(option) ? "checked" : "unchecked"}
-                onPress={() => handleSelection(option, setRequestingAttention)}
+                onPress={() => {
+                  handleRequestingSelection(option, setRequestingAttention)
+                
+                }}
                 color="#5EB0E0"
               />
               <Text style={styles.checkboxText}>{option}</Text>
@@ -114,11 +181,11 @@ export default function CommunicationForm() {
                     Preferred method of communication for refusing actions
                 </Text>
             </LinearGradient>
-          {communicationOptions.map((option, index) => (
+          {refusalOptions.map((option, index) => (
             <View key={index} style={styles.checkboxContainer}>
               <Checkbox
                 status={refusingActions.includes(option) ? "checked" : "unchecked"}
-                onPress={() => handleSelection(option, setRefusingActions)}
+                onPress={() => handleRefusalSelection(option, setRefusingActions)}
                 color="#5EB0E0"
               />
               <Text style={styles.checkboxText}>{option}</Text>

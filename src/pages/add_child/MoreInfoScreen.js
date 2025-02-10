@@ -19,7 +19,7 @@ const { height: screenHeight } = Dimensions.get("window");
 
 export default function MoreInfoScreen() {
     const navigation = useNavigation();
-    const {childName, childRace, childGender, diagnosis, educationPlan, diagnosisDetails, otherServices, serviceDetails, requestingAttention, refusingActions, user} = useContext(AppContext);
+    const {childName, childRace, childGender, diagnosis, educationPlan, diagnosisDetails, otherServices, serviceDetails, simplifiedRequesting, simplifiedRefusal, user} = useContext(AppContext);
     const [favoriteThings, setFavoriteThings] = useState("");
     const [statusBarHeight, setStatusBarHeight] = useState(0);
     const [height, setHeight] = useState(100);
@@ -47,8 +47,8 @@ export default function MoreInfoScreen() {
             child_gender: childGender.toUpperCase(),
             diagnosis: diagnosis,
             individual_education_plan: educationPlan,
-            preferred_communication_method_for_request: requestingAttention,
-            preferred_communication_method_for_refusal: refusingActions,
+            preferred_communication_method_for_request: simplifiedRequesting,
+            preferred_communication_method_for_refusal: simplifiedRefusal,
             favorite_things: favoriteThings,
             additional_caregiver_response: "No", 
             child_diagnosis: diagnosisDetails,
