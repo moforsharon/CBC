@@ -22,6 +22,7 @@ import Library from "./src/pages/Library";
 import BasicInfoPage from "./src/pages/add_child/BasicInfoScreen";
 import MethodsOfCommunicationForm from "./src/pages/add_child/MethodsOfCommunicationScreen";
 import MoreInfoScreen from "./src/pages/add_child/MoreInfoScreen";
+import AdditionalCaregiver from "./src/pages/add_child/Additional-caregiver";
 import SharedChatNavigator from "./src/components/SharedChatNavigator"
 import DeviceDetection from "./src/components/DeviceDetection";
 import SharedChatScreen from './src/pages/SharedChatScreen'
@@ -282,7 +283,7 @@ export default function App() {
           <View style={styles.container}> {/* Ensures full height */}
             <NavigationContainer linking={linking} fallback={<MyComponent />}>
             <SideMenu />
-              <Stack.Navigator initialRouteName="Landing" screenOptions={{ headerShown: false }}>
+              <Stack.Navigator initialRouteName="AdditionalCaregiver" screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Loading" component={LoadingScreen} />
                 <Stack.Screen name="Landing" component={MyComponent} />
                 <Stack.Screen name="Chat" component={ChatPage} />
@@ -293,6 +294,7 @@ export default function App() {
                 <Stack.Screen name="BasicInfo" component={BasicInfoPage} />
                 <Stack.Screen name="MethodsOfCommunication" component={MethodsOfCommunicationForm} />
                 <Stack.Screen name="MoreInfo" component={MoreInfoScreen} />
+                <Stack.Screen name="AdditionalCaregiver" component={AdditionalCaregiver} />
               </Stack.Navigator>
             </NavigationContainer>
           </View>

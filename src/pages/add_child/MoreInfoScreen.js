@@ -13,24 +13,75 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { AppContext } from '../../../App';
+import Toast from "react-native-toast-message"
 
 const { height: screenHeight } = Dimensions.get("window");
 
 export default function MoreInfoScreen() {
     const navigation = useNavigation();
-    const {childName, setChildName, childRace, setChildRace, childGender, setChildGender, diagnosis, setDiagnosis, educationPlan, setEducationPlan, diagnosisDetails, setDiagnosisDetails, otherServices, setOtherServices, serviceDetails, setServiceDetails, requestingAttention, setRequestingAttention, refusingActions, setRefusingActions} = useContext(AppContext);
+    const {childName, childRace, childGender, diagnosis, educationPlan, diagnosisDetails, otherServices, serviceDetails, requestingAttention, refusingActions, user} = useContext(AppContext);
     const [favoriteThings, setFavoriteThings] = useState("");
     const [statusBarHeight, setStatusBarHeight] = useState(0);
     const [height, setHeight] = useState(100);
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
-  const handleNext = () => {
-    console.log(`${childName}'s Favorite Things:`, favoriteThings);
-    navigation.reset({
-        index: 0,
-        routes: [{ name: "Chat" }],
-      });
-  };
+    const handleNext = async () => {
+      if (!favoriteThings.trim()) {
+        Toast.show({
+          type: "error",
+          text1: "Please enter your child's favorite things",
+        })
+        return
+      }
+  
+      try {
+        const response = await fetch("https://api.childbehaviorcheck.com/api/child", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user_id: user,
+            child_name: childName,
+            child_race_or_ethnicity: childRace,
+            child_gender: childGender.toUpperCase(),
+            diagnosis: diagnosis,
+            individual_education_plan: educationPlan,
+            preferred_communication_method_for_request: requestingAttention,
+            preferred_communication_method_for_refusal: refusingActions,
+            favorite_things: favoriteThings,
+            additional_caregiver_response: "No", 
+            child_diagnosis: diagnosisDetails,
+            other_services_response : otherServices,
+            other_services_received : serviceDetails,
+          }),
+        })
+  
+        const data = await response.json()
+  
+        if (data.success) {
+          console.log("Child data saved successfully:", data.child_id)
+          navigation.reset({
+            index: 0,
+            routes: [{ name: "AdditionalCaregiver" }],
+          })
+        } else {
+          Toast.show({
+            type: "error",
+            text1: "Failed to save child data",
+            text2: data.message || "Please try again",
+          })
+        }
+      } catch (error) {
+        console.error("Error saving child data:", error)
+        Toast.show({
+          type: "error",
+          text1: "An error occurred",
+          text2: "Please check your internet connection and try again",
+        })
+      }
+    }
+  
 
   useEffect(() => {
     setIsButtonDisabled(!favoriteThings.trim());
