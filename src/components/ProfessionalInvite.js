@@ -44,9 +44,9 @@ const ProfessionalInvite = () => {
       const response = await fetch(
         `https://api.childbehaviorcheck.com/api/professionals/accept-invite/${encryptedInviteId}/${encryptedUserId}/${encryptedChildId}`,
         {
-          method: "POST",
+          method: "GET",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ password }), // Send the password to the server
+        //   body: JSON.stringify({ password }), // Send the password to the server
         }
       );
 
