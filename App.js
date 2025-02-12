@@ -71,20 +71,20 @@ const linking = {
           chatId: (chatId) => `${chatId}`, // Ensure it's parsed as a string
         },
       },
-      // ProfessionalInvite: "invite/:encryptedInviteId/:encryptedUserId/:encryptedChildId",
+      ProfessionalInvite: "invite/:encryptedInviteId/:encryptedUserId/:encryptedChildId",
       Landing: '',
       Chat: 'chat',
       Signin: 'signin',
       Signup: 'signup',
       Library: 'library',
-      ProfessionalInvite: {
-        path: 'invite/:encryptedInviteId/:encryptedUserId/:encryptedChildId',
-        parse: {
-          encryptedInviteId: (encryptedInviteId) => `${encryptedInviteId}`,
-          encryptedUserId: (encryptedUserId) => `${encryptedUserId}`,
-          encryptedChildId: (encryptedChildId) => `${encryptedChildId}`,
-        },
-      },
+      // ProfessionalInvite: {
+      //   path: 'invite/:encryptedInviteId/:encryptedUserId/:encryptedChildId',
+      //   parse: {
+      //     encryptedInviteId: (encryptedInviteId) => `${encryptedInviteId}`,
+      //     encryptedUserId: (encryptedUserId) => `${encryptedUserId}`,
+      //     encryptedChildId: (encryptedChildId) => `${encryptedChildId}`,
+      //   },
+      // },
     },
   },
 };
