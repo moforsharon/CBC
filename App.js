@@ -23,6 +23,7 @@ import BasicInfoPage from "./src/pages/add_child/BasicInfoScreen";
 import MethodsOfCommunicationForm from "./src/pages/add_child/MethodsOfCommunicationScreen";
 import MoreInfoScreen from "./src/pages/add_child/MoreInfoScreen";
 import AdditionalCaregiver from "./src/pages/add_child/Additional-caregiver";
+import ProfessionalInvite from "./src/components/ProfessionalInvite"
 import SharedChatNavigator from "./src/components/SharedChatNavigator"
 import DeviceDetection from "./src/components/DeviceDetection";
 import SharedChatScreen from './src/pages/SharedChatScreen'
@@ -61,7 +62,7 @@ const { height } = Dimensions.get('window');
 // };
 
 const linking = {
-  prefixes: ['https://childbehaviorcheck.com', 'childbehaviorcheck://'],
+  prefixes: ['https://childbehaviorcheck.com'],
   config: {
     screens: {
       SharedChat: {
@@ -70,12 +71,13 @@ const linking = {
           chatId: (chatId) => `${chatId}`, // Ensure it's parsed as a string
         },
       },
+      // ProfessionalInvite: "invite/:encryptedInviteId/:encryptedUserId/:encryptedChildId",
       Landing: '',
       Chat: 'chat',
       Signin: 'signin',
       Signup: 'signup',
       Library: 'library',
-      Invite: {
+      ProfessionalInvite: {
         path: 'invite/:encryptedInviteId/:encryptedUserId/:encryptedChildId',
         parse: {
           encryptedInviteId: (encryptedInviteId) => `${encryptedInviteId}`,
@@ -117,47 +119,47 @@ export default function App() {
   const [inviteAccepted, setInviteAccepted] = useState(false);
   const navigationRef = useRef(); // Create navigation reference
 
-  useEffect(() => {
-    const handleDeepLink = (url) => {
-      if (!url) return;
+  // useEffect(() => {
+  //   const handleDeepLink = (url) => {
+  //     if (!url) return;
 
-      const routeParts = url.replace(/.*?:\/\//g, '').split('/');
-      if (routeParts[0] === 'invite') {
-        const [, encryptedInviteId, encryptedUserId, encryptedChildId] = routeParts;
+  //     const routeParts = url.replace(/.*?:\/\//g, '').split('/');
+  //     if (routeParts[0] === 'invite') {
+  //       const [, encryptedInviteId, encryptedUserId, encryptedChildId] = routeParts;
 
-        // Make the GET request to accept the invite
-        fetch(
-          `https://api.childbehaviorcheck.com/api/professionals/accept-invite/${encryptedInviteId}/${encryptedUserId}/${encryptedChildId}`
-        )
-          .then((response) => {
-            if (response.ok) {
-              setInviteAccepted(true); // Show modal
-              navigationRef.current?.navigate('Landing'); // Use navigationRef to navigate
-            } else {
-              console.error("Failed to accept invite:", response.status);
-            }
-          })
-          .catch((error) => console.error("Error in fetch:", error));
-      }
-    };
+  //       // Make the GET request to accept the invite
+  //       fetch(
+  //         `https://api.childbehaviorcheck.com/api/professionals/accept-invite/${encryptedInviteId}/${encryptedUserId}/${encryptedChildId}`
+  //       )
+  //         .then((response) => {
+  //           if (response.ok) {
+  //             setInviteAccepted(true); // Show modal
+  //             navigationRef.current?.navigate('Landing'); // Use navigationRef to navigate
+  //           } else {
+  //             console.error("Failed to accept invite:", response.status);
+  //           }
+  //         })
+  //         .catch((error) => console.error("Error in fetch:", error));
+  //     }
+  //   };
 
-    // Handle the initial URL
-    Linking.getInitialURL()
-      .then((url) => {
-        if (url) handleDeepLink(url);
-      })
-      .catch((err) => console.error("Error getting initial URL:", err));
+  //   // Handle the initial URL
+  //   Linking.getInitialURL()
+  //     .then((url) => {
+  //       if (url) handleDeepLink(url);
+  //     })
+  //     .catch((err) => console.error("Error getting initial URL:", err));
 
-    // Listen for deep links
-    const subscription = Linking.addEventListener('url', (event) => {
-      handleDeepLink(event.url);
-    });
+  //   // Listen for deep links
+  //   const subscription = Linking.addEventListener('url', (event) => {
+  //     handleDeepLink(event.url);
+  //   });
 
-    // Cleanup the listener on unmount
-    return () => {
-      subscription.remove();
-    };
-  }, []);
+  //   // Cleanup the listener on unmount
+  //   return () => {
+  //     subscription.remove();
+  //   };
+  // }, []);
 
   const getStoredUserID = async () => {
     try {
@@ -374,6 +376,7 @@ export default function App() {
                 <Stack.Screen name="MethodsOfCommunication" component={MethodsOfCommunicationForm} />
                 <Stack.Screen name="MoreInfo" component={MoreInfoScreen} />
                 <Stack.Screen name="AdditionalCaregiver" component={AdditionalCaregiver} />
+                <Stack.Screen name="ProfessionalInvite" component={ProfessionalInvite} />
               </Stack.Navigator>
             </NavigationContainer>
           </View>
