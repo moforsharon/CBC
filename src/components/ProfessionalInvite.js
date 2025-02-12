@@ -21,9 +21,9 @@ const ProfessionalInvite = () => {
 
         if (response.ok) {
           setInviteStatus("Invitation accepted successfully!")
-          setTimeout(() => {
-            navigation.navigate("Landing", { inviteAccepted: true })
-          }, 2000)
+        //   setTimeout(() => {
+        //     navigation.navigate("Landing", { inviteAccepted: true })
+        //   }, 2000)
         } else {
           setInviteStatus("Failed to accept invitation. Please try again.")
         }
@@ -34,7 +34,7 @@ const ProfessionalInvite = () => {
     }
 
     acceptInvite()
-  }, [])
+  }, [route.params])
 
   return (
     <View style={styles.container}>
@@ -58,4 +58,3 @@ const styles = StyleSheet.create({
 })
 
 export default ProfessionalInvite
-
