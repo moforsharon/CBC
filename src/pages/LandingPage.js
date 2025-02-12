@@ -8,24 +8,11 @@ import { useFocusEffect } from '@react-navigation/native';
 import { ArchiveBoxArrowDownIcon, ArchiveBoxIcon, LightBulbIcon } from "react-native-heroicons/outline";
 import ShareBottomSheet from '../components/ShareBottomSheet';
 
-// Dummy data for archived chats
-// const archivedChats = [
-//   { id: '1', title: 'John Doe' },
-//   { id: '2', title: 'Jane Smith' },
-//   { id: '3', title: 'Bob Johnson' },
-//   { id: '4', title: 'Alice Brown' },
-//   { id: '5', title: 'Charlie Wilson' },
-//   { id: '6', title: 'Diana Taylor' },
-//   { id: '7', title: 'Edward Moore' },
-//   { id: '8', title: 'Fiona Clark' },
-//   { id: '9', title: 'George Adams' },
-//   { id: '10', title: 'Hannah Lewis' },
-// ];
-
 const { height, width } = Dimensions.get('window');
 
 export default function Page() {
-  const { data, setData, setMenuOpen, menuOpen, currentChatSummary, setCurrentChatSummary, user, recentChats, setRecentChats, modalVisible, setModalVisible, archivedChats, setArchivedChats, visible, setVisible } = useContext(AppContext);
+  const { data, setData, setMenuOpen, menuOpen, currentChatSummary, setCurrentChatSummary, user, recentChats, setRecentChats, modalVisible, setModalVisible, archivedChats, setArchivedChats, visible, setVisible,           inviteAccepted,
+    setInviteAccepted, } = useContext(AppContext);
   const navigation = useNavigation();
   const [archivedChatsVersion, setArchivedChatsVersion] = useState(0);
 
@@ -271,6 +258,24 @@ export default function Page() {
       <ShareBottomSheet
         user={user}
       />
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={inviteAccepted}
+        onRequestClose={() => setInviteAccepted(false)}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalTitle}>Invitation Accepted</Text>
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={() => setInviteAccepted(false)}
+            >
+              <Text style={styles.closeButtonText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -454,5 +459,24 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalView: {
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 20,
+    width: '90%',
+    maxHeight: '50%',
+  },
+  modalTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
 });

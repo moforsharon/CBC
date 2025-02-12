@@ -30,6 +30,7 @@ import LoadingScreen from "./src/components/LoadingPage";
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { useFocusEffect } from '@react-navigation/native';
 import { Linking } from 'react-native';
+
 // import { useNavigation } from '@react-navigation/native';
 
 
@@ -40,8 +41,27 @@ export const AppContext = createContext();
 
 const Stack = createStackNavigator();
 const { height } = Dimensions.get('window');
+// const linking = {
+//   prefixes: ['https://childbehaviorcheck.com'],
+//   config: {
+//     screens: {
+//       SharedChat: {
+//         path: 'shared/:user?/:chatId',
+//         parse: {
+//           chatId: (chatId) => `${chatId}`, // Ensure it's parsed as a string
+//         },
+//       },
+//       Landing: '',
+//       Chat: 'chat',
+//       Signin: 'signin',
+//       Signup: 'signup',
+//       Library: 'library',
+//     },
+//   },
+// };
+
 const linking = {
-  prefixes: ['https://childbehaviorcheck.com'],
+  prefixes: ['https://childbehaviorcheck.com', 'childbehaviorcheck://'],
   config: {
     screens: {
       SharedChat: {
@@ -55,6 +75,14 @@ const linking = {
       Signin: 'signin',
       Signup: 'signup',
       Library: 'library',
+      Invite: {
+        path: 'invite/:encryptedInviteId/:encryptedUserId/:encryptedChildId',
+        parse: {
+          encryptedInviteId: (encryptedInviteId) => `${encryptedInviteId}`,
+          encryptedUserId: (encryptedUserId) => `${encryptedUserId}`,
+          encryptedChildId: (encryptedChildId) => `${encryptedChildId}`,
+        },
+      },
     },
   },
 };
@@ -86,7 +114,50 @@ export default function App() {
   const [refusingActions, setRefusingActions] = useState([]);
   const [simplifiedRequesting, setSimplifiedRequesting] = useState([]);
   const [simplifiedRefusal, setSimplifiedRefusal] = useState([]);
+  const [inviteAccepted, setInviteAccepted] = useState(false);
+  const navigationRef = useRef(); // Create navigation reference
 
+  useEffect(() => {
+    const handleDeepLink = (url) => {
+      if (!url) return;
+
+      const routeParts = url.replace(/.*?:\/\//g, '').split('/');
+      if (routeParts[0] === 'invite') {
+        const [, encryptedInviteId, encryptedUserId, encryptedChildId] = routeParts;
+
+        // Make the GET request to accept the invite
+        fetch(
+          `https://api.childbehaviorcheck.com/api/professionals/accept-invite/${encryptedInviteId}/${encryptedUserId}/${encryptedChildId}`
+        )
+          .then((response) => {
+            if (response.ok) {
+              setInviteAccepted(true); // Show modal
+              navigationRef.current?.navigate('Landing'); // Use navigationRef to navigate
+            } else {
+              console.error("Failed to accept invite:", response.status);
+            }
+          })
+          .catch((error) => console.error("Error in fetch:", error));
+      }
+    };
+
+    // Handle the initial URL
+    Linking.getInitialURL()
+      .then((url) => {
+        if (url) handleDeepLink(url);
+      })
+      .catch((err) => console.error("Error getting initial URL:", err));
+
+    // Listen for deep links
+    const subscription = Linking.addEventListener('url', (event) => {
+      handleDeepLink(event.url);
+    });
+
+    // Cleanup the listener on unmount
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   const getStoredUserID = async () => {
     try {
@@ -232,6 +303,7 @@ export default function App() {
     return null;
   }
 
+  
 
   return (
       <NativeBaseProvider>
@@ -283,7 +355,8 @@ export default function App() {
             setSimplifiedRequesting,
             simplifiedRefusal, 
             setSimplifiedRefusal,
-
+            inviteAccepted,
+            setInviteAccepted,
           }}
         >
           <View style={styles.container}> {/* Ensures full height */}
