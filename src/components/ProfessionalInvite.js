@@ -15,7 +15,7 @@ const ProfessionalInvite = () => {
 
       try {
         const response = await fetch(
-          `http://api.childbehaviorcheck.com/api/professionals/accept-invite/${encryptedInviteId}/${encryptedUserId}/${encryptedChildId}`,
+          `https://api.childbehaviorcheck.com/api/professionals/accept-invite/${encryptedInviteId}/${encryptedUserId}/${encryptedChildId}`,
           { method: "GET" },
         )
 
