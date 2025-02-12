@@ -34,7 +34,7 @@ const ProfessionalInvite = () => {
     }
 
     acceptInvite()
-  }, [route.params, navigation])
+  }, [])
 
   return (
     <View style={styles.container}>
