@@ -25,29 +25,54 @@ if (Platform.OS === 'web') {
   let deferredPrompt;
 
   const InstallPromptModalWrapper = () => {
-    const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
 
-    useEffect(() => {
-      const beforeInstallPromptHandler = (event) => {
-        event.preventDefault();
-        console.log("beforeinstallprompt event fired");
-        setInstallPromptEvent(event);
-      };
+  //   useEffect(() => {
+  //     const beforeInstallPromptHandler = (event) => {
+  //       event.preventDefault();
+  //       console.log("beforeinstallprompt event fired");
+  //       setInstallPromptEvent(event);
+  //     };
+  //     // Check the current route
+  //     const currentPath = window.location.pathname;
+  //     window.addEventListener('beforeinstallprompt', beforeInstallPromptHandler);
+
+  //     console.log('\n\n\nCurrent Path:', currentPath);
+
+  //     // Ensure the modal opens every time the user visits
+  //     // if (!currentPath.startsWith('/shared')) { // Avoid showing on `SharedChat` routes
+  //       setIsOpen(true);
+  //     // }
+
+  //     return () => {
+  //       window.removeEventListener('beforeinstallprompt', promptHandler);
+  //     };
+  //   }, []);
+
+  useEffect(() => {
+    const beforeInstallPromptHandler = (event) => {
+      event.preventDefault();
+      console.log("beforeinstallprompt event fired");
+  
       // Check the current route
       const currentPath = window.location.pathname;
-      window.addEventListener('beforeinstallprompt', beforeInstallPromptHandler);
-
       console.log('\n\n\nCurrent Path:', currentPath);
-
-      // Ensure the modal opens every time the user visits
-      // if (!currentPath.startsWith('/shared')) { // Avoid showing on `SharedChat` routes
-        setIsOpen(true);
-      // }
-
-      return () => {
-        window.removeEventListener('beforeinstallprompt', promptHandler);
-      };
-    }, []);
+  
+      // If the current path starts with '/invite', do not show the install prompt
+      if (!currentPath.startsWith('/invite')) {
+        setInstallPromptEvent(event);
+        setIsOpen(true); // Open the modal for eligible routes
+      }
+    };
+  
+    // Add event listener
+    window.addEventListener('beforeinstallprompt', beforeInstallPromptHandler);
+  
+    return () => {
+      window.removeEventListener('beforeinstallprompt', beforeInstallPromptHandler);
+    };
+  }, []);
+  
 
     const handleInstallClick = () => {
       setIsOpen(false);
