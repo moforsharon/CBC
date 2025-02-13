@@ -59,10 +59,10 @@ if (Platform.OS === 'web') {
       console.log('\n\n\nCurrent Path:', currentPath);
   
       // If the current path starts with '/invite', do not show the install prompt
-      if (!currentPath.startsWith('/invite')) {
-        setInstallPromptEvent(event);
+      // if (!currentPath.startsWith('/invite')) {
+        // setInstallPromptEvent(event);
         setIsOpen(true); // Open the modal for eligible routes
-      }
+      // }
     };
   
     // Add event listener
